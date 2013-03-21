@@ -17,7 +17,8 @@ class LevelsController extends AppController {
   }
 
   public function rate($id, $value) {
-    if($this->Level->rate($id, $this->Auth->user('user_id'), $value)) {
+    $this->Level->id = $id;
+    if($this->Level->rate($this->Auth->user('user_id'), $value)) {
       $this->Session->setFlash('Rating updated');
     } else {
       $this->Session->setFlash('Could not set rating');
