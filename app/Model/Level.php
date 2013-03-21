@@ -1,16 +1,12 @@
 <?php
+App::uses('Rating', 'Model');
+App::uses('User', 'Model');
 class Level extends AppModel {
   public $belongsTo = array('User' => array('fields' => array('username', 'user_id')));
 
   public function rate($user_id, $value) {
     $Rating = ClassRegistry::init('Rating');
-    $rating = $Rating->find('first', array(
-      "conditions" => array(
-        "Rating.level_id = " . $this->id,
-        "Rating.user_id = $user_id"
-        )
-      )
-    );
+    $rating = $Rating->findByUserIdAndLevelId($user_id, $this->id);
 
     if(empty($rating)) {
       // create a new rating
