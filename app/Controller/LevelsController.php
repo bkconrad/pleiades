@@ -2,6 +2,7 @@
 class LevelsController extends AppController {
   public $helpers = array('Html', 'Form');
   public $components = array('Auth');
+  public $uses = array('Level', 'Rating');
 
   public function beforeFilter() {
     parent::beforeFilter();
@@ -46,6 +47,7 @@ class LevelsController extends AppController {
 
   public function view($id) {
     $level = $this->Level->findById($id);
+    $this->set('current_rating', $this->Rating->findByUserIdAndLevelId($this->Auth->user('user_id'), $id));
     $this->set('level', $level);
     $this->set('logged_in', $this->Auth->loggedIn());
     $this->set('is_owner', $level['User']['user_id'] == $this->Auth->user('user_id'));
