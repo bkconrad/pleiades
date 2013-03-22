@@ -58,6 +58,7 @@ class LevelsController extends AppController {
     } else {
       $this->Session->setFlash('Could not set rating');
     }
+    $this->redirect($this->referer());
   }
 
   public function add() {
