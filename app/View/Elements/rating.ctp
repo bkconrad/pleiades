@@ -15,20 +15,24 @@ if(!empty($current_rating)) {
   <?php
     $link_opts = array('action' => 'rate', $id, $up_value);
     $link_attr = array();
+    $link_text = 'Vote Up';
     if($up_value == 0) {
       $link_attr['class'] = 'active';
+      $link_text = 'Remove Vote';
     }
-    echo $this->Html->link('Vote Up', $link_opts, $link_attr)
+    echo $this->Html->link($link_text, $link_opts, $link_attr)
   ?>
   </span>
   <span class='downvote'>
   <?php
     $link_opts = array('action' => 'rate', $id, $down_value);
     $link_attr = array();
+    $link_text = 'Vote Down';
     if($down_value == 0) {
       $link_attr['class'] = 'active';
+      $link_text = 'Remove Vote';
     }
-    echo $this->Html->link('Vote Down', $link_opts, $link_attr)
+    echo $this->Html->link($link_text, $link_opts, $link_attr)
   ?>
   </span>
 </span>
