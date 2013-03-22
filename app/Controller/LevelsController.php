@@ -77,8 +77,28 @@ class LevelsController extends AppController {
       } else {
         $this->Session->setFlash('could not save level');
       }
-    } else {
     }
+  }
+
+  public function download($id = null) {
+    if($id == null) {
+      throw new BadRequestException('Please specify a level');
+    }
+    $level = $this->Level->findById($id);
+    if(empty($level)) {
+      throw new NotFoundException('Level not found');
+    }
+    $this->response->body($level['Level']['content']);
+
+    $levelName = $level['User']['username'] . "_" . $level['Level']['name'] . ".level";
+    $levelName = strtr($levelName, array(
+      ' ' => '_',
+      '-' => '_'
+    ));
+    $levelName = ereg_replace('[^a-zA-Z0-9_.]', '', $levelName);
+
+    $this->response->download($levelName);
+    return $this->response;
   }
 }
 ?>
