@@ -10,4 +10,8 @@ class AppController extends Controller{
 		),
 		'Session'
 	);
+
+  public function beforeFilter() {
+    $this->set('currentUserId', $this->Auth->user('user_id'));
+  }
 }
