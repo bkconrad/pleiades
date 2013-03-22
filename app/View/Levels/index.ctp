@@ -7,6 +7,10 @@
 <table>
 <th>Name<td>Uploader<td>Rating</th>
 <?php foreach ($levels as $level): ?>
-<tr><td><?php echo $level['Level']['name'] ?><td><?php echo $level["User"]['username'] ?><td><?php echo $level['Level']['rating'] ?></tr>
+<tr>
+  <td><?php echo $this->Html->link($level['Level']['name'], array('action' => 'view', $level['Level']['id'])) ?>
+  <td><?php echo $level["User"]['username'] ?>
+  <td><?php echo $level['Level']['rating'] ?>
+</tr>
 <?php endforeach; ?>
 </table>

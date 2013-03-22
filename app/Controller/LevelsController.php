@@ -45,7 +45,9 @@ class LevelsController extends AppController {
   }
 
   public function view($id) {
-    $this->set('level', $this->Level->findById($id));
+    $level = $this->Level->findById($id);
+    $this->set('level', $level);
+    $this->set('is_owner', $level['User']['user_id'] == $this->Auth->user('user_id'));
   }
 
   public function rate($id, $value) {
