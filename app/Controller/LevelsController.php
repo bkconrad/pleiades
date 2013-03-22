@@ -16,18 +16,22 @@ class LevelsController extends AppController {
     $this->set('levels', $this->Level->find('all'));
   }
 
-  public function edit($id) {
+  public function edit($id = null) {
+    if($id == null) {
+      throw new BadRequestException('You must specify a level');
+    }
+
     $level = $this->Level->findById($id);
     if(empty($level)) {
-      $this->flash("Level not found", $this->referer());
+      throw new BadRequestException('Level not found');
     }
 
     if(!$this->Auth->loggedIn()) {
-      $this->flash("You must be logged in to edit a level", $this->referer());
+      throw new ForbiddenException('You must be logged in to edit a level');
     }
 
     if($level["User"]["user_id"] != $this->Auth->user('user_id')) {
-      $this->flash("You can only edit a level you uploaded", $this->referer());
+      throw new ForbiddenException('You can only edit a level you uploaded');
     }
 
     if($this->request->is('post') || $this->request->is('put')) {
