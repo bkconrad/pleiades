@@ -80,6 +80,19 @@ class LevelsController extends AppController {
     }
   }
 
+  public function raw($id = null) {
+    if($id == null) {
+      throw new BadRequestException('Please specify a level');
+    }
+    $level = $this->Level->findById($id);
+    if(empty($level)) {
+      throw new NotFoundException('Level not found');
+    }
+    $this->response->type('text/text');
+    $this->response->body($level['Level']['content']);
+    return $this->response;
+  }
+
   public function download($id = null) {
     if($id == null) {
       throw new BadRequestException('Please specify a level');
