@@ -6,11 +6,14 @@
 
 <table>
 <th>Name<td>Uploader<td>Rating</th>
-<?php foreach ($levels as $level): ?>
-<tr>
-  <td><?php echo $this->Html->link($level['Level']['name'], array('action' => 'view', $level['Level']['id'])) ?>
-  <td><?php echo $level["User"]['username'] ?>
-  <td><?php echo $level['Level']['rating'] ?>
-</tr>
-<?php endforeach; ?>
+<?php foreach ($levels as $level) {
+$options = array('escape' => true);
+$rowdata = array(
+  $this->Html->link($level['Level']['name'], array('action' => 'view', $level['Level']['id'])),
+  $level["User"]['username'],
+  $level['Level']['rating']
+);
+echo $this->Html->tableCells(array($rowdata), $options, $options);
+}
+?>
 </table>

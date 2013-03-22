@@ -1,4 +1,4 @@
-<h1><?php echo $level['Level']['name'] ?> by <?php echo $level['User']['username'] ?></h1>
+<?php echo $this->Html->tag('h1', $level['Level']['name']  . " by " . $level['User']['username'], array('escape' => true)); ?>
 
 <?php
 echo $this->element('rating', array(
@@ -16,6 +16,4 @@ if($is_owner) {
   ));
 }
 ?>
-<pre>
-<?php echo $level['Level']['content'] ?>
-</pre>
+<?php echo $this->Html->tag('pre', $level['Level']['content'], array('escape' => true)) ?>
