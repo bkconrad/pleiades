@@ -9,7 +9,12 @@ echo $this->element('rating', array(
 ?>
 
 <?php
+echo $this->Html->link('Download', array(
+  'action' => 'download',
+  $level['Level']['id']
+));
 if($is_owner) {
+  echo '&nbsp;';
   echo $this->Html->link('Edit', array(
     'action' => 'edit',
     $level['Level']['id']

@@ -1,3 +1,4 @@
+<div>
 <?php
 $up_value = 1;
 $down_value = -1;
@@ -36,3 +37,4 @@ if(!empty($current_rating)) {
   ?>
   </span>
 </span>
+</div>
