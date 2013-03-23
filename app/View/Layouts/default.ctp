@@ -30,7 +30,7 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 	<?php
 		echo $this->Html->meta('icon');
 
-		echo $this->Html->css('cake.generic');
+		echo $this->Html->css('pleiades');
 
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
@@ -40,7 +40,7 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 <body>
 	<div id="container">
 		<div id="header">
-			<h1><?php echo $this->Html->link($cakeDescription, 'http://cakephp.org'); ?></h1>
+      <?php echo $this->Html->image('pleiades.png', array('alt' => $cakeDescription, 'border' => '0')) ?>
 		</div>
 		<div id="content">
       <div id="menu"><?php echo $this->element('menu') ?></div>

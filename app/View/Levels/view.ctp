@@ -8,6 +8,7 @@ echo $this->element('rating', array(
 ));
 ?>
 
+<div class="actions">
 <?php
 echo $this->Html->link('Download', array(
   'action' => 'download',
@@ -21,6 +22,7 @@ if($is_owner) {
   ));
 }
 ?>
+</div>
 <?php echo $this->Html->tag('h1', $level_file_name, array('escape' => true)) ?>
 <?php echo $this->Html->tag('pre', $level['Level']['content'], array('escape' => true)) ?>
 <?php 

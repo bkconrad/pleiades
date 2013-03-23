@@ -1,4 +1,4 @@
-<div>
+<div class="rating actions">
 <?php
 $up_value = 1;
 $down_value = -1;

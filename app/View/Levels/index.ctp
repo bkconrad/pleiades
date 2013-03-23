@@ -1,11 +1,5 @@
-<pre>
-<?php foreach ($levels as $level): ?>
-<?php // print_r($level); ?>
-<?php endforeach; ?>
-</pre>
-
 <table>
-<th>Name<td>Uploader<td>Rating</th>
+<th>Name</th><th>Uploader</th><th>Rating</th>
 <?php foreach ($levels as $level) {
 $options = array('escape' => true);
 $rowdata = array(
