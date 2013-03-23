@@ -4,6 +4,16 @@ class LevelsController extends AppController {
   public $components = array('Auth');
   public $uses = array('Level', 'Rating');
 
+  function levelFileName($level) {
+    $levelName = $level['User']['username'] . "_" . $level['Level']['name'] . ".level";
+    $levelName = strtr($levelName, array(
+      ' ' => '_',
+      '-' => '_'
+    ));
+    $levelName = ereg_replace('[^a-zA-Z0-9_.]', '', $levelName);
+    return $levelName;
+  }
+
   public function beforeFilter() {
     parent::beforeFilter();
     $this->Auth->allow('index', 'view', 'add');
@@ -53,6 +63,7 @@ class LevelsController extends AppController {
     $level = $this->Level->findById($id);
     $this->set('current_rating', $this->Rating->findByUserIdAndLevelId($this->Auth->user('user_id'), $id));
     $this->set('level', $level);
+    $this->set('level_file_name', $this->levelFileName($level));
     $this->set('logged_in', $this->Auth->loggedIn());
     $this->set('is_owner', $level['User']['user_id'] == $this->Auth->user('user_id'));
   }
@@ -107,13 +118,7 @@ class LevelsController extends AppController {
       throw new NotFoundException('Level not found');
     }
 
-    $levelName = $level['User']['username'] . "_" . $level['Level']['name'] . ".level";
-    $levelName = strtr($levelName, array(
-      ' ' => '_',
-      '-' => '_'
-    ));
-    $levelName = ereg_replace('[^a-zA-Z0-9_.]', '', $levelName);
-
+    $levelName = $this->levelFileName($level);
 
     $tmp = tempnam('/tmp', 'levelzip_');
     $zip = new ZipArchive();

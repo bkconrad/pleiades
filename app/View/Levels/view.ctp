@@ -1,4 +1,4 @@
-<?php echo $this->Html->tag('h1', $level['Level']['name']  . " by " . $level['User']['username'], array('escape' => true)); ?>
+<?php echo $this->Html->tag('h2', $level['Level']['name']  . " by " . $level['User']['username'], array('escape' => true)); ?>
 
 <?php
 echo $this->element('rating', array(
@@ -21,10 +21,11 @@ if($is_owner) {
   ));
 }
 ?>
+<?php echo $this->Html->tag('h1', $level_file_name, array('escape' => true)) ?>
 <?php echo $this->Html->tag('pre', $level['Level']['content'], array('escape' => true)) ?>
 <?php 
 if (!empty($level['Level']['levelgen'])) {
-  echo $this->Html->tag('h2', $level['Level']['levelgen_basename'] . '.levelgen', array('escape' => true));
+  echo $this->Html->tag('h1', $level['Level']['levelgen_basename'] . '.levelgen', array('escape' => true));
   echo $this->Html->tag('pre', $level['Level']['levelgen'], array('escape' => true));
 }
 ?>
