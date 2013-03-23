@@ -126,7 +126,7 @@ class LevelsController extends AppController {
     $zip->addFromString($levelName, $level['Level']['content']);
 
     if(!empty($level['Level']['levelgen'])) {
-      $zip->addFromString($level['Level']['levelgen_basename'] . '.levelgen', $level['Level']['levelgen']);
+      $zip->addFromString($level['Level']['levelgen_filename'], $level['Level']['levelgen']);
     }
 
     $zip->close();
