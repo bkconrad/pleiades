@@ -80,7 +80,7 @@ class LevelsController extends AppController {
     }
   }
 
-  public function raw($id = null) {
+  public function raw($id = null, $type = 'content') {
     if($id == null) {
       throw new BadRequestException('Please specify a level');
     }
@@ -88,8 +88,13 @@ class LevelsController extends AppController {
     if(empty($level)) {
       throw new NotFoundException('Level not found');
     }
+
+    if($type !== 'content' && $type !== 'levelgen') {
+      throw new BadRequestException('Valid display modes are "level" and "levelgen"');
+    }
+
     $this->response->type('text/text');
-    $this->response->body($level['Level']['content']);
+    $this->response->body($level['Level'][$type]);
     return $this->response;
   }
 
