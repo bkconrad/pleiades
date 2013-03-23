@@ -1,4 +1,4 @@
-<div>
+<div id="navmenu">
 <?php
 echo $this->Html->link('View All Levels', array(
   'controller' => 'levels',

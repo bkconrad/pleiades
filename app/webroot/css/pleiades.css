@@ -52,6 +52,7 @@ h1 {
 	font-size: 100%;
 }
 h2 {
+  clear: both;
 	color: #e6523e;
 	font-family:'Gill Sans','lucida grande', helvetica, arial, sans-serif;
 	font-size: 190%;
@@ -737,6 +738,12 @@ pre {
 	display:none;
 }
 
+#navmenu {
+  float: right;
+}
+
 .rating {
   float: right;
 }
+
+
