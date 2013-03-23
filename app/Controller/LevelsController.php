@@ -106,7 +106,6 @@ class LevelsController extends AppController {
     if(empty($level)) {
       throw new NotFoundException('Level not found');
     }
-    $this->response->body($level['Level']['content']);
 
     $levelName = $level['User']['username'] . "_" . $level['Level']['name'] . ".level";
     $levelName = strtr($levelName, array(
@@ -115,7 +114,20 @@ class LevelsController extends AppController {
     ));
     $levelName = ereg_replace('[^a-zA-Z0-9_.]', '', $levelName);
 
-    $this->response->download($levelName);
+
+    $tmp = tempnam('/tmp', 'levelzip_');
+    $zip = new ZipArchive();
+    $zip->open($tmp, ZIPARCHIVE::OVERWRITE);
+    $zip->addFromString($levelName, $level['Level']['content']);
+
+    if(!empty($level['Level']['levelgen'])) {
+      $zip->addFromString($level['Level']['levelgen_basename'] . '.levelgen', $level['Level']['levelgen']);
+    }
+
+    $zip->close();
+
+    $this->response->file($tmp);
+    $this->response->download($levelName . '.zip');
     return $this->response;
   }
 }
