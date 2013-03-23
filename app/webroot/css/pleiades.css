@@ -175,6 +175,7 @@ table td.actions a {
 /* SQL log */
 .cake-sql-log {
 	background: #fff;
+	color:#000;
 }
 .cake-sql-log td {
 	padding: 4px 8px;
@@ -182,7 +183,7 @@ table td.actions a {
 	font-family: Monaco, Consolas, "Courier New", monospaced;
 }
 .cake-sql-log caption {
-	color:#fff;
+	color:#000;
 }
 
 /** Paging **/
