@@ -16,15 +16,14 @@ class Level extends AppModel {
         'user_id' => $user_id,
         'value' => $value
       ));
-      $Rating->save();
     } else {
       // change the current rating
       $Rating->set(array(
         'id' => $rating["Rating"]['id'],
         'value' => $value
       ));
-      $Rating->save();
     }
+    $Rating->save();
 
     // recalculate rating
     $ratings = $Rating->findAllByLevelId($this->id);
@@ -32,7 +31,8 @@ class Level extends AppModel {
     foreach ($ratings as $rating) {
       $total += intval($rating['Rating']['value']);
     }
-    return $this->saveField('rating', $total);
+    $this->saveField('rating', $total);
+    return true;
   }
 }
 ?>

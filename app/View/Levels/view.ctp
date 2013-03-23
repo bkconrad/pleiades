@@ -23,6 +23,7 @@ if($is_owner) {
 }
 ?>
 </div>
+<?php echo $this->Html->tag('div', $level['Level']['description'], array('escape' => true, 'class' => 'level_description')) ?>
 <?php echo $this->Html->tag('h1', $level_file_name, array('escape' => true)) ?>
 <?php echo $this->Html->tag('pre', $level['Level']['content'], array('escape' => true)) ?>
 <?php 
