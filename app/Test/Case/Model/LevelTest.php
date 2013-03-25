@@ -65,5 +65,27 @@ class LevelTest extends CakeTestCase {
     $this->assertFalse(!!$this->Level->save($yesLineNoLevelgen));
     $this->assertTrue(!!$this->Level->save($yesLineYesLevelgen));
   }
+
+  function testTrim() {
+    $data = array(
+      'name' => " \ntest\n ",
+      'content' => " \ntest\n ",
+      'description' => " \ntest\n ",
+      'levelgen' => " \n\n ",
+      'id' => 1
+    );
+
+    $shouldBe = array(
+      'name' => "test",
+      'content' => "test",
+      'description' => "test",
+      'levelgen' => "",
+      'id' => 1
+    );
+    
+    $this->Level->create();
+    $result = $this->Level->save($data);
+    $this->assertTrue($result['Level'] == $shouldBe);
+  }
 }
 ?>
