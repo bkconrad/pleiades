@@ -1,19 +1,38 @@
 $(function() {
-    $('pre').each(addSelectAll);
+    $('pre.submission').each(addCodeButtons);
 });
 
-function addSelectAll() {
+function addCodeButtons() {
     var content = $(this).text();
     $(this).text('');
-    var $el = $('<div class="selectAll">').text('Select All');
+    var $selectAll = $('<div class="selectAll">').text('Select All');
+    var $expand = $('<div class="toggleExpansion">').text('Expand/Contract');
     var $wrap = $('<div class="selectTarget">');
     $wrap.text(content);
-    $el.css('float', 'right');
-    $(this).append($el);
+    $buttonDiv = $('<div></div>').css('float', 'right');
+
+    $buttonDiv.append($selectAll);
+    $buttonDiv.append($expand);
+    $(this).append($buttonDiv);
     $(this).append($wrap);
-    $el.click(function () {
+
+    $selectAll.click(function () {
         select_text($wrap.get(0));
     });
+    $expand.click(function () {
+        toggle_expansion($wrap.parent().get(0));
+    });
+}
+
+function toggle_expansion(e) {
+    console.log($(e).css('max-height'));
+    if($(e).css('max-height') != '400px') {
+        $(e).css('max-height', '400px');
+        $(e).css('overflow-y', 'auto');
+    } else {
+        $(e).css('max-height', 'none');
+        $(e).css('overflow-y', 'visible');
+    }
 }
 
 function select_text(e)

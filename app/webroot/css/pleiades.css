@@ -750,6 +750,10 @@ pre {
   float: right;
 }
 
+pre.submission {
+  max-height: 400px;
+}
+
 .level_description {
   white-space: pre-line;
 }

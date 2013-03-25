@@ -25,10 +25,10 @@ if($is_owner) {
 </div>
 <?php echo $this->Html->tag('div', $level['Level']['description'], array('escape' => true, 'class' => 'level_description')) ?>
 <?php echo $this->Html->tag('h1', $level_file_name, array('escape' => true)) ?>
-<?php echo $this->Html->tag('pre', $level['Level']['content'], array('escape' => true)) ?>
+<?php echo $this->Html->tag('pre', $level['Level']['content'], array('escape' => true, 'class' => 'submission')) ?>
 <?php 
 if (!empty($level['Level']['levelgen'])) {
   echo $this->Html->tag('h1', $level['Level']['levelgen_filename'], array('escape' => true));
-  echo $this->Html->tag('pre', $level['Level']['levelgen'], array('escape' => true));
+  echo $this->Html->tag('pre', $level['Level']['levelgen'], array('escape' => true, 'class' => 'submission'));
 }
 ?>
