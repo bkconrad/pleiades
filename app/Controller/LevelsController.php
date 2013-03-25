@@ -40,7 +40,7 @@ class LevelsController extends AppController {
       throw new ForbiddenException('You must be logged in to edit a level');
     }
 
-    if($level["User"]["user_id"] != $this->Auth->user('user_id')) {
+    if($level['User']['user_id'] != $this->Auth->user('user_id')) {
       throw new ForbiddenException('You can only edit a level you uploaded');
     }
 
@@ -48,7 +48,7 @@ class LevelsController extends AppController {
       $this->Level->id = $id;
       if($this->Level->save($this->request->data)) {
         $this->Session->setFlash('Level updated');
-        $this->redirect(array('action' => 'edit', $id));
+        $this->redirect(array('action' => 'view', $id));
       } else {
         $this->Session->setFlash('Unable to update level');
       }
