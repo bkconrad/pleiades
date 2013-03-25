@@ -43,6 +43,10 @@ class Level extends AppModel {
     $Rating = ClassRegistry::init('Rating');
     $rating = $Rating->findByUserIdAndLevelId($user_id, $this->id);
 
+    if(!$this->id) {
+      return false;
+    }
+
     if(empty($rating)) {
       // create a new rating
       $Rating->create();
@@ -58,7 +62,8 @@ class Level extends AppModel {
         'value' => $value
       ));
     }
-    $Rating->save();
+
+    assert($Rating->save());
 
     // recalculate rating
     $ratings = $Rating->findAllByLevelId($this->id);

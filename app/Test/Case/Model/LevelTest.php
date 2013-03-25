@@ -12,20 +12,31 @@ class LevelTest extends CakeTestCase {
   }
 
   public function testRating() {
-    // starts at zero
     $this->Level->create();
+    // requires $this->Level->id to be set
+    $this->assertFalse($this->Level->rate(1, -1));
+
+    $this->Level->save(array(
+      'name' => 'level',
+      'content' => 'empty (more or less)',
+      'levelgen' => '',
+      'description' => 'descriptive'
+    ));
+    $this->Level->find('first');
+
+    // starts at zero
     $this->assertEquals(0, $this->Level->field('rating'));
 
     // can be negative
-    $this->Level->rate(1, -1);
+    $this->assertTrue($this->Level->rate(1, -1));
     $this->assertEquals(-1, $this->Level->field('rating'));
 
     // replaces old ratings
-    $this->Level->rate(1, 1);
+    $this->assertTrue($this->Level->rate(1, 1));
     $this->assertEquals(1, $this->Level->field('rating'));
 
     // accumlates for each level
-    $this->Level->rate(2, 1);
+    $this->assertTrue($this->Level->rate(2, 1));
     $this->assertEquals(2, $this->Level->field('rating'));
   }
 
