@@ -16,7 +16,7 @@ class LevelsController extends AppController {
 
   public function beforeFilter() {
     parent::beforeFilter();
-    $this->Auth->allow('index', 'view', 'add');
+    $this->Auth->allow('download', 'index', 'view', 'add');
     if($this->Auth->loggedIn()) {
       $this->Auth->allow('rate');
     }
