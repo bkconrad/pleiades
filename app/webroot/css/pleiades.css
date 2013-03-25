@@ -754,3 +754,6 @@ pre {
   white-space: pre-line;
 }
 
+.selectAll {
+  float: right;
+}

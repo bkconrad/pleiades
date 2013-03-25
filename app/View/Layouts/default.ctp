@@ -37,6 +37,7 @@
 		echo $this->fetch('script');
 
     echo $this->Html->script('jquery');
+    echo $this->Html->script('pleiades');
 	?>
 </head>
 <body>
