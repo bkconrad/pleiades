@@ -5,7 +5,7 @@ class LevelTest extends CakeTestCase {
   public function setUp() {
     parent::setUp();
     $this->Level = ClassRegistry::init('Level');
-    $this->Level->deleteAll(true);
+    //$this->Level->deleteAll(true);
     $this->Rating = ClassRegistry::init('Rating');
     $this->Rating->deleteAll(true);
     $this->Auth = ClassRegistry::init('AuthComponent');
