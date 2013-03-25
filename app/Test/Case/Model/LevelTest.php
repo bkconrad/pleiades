@@ -28,5 +28,42 @@ class LevelTest extends CakeTestCase {
     $this->Level->rate(2, 1);
     $this->assertEquals(2, $this->Level->field('rating'));
   }
+
+  public function testLevelgenRequirement() {
+    $this->Level->create();
+
+    $noLineNoLevelgen = array(
+      'name' => 'level',
+      'content' => 'empty (more or less)',
+      'levelgen' => '',
+      'description' => 'descriptive'
+    );
+
+    $noLineYesLevelgen = array(
+      'name' => 'level',
+      'content' => 'empty (more or less)',
+      'levelgen' => 'test',
+      'description' => 'descriptive'
+    );
+
+    $yesLineNoLevelgen = array(
+      'name' => 'level',
+      'content' => 'Script test.levelgen',
+      'levelgen' => '',
+      'description' => 'descriptive'
+    );
+
+    $yesLineYesLevelgen = array(
+      'name' => 'level',
+      'content' => 'Script test.levelgen',
+      'levelgen' => 'foo',
+      'description' => 'descriptive'
+    );
+
+    $this->assertFalse(!!$this->Level->save($noLineYesLevelgen));
+    $this->assertTrue(!!$this->Level->save($noLineNoLevelgen));
+    $this->assertFalse(!!$this->Level->save($yesLineNoLevelgen));
+    $this->assertTrue(!!$this->Level->save($yesLineYesLevelgen));
+  }
 }
 ?>
