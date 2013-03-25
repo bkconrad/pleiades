@@ -33,6 +33,10 @@ class Level extends AppModel {
   }
 
   public function beforeValidate($option) {
+    $this->data['Level']['levelgen'] = trim($this->data['Level']['levelgen']);
+    $this->data['Level']['content'] = trim($this->data['Level']['content']);
+    $this->data['Level']['name'] = trim($this->data['Level']['name']);
+    $this->data['Level']['description'] = trim($this->data['Level']['description']);
     return true;
   }
 
