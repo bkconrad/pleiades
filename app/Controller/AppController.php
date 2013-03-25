@@ -11,6 +11,11 @@ class AppController extends Controller{
 		'Session'
 	);
 
+  var $helpers = array(
+    'Js',
+    'Html'
+  );
+
   public function beforeFilter() {
     $this->set('currentUserId', $this->Auth->user('user_id'));
     $this->set('currentUserName', $this->Auth->user('username'));

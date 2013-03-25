@@ -17,14 +17,12 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
-$cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework');
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 	<?php echo $this->Html->charset(); ?>
 	<title>
-		<?php echo $cakeDescription ?>:
 		<?php echo $title_for_layout; ?>
 	</title>
 	<?php
@@ -32,15 +30,19 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 
 		echo $this->Html->css('pleiades');
 
+		echo $this->Html->meta('icon');
+
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
 		echo $this->fetch('script');
+
+    echo $this->Html->script('jquery');
 	?>
 </head>
 <body>
 	<div id="container">
 		<div id="header">
-      <?php echo $this->Html->image('pleiades.png', array('alt' => $cakeDescription, 'border' => '0')) ?>
+      <?php echo $this->Html->image('pleiades.png', array('alt' => 'Pleiades - Bitfighter level database', 'border' => '0')) ?>
 		</div>
 		<div id="content">
       <div id="menu"><?php echo $this->element('menu') ?></div>
@@ -50,14 +52,9 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 			<?php echo $this->fetch('content'); ?>
 		</div>
 		<div id="footer">
-			<?php echo $this->Html->link(
-					$this->Html->image('cake.power.gif', array('alt' => $cakeDescription, 'border' => '0')),
-					'http://www.cakephp.org/',
-					array('target' => '_blank', 'escape' => false)
-				);
-			?>
 		</div>
 	</div>
 	<?php echo $this->element('sql_dump'); ?>
+	<?php echo $this->Js->writeBuffer(); ?>
 </body>
 </html>
