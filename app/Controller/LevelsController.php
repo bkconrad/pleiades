@@ -49,7 +49,7 @@ class LevelsController extends AppController {
       $this->Level->id = $id;
       if($this->Level->save($this->request->data)) {
         $this->Session->setFlash('Level updated');
-        $this->redirect(array('action' => 'view', $id));
+        return $this->redirect(array('action' => 'view', $id));
       } else {
         $this->Session->setFlash('Unable to update level');
       }
