@@ -3,6 +3,7 @@ App::uses('Level', 'Model');
 class LevelsControllerTest extends ControllerTestCase {
   public $fixtures = array('app.level', 'app.user');
   public $autoRender = false;
+  public $dropTables = true;
 
   // configures a mock as fixture user 'bob'
   function mockAsBob($mockLevel = false) {
@@ -61,7 +62,7 @@ class LevelsControllerTest extends ControllerTestCase {
       )
     ));
 
-    $Levels
+    $Levels->Auth
       ->expects($this->any())
       ->method('loggedIn')
       ->will($this->returnValue(false));
@@ -147,5 +148,34 @@ class LevelsControllerTest extends ControllerTestCase {
       'return' => 'vars'
     ));
     $this->assertEquals($level, $result['level']);
+  }
+
+  public function testRate() {
+    $this->mockAsBob();
+
+    $level = $this->Level->findByUserId(2);
+    $result = $this->testAction('/levels/rate/' . $level['Level']['id'] . '/1', array(
+      'return' => 'vars'
+    ));
+
+    $updatedLevel = $this->Level->findByUserId(2);
+    $this->assertNotEquals($level['Level']['rating'], $updatedLevel['Level']['rating']);
+  }
+
+  public function testRateFail() {
+    $this->mockAsBob();
+    $Rating = $this->getMockForModel('Rating', array('save'));
+    $Rating
+      ->expects($this->once())
+      ->method('save')
+      ->will($this->returnValue(false));
+
+    $level = $this->Level->findByUserId(2);
+    $this->testAction('/levels/rate/' . $level['Level']['id'] . '/1', array(
+      'return' => 'vars'
+    ));
+
+    $updatedLevel = $this->Level->findByUserId(2);
+    $this->assertEquals($level, $updatedLevel);
   }
 }

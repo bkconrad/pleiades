@@ -63,7 +63,9 @@ class Level extends AppModel {
       ));
     }
 
-    assert($Rating->save());
+    if(!$Rating->save()) {
+      return false;
+    }
 
     // recalculate rating
     $ratings = $Rating->findAllByLevelId($this->id);
