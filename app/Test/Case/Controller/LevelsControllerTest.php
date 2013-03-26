@@ -53,6 +53,20 @@ class LevelsControllerTest extends ControllerTestCase {
   }
 
   public function testEditNotLoggedIn() {
+    $Levels = $this->generate('Levels', array(
+      'components' => array(
+        'Auth' => array(
+          'loggedIn'
+        )
+      )
+    ));
+
+    $Levels
+      ->expects($this->any())
+      ->method('loggedIn')
+      ->will($this->returnValue(false));
+
+
     $this->setExpectedException('ForbiddenException');
     $this->testAction('/levels/edit/1', array('return' => 'vars'));
   }
@@ -118,8 +132,20 @@ class LevelsControllerTest extends ControllerTestCase {
   public function testEditWithoutData() {
     $this->mockAsBob();
 
-    $level = $this->Level->findByUserId(2);
-    $result = $this->testAction('/levels/edit/' . $level['Level']['id']);
+    $level = $this->Level->findById(3);
+    $result = $this->testAction('/levels/edit/' . $level['Level']['id'], array('return' => 'view'));
+    // no redirect
     $this->assertArrayNotHasKey('Location', $this->headers);
+    // puts level data into the form
+    $this->assertRegexp("/uploaded by bob/", $result);
+  }
+
+  public function testView() {
+    $this->mockAsBob();
+    $level = $this->Level->findByUserId(2);
+    $result = $this->testAction('/levels/view/' . $level['Level']['id'], array(
+      'return' => 'vars'
+    ));
+    $this->assertEquals($level, $result['level']);
   }
 }
