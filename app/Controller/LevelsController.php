@@ -15,9 +15,23 @@ class LevelsController extends AppController {
     return $levelName;
   }
 
+  // gets a level by id and returns appropriate errors
+  function getLevel($id) {
+    if($id == null) {
+      throw new BadRequestException('You must specify a level');
+    }
+
+    $level = $this->Level->findById($id);
+    if(empty($level)) {
+      throw new BadRequestException('Level not found');
+    }
+
+    return $level;
+  }
+
   public function beforeFilter() {
     parent::beforeFilter();
-    $this->Auth->allow('download', 'index', 'view', 'add');
+    $this->Auth->allow('download', 'raw', 'index', 'view', 'add');
     if($this->Auth->loggedIn()) {
       $this->Auth->allow('rate');
     }
@@ -28,14 +42,7 @@ class LevelsController extends AppController {
   }
 
   public function edit($id = null) {
-    if($id == null) {
-      throw new BadRequestException('You must specify a level');
-    }
-
-    $level = $this->Level->findById($id);
-    if(empty($level)) {
-      throw new BadRequestException('Level not found');
-    }
+    $level = $this->getLevel($id);
 
     if(!$this->Auth->loggedIn()) {
       throw new ForbiddenException('You must be logged in to edit a level');
@@ -93,13 +100,7 @@ class LevelsController extends AppController {
   }
 
   public function raw($id = null, $type = 'content') {
-    if($id == null) {
-      throw new BadRequestException('Please specify a level');
-    }
-    $level = $this->Level->findById($id);
-    if(empty($level)) {
-      throw new NotFoundException('Level not found');
-    }
+    $level = $this->getLevel($id);
 
     if($type !== 'content' && $type !== 'levelgen') {
       throw new BadRequestException('Valid display modes are "level" and "levelgen"');
@@ -111,13 +112,7 @@ class LevelsController extends AppController {
   }
 
   public function download($id = null) {
-    if($id == null) {
-      throw new BadRequestException('Please specify a level');
-    }
-    $level = $this->Level->findById($id);
-    if(empty($level)) {
-      throw new NotFoundException('Level not found');
-    }
+    $level = $this->getLevel($id);
 
     $levelName = $this->levelFileName($level);
 

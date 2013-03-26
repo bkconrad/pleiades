@@ -2,7 +2,6 @@
 App::uses('Level', 'Model');
 class LevelsControllerTest extends ControllerTestCase {
   public $fixtures = array('app.level', 'app.user');
-  public $autoRender = false;
   public $dropTables = true;
 
   // configures a mock as fixture user 'bob'
@@ -32,6 +31,22 @@ class LevelsControllerTest extends ControllerTestCase {
     return $Levels;
   }
 
+  // configures a mock as an unauthenticated user
+  function mockAsUnauthenticated() {
+    $Levels = $this->generate('Levels', array(
+      'components' => array(
+        'Auth' => array(
+          'loggedIn'
+        )
+      )
+    ));
+
+    $Levels->Auth
+      ->expects($this->any())
+      ->method('loggedIn')
+      ->will($this->returnValue(false));
+  }
+
   public function setUp() {
     parent::setUp();
     $this->Level = ClassRegistry::init('Level');
@@ -54,19 +69,7 @@ class LevelsControllerTest extends ControllerTestCase {
   }
 
   public function testEditNotLoggedIn() {
-    $Levels = $this->generate('Levels', array(
-      'components' => array(
-        'Auth' => array(
-          'loggedIn'
-        )
-      )
-    ));
-
-    $Levels->Auth
-      ->expects($this->any())
-      ->method('loggedIn')
-      ->will($this->returnValue(false));
-
+    $this->mockAsUnauthenticated();
 
     $this->setExpectedException('ForbiddenException');
     $this->testAction('/levels/edit/1', array('return' => 'vars'));
@@ -178,4 +181,73 @@ class LevelsControllerTest extends ControllerTestCase {
     $updatedLevel = $this->Level->findByUserId(2);
     $this->assertEquals($level, $updatedLevel);
   }
+
+  public function testAdd() {
+    $this->mockAsBob();
+
+    $levelData = array(
+      'name' => 'level' . time(),
+      'content' => 'empty (more or less)',
+      'levelgen' => '',
+      'description' => 'descriptive'
+    );
+
+    $oldCount = $this->Level->find('count');
+    $this->testAction('/levels/add/', array(
+      'data' => $levelData,
+      'method' => 'post'
+    ));
+    $newCount = $this->Level->find('count');
+
+    $this->assertEquals($oldCount + 1, $newCount);
+  }
+
+  public function testAddFail() {
+    $Levels = $this->mockAsBob(true);
+    $Levels->Level
+      ->expects($this->once())
+      ->method('save')
+      ->will($this->returnValue(false));
+
+    $levelData = array(
+      'name' => 'level' . time(),
+      'content' => 'empty (more or less)',
+      'levelgen' => '',
+      'description' => 'descriptive'
+    );
+
+    $oldCount = $this->Level->find('count');
+    $this->testAction('/levels/add/', array(
+      'data' => $levelData,
+      'method' => 'post'
+    ));
+    $newCount = $this->Level->find('count');
+
+    $this->assertEquals($oldCount, $newCount);
+  }
+
+  public function testRaw() {
+    $this->mockAsUnauthenticated();
+    $level = $this->Level->findById(1);
+    $result = $this->testAction('/levels/raw/' . $level['Level']['id'], array('return' => 'contents'));
+    $this->assertEquals($level['Level']['content'], $result);
+
+    $result = $this->testAction('/levels/raw/' . $level['Level']['id'] . '/levelgen', array('return' => 'contents'));
+    $this->assertEquals($level['Level']['levelgen'], $result);
+  }
+
+  public function testRawBadDisplayMode() {
+    $this->setExpectedException('BadRequestException');
+    $level = $this->Level->find('first');
+    $result = $this->testAction('/levels/raw/' . $level['Level']['id'] . '/thisDisplayModeDoesNotExist', array('return' => 'contents'));
+    $this->assertEquals($level['Level']['content'], $result);
+  }
+
+  /*
+  public function testDownload() {
+    $this->mockAsUnauthenticated();
+    $level = $this->Level->findById(1);
+    $result = $this->testAction('/levels/download/' . $level['Level']['id'], array('return' => 'contents'));
+  }
+   */
 }
