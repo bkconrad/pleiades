@@ -1,14 +1,12 @@
 <?php
-App::uses('Level', 'Model');
-App::uses('Rating', 'Model');
+App::import('Model', 'Level');
+App::import('Model', 'Rating');
 class LevelTest extends CakeTestCase {
+  public $fixtures = array('app.level', 'app.user', 'app.rating');
   public function setUp() {
     parent::setUp();
     $this->Level = ClassRegistry::init('Level');
-    //$this->Level->deleteAll(true);
     $this->Rating = ClassRegistry::init('Rating');
-    $this->Rating->deleteAll(true);
-    $this->Auth = ClassRegistry::init('AuthComponent');
   }
 
   public function testRating() {
