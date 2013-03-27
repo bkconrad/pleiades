@@ -1,7 +1,7 @@
 <?php
 App::uses('AppController', 'Controller');
 class LevelsController extends AppController {
-  public $helpers = array('Html', 'Form');
+  public $helpers = array('Html', 'Form', 'Tag');
   public $components = array('Auth');
   public $uses = array('Level', 'Rating');
 
