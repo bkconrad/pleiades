@@ -31,4 +31,15 @@ class TagHelperTest extends CakeTestCase {
     }
   }
 
+  public function testInt() {
+    $data = array_flip($this->Tag->allTags());
+    $expected = pow(2, count(array_values($data))) - 1;
+    $result = $this->Tag->int($data);
+    $this->assertEqual($expected, $result);
+
+    $data = array();
+    $result = $this->Tag->int($data);
+    $this->assertEqual(0, $result);
+  }
+
 }

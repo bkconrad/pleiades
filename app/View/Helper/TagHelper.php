@@ -19,6 +19,16 @@ class TagHelper extends AppHelper {
     return $result;
   }
 
+  public function int($data) {
+    $result = 0;
+    foreach(new Tags() as $name => $bit) {
+      if (isset($data[$name])) {
+        $result |= $bit;
+      }
+    }
+    return $result;
+  }
+
   public function allTags() {
     $tags = array();
     foreach(new Tags() as $name => $bit) {
