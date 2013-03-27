@@ -8,6 +8,7 @@ class TagHelperTest extends CakeTestCase {
 		$View = new View();
 		$this->Tag = new TagHelper($View);
 	}
+
 	public function tearDown() {
 		unset($this->Tag);
 
@@ -16,12 +17,12 @@ class TagHelperTest extends CakeTestCase {
 
 	public function testNoTags() {
     $result = $this->Tag->tags(0x00);
-    $this->assertEqual(array(), $result);
+    $this->assertEquals(array(), $result);
 	}
 
 	public function testAllTags() {
     $result = $this->Tag->tags(0xFF);
-    $this->assertEqual($this->Tag->allTags(), $result);
+    $this->assertEquals($this->Tag->allTags(), $result);
 	}
 
   public function testTagInput() {
@@ -33,13 +34,16 @@ class TagHelperTest extends CakeTestCase {
 
   public function testInt() {
     $data = array_flip($this->Tag->allTags());
-    $expected = pow(2, count(array_values($data))) - 1;
+    foreach($data as $k => $v) {
+      $data[$k] = true;
+    }
+
+    $expected = pow(2, count(array_keys($data))) - 1;
     $result = $this->Tag->int($data);
-    $this->assertEqual($expected, $result);
+    $this->assertEquals($expected, $result);
 
     $data = array();
     $result = $this->Tag->int($data);
-    $this->assertEqual(0, $result);
+    $this->assertEquals(0, $result);
   }
-
 }

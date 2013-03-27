@@ -9,7 +9,7 @@ final class Tags {
 App::uses('AppHelper', 'View/Helper');
 class TagHelper extends AppHelper {
   public $helpers = array('Form', 'Html');
-  public function tags($int) {
+  public static function tags($int) {
     $result = array();
     foreach(new Tags() as $name => $bit) {
       if ($int & $bit) {
@@ -19,17 +19,17 @@ class TagHelper extends AppHelper {
     return $result;
   }
 
-  public function int($data) {
+  public static function int($data) {
     $result = 0;
     foreach(new Tags() as $name => $bit) {
-      if (isset($data[$name])) {
+      if (isset($data[$name]) && $data[$name]) {
         $result |= $bit;
       }
     }
     return $result;
   }
 
-  public function allTags() {
+  public static function allTags() {
     $tags = array();
     foreach(new Tags() as $name => $bit) {
         array_push($tags, $name);
@@ -37,7 +37,10 @@ class TagHelper extends AppHelper {
     return $tags;
   }
 
-  public function tagInput($int) {
+  public function tagInput($int = null) {
+    if($int === null) {
+      $int = $this->request->data['Level']['tags'];
+    }
     $result = "";
     foreach(new Tags() as $name => $bit) {
       $result .= $this->Form->input($name, array(

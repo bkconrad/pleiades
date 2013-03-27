@@ -4,5 +4,6 @@ echo $this->Form->input('name');
 echo $this->Form->input('description');
 echo $this->Form->input('content');
 echo $this->Form->input('levelgen');
+echo $this->Tag->tagInput();
 echo $this->Form->end('Update Level');
 ?>

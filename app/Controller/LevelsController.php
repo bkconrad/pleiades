@@ -1,5 +1,6 @@
 <?php
 App::uses('AppController', 'Controller');
+App::uses('TagHelper', 'View/Helper');
 class LevelsController extends AppController {
   public $helpers = array('Html', 'Form', 'Tag');
   public $components = array('Auth');
@@ -54,6 +55,7 @@ class LevelsController extends AppController {
 
     if($this->request->is('post') || $this->request->is('put')) {
       $this->Level->id = $id;
+      $this->request->data['Level']['tags'] = TagHelper::int($this->request->data['Level']);
       if($this->Level->save($this->request->data)) {
         $this->Session->setFlash('Level updated');
         return $this->redirect(array('action' => 'view', $id));
@@ -90,6 +92,7 @@ class LevelsController extends AppController {
     if($this->request->is('post')) {
       $this->Level->create();
       $this->Level->set('user_id', $this->Auth->user('user_id'));
+      $this->request->data['tags'] = TagHelper::int($this->request->data);
       if($this->Level->save($this->request->data)) {
         $this->Session->setFlash('Your post has been saved.');
         $this->redirect(array('action' => 'index'));

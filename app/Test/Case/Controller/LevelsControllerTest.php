@@ -90,15 +90,19 @@ class LevelsControllerTest extends ControllerTestCase {
       'name' => 'level' . time(),
       'content' => 'empty (more or less)',
       'levelgen' => '',
-      'description' => 'descriptive'
+      'description' => 'descriptive',
+      'novelty' => true,
+      'dungeon' => true
     );
 
     $result = $this->testAction('/levels/edit/' . $level['Level']['id'], array(
-      'data' => $levelData,
+      'data' => array('Level' => $levelData),
       'method' => 'post',
       'return' => 'vars'
     ));
 
+    $level = $this->Level->findByUserId(2);
+    $this->assertEquals($level['Level']['tags'], 3);
     $this->assertStringEndsWith('/levels/view/' . $level['Level']['id'], $this->headers['Location']);
   }
 
@@ -120,7 +124,7 @@ class LevelsControllerTest extends ControllerTestCase {
     );
 
     $result = $this->testAction('/levels/edit/' . $level['Level']['id'], array(
-      'data' => $levelData,
+      'data' => array('Level' => $levelData),
       'method' => 'post',
       'return' => 'vars'
     ));
@@ -136,7 +140,7 @@ class LevelsControllerTest extends ControllerTestCase {
     $this->mockAsBob();
 
     $level = $this->Level->findById(3);
-    $result = $this->testAction('/levels/edit/' . $level['Level']['id'], array('return' => 'view'));
+    $result = $this->testAction('/levels/edit/' . $level['Level']['id'], array('method' => 'get', 'return' => 'view'));
     // no redirect
     $this->assertArrayNotHasKey('Location', $this->headers);
     // puts level data into the form
