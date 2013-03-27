@@ -1,7 +1,6 @@
 <?php
-App::uses('Rating', 'Model');
-App::uses('User', 'Model');
 class Level extends AppModel {
+  public $uses = array('User', 'Rating');
   public $belongsTo = array('User' => array('fields' => array('username', 'user_id')));
   public $validate = array(
     'content' => array(
