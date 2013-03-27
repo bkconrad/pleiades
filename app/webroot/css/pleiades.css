@@ -752,8 +752,13 @@ pre {
 
 pre.submission {
   max-height: 400px;
+  overflow-y: scroll;
 }
 
 .level_description {
   white-space: pre-line;
+}
+
+.codeButton {
+  display: block;
 }

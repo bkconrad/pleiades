@@ -5,8 +5,8 @@ $(function() {
 function addCodeButtons() {
     var content = $(this).text();
     $(this).text('');
-    var $selectAll = $('<div class="selectAll">').text('Select All');
-    var $expand = $('<div class="toggleExpansion">').text('Expand/Contract');
+    var $selectAll = $('<a href="javascript:return false;" class="codeButton">').text('Select All');
+    var $expand = $('<a href="javascript:return false;" class="codeButton">').text('Expand');
     var $wrap = $('<div class="selectTarget">');
     $wrap.text(content);
     $buttonDiv = $('<div></div>').css('float', 'right');
@@ -20,18 +20,23 @@ function addCodeButtons() {
         select_text($wrap.get(0));
     });
     $expand.click(function () {
-        toggle_expansion($wrap.parent().get(0));
+        if(toggle_expansion($wrap.parent().get(0))) {
+            $(this).text('Shrink');
+        } else {
+            $(this).text('Expand');
+        }
     });
 }
 
+// returns true when the element's state is expanded
 function toggle_expansion(e) {
     console.log($(e).css('max-height'));
     if($(e).css('max-height') != '400px') {
         $(e).css('max-height', '400px');
-        $(e).css('overflow-y', 'auto');
+        return false;
     } else {
         $(e).css('max-height', 'none');
-        $(e).css('overflow-y', 'visible');
+        return true;
     }
 }
 
