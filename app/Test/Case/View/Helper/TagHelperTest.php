@@ -24,4 +24,11 @@ class TagHelperTest extends CakeTestCase {
     $this->assertEqual($this->Tag->allTags(), $result);
 	}
 
+  public function testTagInput() {
+    $result = $this->Tag->tagInput(0xFF);
+    foreach ($this->Tag->allTags() as $bit => $name) {
+      $this->assertRegExp("/$name/i", $result);
+    }
+  }
+
 }

@@ -8,6 +8,7 @@ final class Tags {
 
 App::uses('AppHelper', 'View/Helper');
 class TagHelper extends AppHelper {
+  public $helpers = array('Form', 'Html');
   public function tags($int) {
     $result = array();
     foreach(new Tags() as $name => $bit) {
@@ -24,5 +25,17 @@ class TagHelper extends AppHelper {
         array_push($tags, $name);
     }
     return $tags;
+  }
+
+  public function tagInput($int) {
+    $result = "";
+    foreach(new Tags() as $name => $bit) {
+      $result .= $this->Form->input($name, array(
+        'type' => 'checkbox',
+        'checked' => ($int & $bit) > 0
+      ));
+    }
+    $result = "<fieldset><legend>Tags</legend>$result</fieldset>";
+    return $result;
   }
 }

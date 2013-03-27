@@ -32,5 +32,5 @@ if (!empty($level['Level']['levelgen'])) {
   echo $this->Html->tag('pre', $level['Level']['levelgen'], array('escape' => true, 'class' => 'submission'));
 }
 
-echo print_r($this->Tag->tags($level['Level']['tags']));
+echo $this->Tag->tagInput($level['Level']['tags']);
 ?>
