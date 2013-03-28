@@ -1,3 +1,5 @@
+<?php echo $this->Paginator->prev() . '&nbsp;' . $this->Paginator->numbers() . '&nbsp;' . $this->Paginator->next(); ?>
+
 <table>
 <th>Name</th><th>Uploader</th><th>Rating</th>
 <?php foreach ($levels as $level) {
@@ -9,5 +11,8 @@ $rowdata = array(
 );
 echo $this->Html->tableCells(array($rowdata), $options, $options);
 }
+
 ?>
 </table>
+
+<?php echo $this->Paginator->prev() . '&nbsp;' . $this->Paginator->numbers() . '&nbsp;' . $this->Paginator->next(); ?>

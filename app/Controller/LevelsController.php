@@ -5,6 +5,13 @@ class LevelsController extends AppController {
   public $components = array('Auth');
   public $uses = array('Level', 'Rating');
 
+  public $paginate = array(
+    'limit' => 25,
+    'order' => array(
+      'Level.name' => 'asc'
+    )
+  );
+
   function levelFileName($level) {
     $levelName = $level['User']['username'] . "_" . $level['Level']['name'] . ".level";
     $levelName = strtr($levelName, array(
@@ -71,7 +78,7 @@ class LevelsController extends AppController {
   }
 
   public function index() {
-    $this->set('levels', $this->Level->find('all'));
+    $this->set('levels', $this->paginate('Level'));
   }
 
   public function edit($id = null) {
