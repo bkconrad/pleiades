@@ -68,7 +68,7 @@ h4 {
 	font-weight: normal;
 }
 ul, li {
-	margin: 0 12px;
+	margin: 0 auto;
 }
 p {
 	margin: 0 0 1em 0;
@@ -761,4 +761,19 @@ pre.submission {
 
 .codeButton {
   display: block;
+}
+
+ul.tags {
+	background: #4f5d75;
+  padding: 0;
+  list-style: none;
+  -webkit-padding-start: 0;
+}
+
+li.tag {
+  display: inline-block;
+	background: #303948;
+  margin: .5em;
+  padding: .5em;
+  list-style: none;
 }

@@ -33,9 +33,10 @@ if (!empty($level['Level']['levelgen'])) {
 }
 
 if (!empty($level['Tag'])) {
-  echo '<ul>';
+  echo $this->Html->tag('h1', 'Tags');
+  echo '<ul class="tags">';
   foreach($level['Tag'] as $k => $tag) {
-    echo $this->Html->tag('li', $tag['name'], array('escape' => true));
+    echo $this->Html->tag('li', $tag['name'], array('escape' => true, 'class' => 'tag'));
   }
   echo '</ul>';
 }
