@@ -777,3 +777,8 @@ li.tag {
   padding: .5em;
   list-style: none;
 }
+
+.upload {
+  display: inline-block;
+  margin-bottom: .5em;
+}

@@ -29,6 +29,21 @@ class LevelsController extends AppController {
     return $level;
   }
 
+  // returns the contents if it can or false otherwise
+  public function getUploadedFile($arr) {
+    if ((isset($arr['error']) && $arr['error'] == 0) ||
+      (!empty( $arr['tmp_name']) && $arr['tmp_name'] != 'none')
+    ) {
+      if(is_uploaded_file($arr['tmp_name'])) {
+        $handle = fopen($arr['tmp_name'], 'r');
+        $content = fread($handle, $arr['size']);
+        fclose($handle);
+        return $content;
+      }
+    }
+    return false;
+  }
+
   public function beforeFilter() {
     parent::beforeFilter();
     $this->Auth->allow('download', 'raw', 'index', 'view', 'add');
@@ -92,6 +107,17 @@ class LevelsController extends AppController {
     if($this->request->is('post')) {
       $this->Level->create();
       $this->Level->set('user_id', $this->Auth->user('user_id'));
+
+      $contentFileContents = $this->getUploadedFile($this->request->data['Level']['contentFile']);
+      if($contentFileContents !== false) {
+        $this->request->data['Level']['content'] = $contentFileContents;
+      }
+
+      $levelgenFilelevelgens = $this->getUploadedFile($this->request->data['Level']['levelgenFile']);
+      if($levelgenFilelevelgens !== false) {
+        $this->request->data['Level']['levelgen'] = $levelgenFilelevelgens;
+      }
+
       if($this->Level->save($this->request->data)) {
         $this->Session->setFlash('Your post has been saved.');
         $this->redirect(array('action' => 'index'));
