@@ -124,6 +124,9 @@ class LevelsController extends AppController {
       } else {
         $this->Session->setFlash('could not save level');
       }
+    } else {
+      $tags = $this->Level->Tag->find('list');
+      $this->set(compact('tags'));
     }
   }
 
