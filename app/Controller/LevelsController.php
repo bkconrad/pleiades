@@ -29,8 +29,13 @@ class LevelsController extends AppController {
     return $level;
   }
 
-  // returns the contents if it can or false otherwise
-  public function getUploadedFile($arr) {
+  public function checkFile($field) {
+    if(!isset($this->request->data['Level'][$field.'File'])) {
+      return false;
+    }
+
+    $arr = $this->request->data['Level'][$field.'File'];
+
     if ((isset($arr['error']) && $arr['error'] == 0) ||
       (!empty( $arr['tmp_name']) && $arr['tmp_name'] != 'none')
     ) {
@@ -38,7 +43,8 @@ class LevelsController extends AppController {
         $handle = fopen($arr['tmp_name'], 'r');
         $content = fread($handle, $arr['size']);
         fclose($handle);
-        return $content;
+        $this->request->data['Level'][$field] = $content;
+        return true;
       }
     }
     return false;
@@ -69,6 +75,10 @@ class LevelsController extends AppController {
 
     if($this->request->is('post') || $this->request->is('put')) {
       $this->Level->id = $id;
+
+      $this->checkFile('content');
+      $this->checkFile('levelgen');
+
       if($this->Level->save($this->request->data)) {
         $this->Session->setFlash('Level updated');
         return $this->redirect(array('action' => 'view', $id));
@@ -108,15 +118,8 @@ class LevelsController extends AppController {
       $this->Level->create();
       $this->Level->set('user_id', $this->Auth->user('user_id'));
 
-      $contentFileContents = $this->getUploadedFile($this->request->data['Level']['contentFile']);
-      if($contentFileContents !== false) {
-        $this->request->data['Level']['content'] = $contentFileContents;
-      }
-
-      $levelgenFilelevelgens = $this->getUploadedFile($this->request->data['Level']['levelgenFile']);
-      if($levelgenFilelevelgens !== false) {
-        $this->request->data['Level']['levelgen'] = $levelgenFilelevelgens;
-      }
+      $this->checkFile('content');
+      $this->checkFile('levelgen');
 
       if($this->Level->save($this->request->data)) {
         $this->Session->setFlash('Your post has been saved.');

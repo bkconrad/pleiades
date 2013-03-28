@@ -194,7 +194,7 @@ class LevelsControllerTest extends ControllerTestCase {
 
     $oldCount = $this->Level->find('count');
     $this->testAction('/levels/add/', array(
-      'data' => $levelData,
+      'data' => array('Level' => $levelData),
       'method' => 'post'
     ));
     $newCount = $this->Level->find('count');
@@ -218,7 +218,7 @@ class LevelsControllerTest extends ControllerTestCase {
 
     $oldCount = $this->Level->find('count');
     $this->testAction('/levels/add/', array(
-      'data' => $levelData,
+      'data' => array('Level' => $levelData),
       'method' => 'post'
     ));
     $newCount = $this->Level->find('count');
