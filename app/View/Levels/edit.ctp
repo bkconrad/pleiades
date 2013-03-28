@@ -1,5 +1,6 @@
 <?php
 echo $this->Form->create('Level', array('type' => 'file'));
+
 echo $this->Form->input('name');
 
 $fileUpload = $this->Html->tag('span', $this->Form->file('contentFile'),array('class' => 'upload'));
@@ -14,6 +15,8 @@ $tagInput = $this->Form->input('Tag', array(
   'multiple' => 'checkbox',
 ));
 echo $this->Html->tag('div', $tagInput, array('class' => 'tags'));
+echo $this->Html->tag('label', 'Screenshot');
+echo $this->Form->file('screenshot', array('label'));
 
 echo $this->Form->end('Edit Level');
 ?>

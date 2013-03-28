@@ -792,3 +792,8 @@ li.tag {
   display: inline-block;
   margin-bottom: .5em;
 }
+
+.screenshot {
+  display: block;
+  margin: .5em auto;
+}

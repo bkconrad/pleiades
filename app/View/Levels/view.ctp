@@ -23,6 +23,12 @@ if($is_owner) {
 }
 ?>
 </div>
+<?php
+if(isset($level['Level']['screenshot_filename']) && !empty($level['Level']['screenshot_filename'])) {
+  echo '<img class="screenshot" src="' . $this->webroot . 'img/' . $level['Level']['screenshot_filename'] . '">';
+}
+?>
+
 <?php echo $this->Html->tag('div', $level['Level']['description'], array('escape' => true, 'class' => 'level_description')) ?>
 <?php echo $this->Html->tag('h1', $level_file_name, array('escape' => true)) ?>
 <?php echo $this->Html->tag('pre', $level['Level']['content'], array('escape' => true, 'class' => 'submission')) ?>

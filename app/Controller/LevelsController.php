@@ -29,6 +29,18 @@ class LevelsController extends AppController {
     return $level;
   }
 
+  function getScreenshot($arr) {
+    if ((isset($arr['error']) && $arr['error'] == 0) ||
+      (!empty( $arr['tmp_name']) && $arr['tmp_name'] != 'none')
+    ) {
+      $parts = pathinfo($arr['name']);
+      $newFileName = time() . '.' . $parts['extension'];
+      $newPath = APP . 'webroot' . DS . 'img' . DS . $newFileName;
+      move_uploaded_file($arr['tmp_name'], $newPath);
+      $this->request->data['Level']['screenshot_filename'] = $newFileName;
+    }
+  }
+
   public function checkFile($field) {
     if(!isset($this->request->data['Level'][$field.'File'])) {
       return false;
@@ -79,6 +91,10 @@ class LevelsController extends AppController {
       $this->checkFile('content');
       $this->checkFile('levelgen');
 
+      if(isset($this->request->data['Level']['screenshot'])) {
+        $this->getScreenshot($this->request->data['Level']['screenshot']);
+      }
+
       if($this->Level->save($this->request->data)) {
         $this->Session->setFlash('Level updated');
         return $this->redirect(array('action' => 'view', $id));
@@ -120,6 +136,10 @@ class LevelsController extends AppController {
 
       $this->checkFile('content');
       $this->checkFile('levelgen');
+
+      if(isset($this->request->data['Level']['screenshot'])) {
+        $this->getScreenshot($this->request->data['Level']['screenshot']);
+      }
 
       if($this->Level->save($this->request->data)) {
         $this->Session->setFlash('Your post has been saved.');

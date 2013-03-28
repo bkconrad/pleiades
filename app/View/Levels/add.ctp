@@ -14,6 +14,8 @@ $tagInput = $this->Form->input('Tag', array(
   'multiple' => 'checkbox',
 ));
 echo $this->Html->tag('div', $tagInput, array('class' => 'tags'));
+echo $this->Html->tag('label', 'Screenshot');
+echo $this->Form->file('screenshot', array('label'));
 
 echo $this->Form->end('Upload Level');
 ?>
