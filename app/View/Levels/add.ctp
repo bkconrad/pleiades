@@ -9,11 +9,11 @@ $fileUpload = $this->Html->tag('span', $this->Form->file('levelgenFile'),array('
 echo $this->Form->input('levelgen', array('between' => $fileUpload, 'placeholder' => 'Or paste code here'));
 
 echo $this->Form->input('description');
-echo $this->Form->input('Tag', array(
+$tagInput = $this->Form->input('Tag', array(
   'type' => 'select',
   'multiple' => 'checkbox',
-  'options' => $tags
 ));
+echo $this->Html->tag('div', $tagInput, array('class' => 'tags'));
 
 echo $this->Form->end('Upload Level');
 ?>

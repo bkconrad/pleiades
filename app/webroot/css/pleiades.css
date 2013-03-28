@@ -763,7 +763,7 @@ pre.submission {
   display: block;
 }
 
-ul.tags {
+.tags {
 	background: #4f5d75;
   padding: 0;
   list-style: none;
@@ -776,6 +776,16 @@ li.tag {
   margin: .5em;
   padding: .5em;
   list-style: none;
+}
+
+.tags .checkbox {
+  clear: none;
+  display: inline-block;
+	background: #303948;
+}
+
+.checkbox>input {
+  margin: .25em .5em .25em 0;
 }
 
 .upload {
