@@ -4,6 +4,10 @@ echo $this->Form->input('name');
 echo $this->Form->input('description');
 echo $this->Form->input('content');
 echo $this->Form->input('levelgen');
-echo $this->Tag->tagInput();
+echo $this->Form->input('Tag', array(
+  'type' => 'select',
+  'multiple' => 'checkbox',
+  'options' => $tags
+));
 echo $this->Form->end('Update Level');
 ?>

@@ -91,8 +91,6 @@ class LevelsControllerTest extends ControllerTestCase {
       'content' => 'empty (more or less)',
       'levelgen' => '',
       'description' => 'descriptive',
-      'novelty' => true,
-      'dungeon' => true
     );
 
     $result = $this->testAction('/levels/edit/' . $level['Level']['id'], array(
@@ -102,7 +100,6 @@ class LevelsControllerTest extends ControllerTestCase {
     ));
 
     $level = $this->Level->findByUserId(2);
-    $this->assertEquals($level['Level']['tags'], 3);
     $this->assertStringEndsWith('/levels/view/' . $level['Level']['id'], $this->headers['Location']);
   }
 
