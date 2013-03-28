@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.1.67, for debian-linux-gnu (i686)
 --
--- Host: localhost    Database: pleides
+-- Host: localhost    Database: pleiades
 -- ------------------------------------------------------
 -- Server version	5.1.67-0ubuntu0.11.10.1
 
@@ -31,8 +31,24 @@ CREATE TABLE `levels` (
   `levelgen` mediumtext,
   `levelgen_filename` varchar(128) DEFAULT NULL,
   `rating` int(11) NOT NULL,
+  `tags` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=43 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `levels_tags`
+--
+
+DROP TABLE IF EXISTS `levels_tags`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `levels_tags` (
+  `level_id` int(11) NOT NULL,
+  `tag_id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=37 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -49,7 +65,21 @@ CREATE TABLE `ratings` (
   `value` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `level_id` (`level_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `tags`
+--
+
+DROP TABLE IF EXISTS `tags`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tags` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(256) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -61,4 +91,4 @@ CREATE TABLE `ratings` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-03-23 16:53:43
+-- Dump completed on 2013-03-28  8:58:47
