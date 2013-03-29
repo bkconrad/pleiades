@@ -168,7 +168,7 @@ class LevelsController extends AppController {
     }
 
     $responseBody = $level['Level'][$type];
-    if($type == 'levelgen') {
+    if($type == 'levelgen' && !empty($level['Level']['levelgen_filename'])) {
       $responseBody = "-- " . $level['Level']['levelgen_filename'] . "\r\n" . $responseBody;
     }
 
