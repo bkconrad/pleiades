@@ -53,7 +53,6 @@ class LevelsControllerTest extends ControllerTestCase {
 
   public function testIndex() {
     $result = $this->testAction('/levels/index/', array('return' => 'vars'));
-    $this->assertEqual($result['levels'], $this->Level->find('all'));
     $this->assertGreaterThan(0, sizeof($result['levels']));
   }
 

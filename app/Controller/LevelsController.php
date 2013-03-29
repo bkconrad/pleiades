@@ -167,8 +167,13 @@ class LevelsController extends AppController {
       throw new BadRequestException('Valid display modes are "level" and "levelgen"');
     }
 
+    $responseBody = $level['Level'][$type];
+    if($type == 'levelgen') {
+      $responseBody = "-- " . $level['Level']['levelgen_filename'] . "\r\n" . $responseBody;
+    }
+
     $this->response->type('text/text');
-    $this->response->body($level['Level'][$type]);
+    $this->response->body($responseBody);
     return $this->response;
   }
 
