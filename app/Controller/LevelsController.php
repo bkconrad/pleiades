@@ -18,7 +18,12 @@ class LevelsController extends AppController {
       throw new BadRequestException('You must specify a level');
     }
 
-    $level = $this->Level->findById($id);
+    if(!is_numeric($id)) {
+      $level = $this->Level->findByLevelFilename($id . '.level');
+    } else {
+      $level = $this->Level->findById($id);
+    }
+
     if(empty($level)) {
       throw new BadRequestException('Level not found');
     }
