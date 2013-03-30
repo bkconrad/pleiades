@@ -102,7 +102,7 @@ class LevelsController extends AppController {
         $this->Session->setFlash('Level updated');
         return $this->redirect(array('action' => 'view', $id));
       } else {
-        $this->Session->setFlash('Unable to update level');
+        $this->Session->setFlash('Could not save level: ' . array_shift($this->Level->validationErrors));
       }
     }
 
@@ -147,7 +147,7 @@ class LevelsController extends AppController {
         $this->Session->setFlash('Your post has been saved.');
         $this->redirect(array('action' => 'index'));
       } else {
-        $this->Session->setFlash('Could not save level: ' . $this->Level->validationErrors[0]);
+        $this->Session->setFlash('Could not save level: ' . array_shift($this->Level->validationErrors));
       }
     } else {
       $tags = $this->Level->Tag->find('list');

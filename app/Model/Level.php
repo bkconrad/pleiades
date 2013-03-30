@@ -71,7 +71,7 @@ class Level extends AppModel {
     $levelFilename = $prefix . Level::stringToFileName($name, '.level');
     $result = $this->findByLevelFilename($levelFilename);
 
-    if($result) {
+    if($result && (!isset($this->id) || $this->id != $result['Level']['id'])) {
       array_push($this->validationErrors, 'The name "' . $this->data['Level']['name'] . '" is too similar to "' . $result['Level']['name'] . '" by ' . $result['User']['username'] . '. Please be more creative.');
       return false;
     }
