@@ -60,14 +60,16 @@ class Level extends AppModel {
       return false;
     }
 
-    $this->set('name', $match[1]);
+    $name = $match[1];
+    $name = preg_replace('/"/', '', $name);
+    $this->set('name', $name);
 
     $prefix = '';
     if(isset($this->data['Level']['user_id'])) {
       $user = $this->User->findByUserId($this->data['Level']['user_id']);
       $prefix = Level::stringToFileName($user['User']['username'], '') . '_';
     }
-    $this->set('level_filename', $prefix . Level::stringToFileName($match[1], '.level'));
+    $this->set('level_filename', $prefix . Level::stringToFileName($name, '.level'));
 
     foreach (array('levelgen', 'content', 'name', 'description') as $field) {
       if(isset($this->data['Level'][$field])) {

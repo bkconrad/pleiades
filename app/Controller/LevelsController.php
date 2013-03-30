@@ -84,6 +84,7 @@ class LevelsController extends AppController {
 
     if($this->request->is('post') || $this->request->is('put')) {
       $this->Level->id = $id;
+      $this->Level->set('user_id', $this->Auth->user('user_id'));
 
       $this->checkFile('content');
       $this->checkFile('levelgen');
