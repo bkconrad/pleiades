@@ -14,10 +14,30 @@ class Level extends AppModel {
     'name' => 'notEmpty'
   );
 
+  /*
+   * Converts $text into a file name with the given extension using the 
+   * following rules:
+   *  - anything which is not a letter, space, or underscore is removed
+   *  - all letters are made lowercase
+   *  - both spaces and underscores are removed from the beginning and end
+   *  - groups of spaces or underscores with length > 0 are changed to underscores
+   *  - the appropriate extension is appended
+   */
+  public static function stringToFileName($text, $extension = '.level') {
+    $text = preg_replace('/[^a-zA-Z _]+/', '', $text);
+    $text = preg_replace('/^[ _]+/', '', $text);
+    $text = preg_replace('/[ _]+$/', '', $text);
+    $text = strtolower($text);
+    $text = preg_replace('/[ _]+/', '_', $text);
+    $text .= $extension;
+    return $text;
+  }
+
+
   // checks that files have levelgens IFF the level has a script line and sets 
   // the levelgen filename as needed
   public function levelgenExistence($check) {
-    $scripts = preg_grep('/^Script\s.*$/', split("\n", $this->data['Level']['content']));
+    $scripts = preg_grep('/^\s*Script\s.*$/', split("\n", $this->data['Level']['content']));
     $parts = preg_split('/\s+/', array_shift($scripts));
 
     // if the Script line with one or more arguments is found, require a levelgen
@@ -32,10 +52,28 @@ class Level extends AppModel {
   }
 
   public function beforeValidate($option) {
-    $this->data['Level']['levelgen'] = trim($this->data['Level']['levelgen']);
-    $this->data['Level']['content'] = trim($this->data['Level']['content']);
-    $this->data['Level']['name'] = trim($this->data['Level']['name']);
-    $this->data['Level']['description'] = trim($this->data['Level']['description']);
+    // content must have a LevelName line
+    $match = array();
+    preg_match('/\s*LevelName\s+([^\n]*)/', $this->data['Level']['content'], $match);
+    if(count($match) < 2) {
+      array_push($this->validationErrors, 'You must include a LevelName');
+      return false;
+    }
+
+    $this->set('name', $match[1]);
+
+    $prefix = '';
+    if(isset($this->data['Level']['user_id'])) {
+      $user = $this->User->findByUserId($this->data['Level']['user_id']);
+      $prefix = Level::stringToFileName($user['User']['username'], '') . '_';
+    }
+    $this->set('level_filename', $prefix . Level::stringToFileName($match[1], '.level'));
+
+    foreach (array('levelgen', 'content', 'name', 'description') as $field) {
+      if(isset($this->data['Level'][$field])) {
+        $this->data['Level'][$field] = trim($this->data['Level'][$field]);
+      }
+    }
     return true;
   }
 

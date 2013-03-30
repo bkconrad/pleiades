@@ -16,7 +16,7 @@ class LevelTest extends CakeTestCase {
 
     $this->Level->save(array(
       'name' => 'level',
-      'content' => 'empty (more or less)',
+      'content' => 'LevelName foo',
       'levelgen' => '',
       'description' => 'descriptive'
     ));
@@ -43,50 +43,49 @@ class LevelTest extends CakeTestCase {
 
     $noLineNoLevelgen = array(
       'name' => 'level',
-      'content' => 'empty (more or less)',
+      'content' => 'LevelName foo',
       'levelgen' => '',
       'description' => 'descriptive'
     );
 
     $noLineYesLevelgen = array(
       'name' => 'level',
-      'content' => 'empty (more or less)',
+      'content' => 'LevelName foo',
       'levelgen' => 'test',
       'description' => 'descriptive'
     );
 
     $yesLineNoLevelgen = array(
       'name' => 'level',
-      'content' => 'Script test.levelgen',
+      'content' => "LevelName foo\r\nScript test.levelgen",
       'levelgen' => '',
       'description' => 'descriptive'
     );
 
     $yesLineYesLevelgen = array(
       'name' => 'level',
-      'content' => 'Script test.levelgen',
+      'content' => "LevelName foo\nScript test.levelgen",
       'levelgen' => 'foo',
       'description' => 'descriptive'
     );
 
-    $this->assertFalse(!!$this->Level->save($noLineYesLevelgen));
+    $this->assertFalse($this->Level->save($noLineYesLevelgen));
     $this->assertTrue(!!$this->Level->save($noLineNoLevelgen));
-    $this->assertFalse(!!$this->Level->save($yesLineNoLevelgen));
+    $this->assertFalse($this->Level->save($yesLineNoLevelgen));
     $this->assertTrue(!!$this->Level->save($yesLineYesLevelgen));
   }
 
   function testTrim() {
     $data = array(
-      'name' => " \ntest\n ",
-      'content' => " \ntest\n ",
+      'content' => '  LevelName test   ',
       'description' => " \ntest\n ",
       'levelgen' => " \n\n ",
       'id' => 1
     );
 
-    $shouldBe = array(
+    $expected = array(
       'name' => "test",
-      'content' => "test",
+      'content' => "LevelName test",
       'description' => "test",
       'levelgen' => "",
       'id' => 1
@@ -94,7 +93,36 @@ class LevelTest extends CakeTestCase {
     
     $this->Level->create();
     $result = $this->Level->save($data);
-    $this->assertTrue($result['Level'] == $shouldBe);
+
+    $this->assertTrue(!!$result);
+    $this->assertEquals($expected, array_intersect($result['Level'], $expected));
+  }
+
+  public function testName() {
+    $result = $this->Level->save(array(
+      'content' => "LevelName Bob's level",
+    ));
+    $this->assertEquals('Bob\'s level', $result['Level']['name']);
+  }
+
+  public function testLevelFileName() {
+    $result = $this->Level->save(array(
+      'content' => "LevelName Bob's level",
+    ));
+    $this->assertEqual($result['Level']['level_filename'], 'bobs_level.level');
+  }
+
+  public function testMinimumLevelData() {
+    /*
+     * Only the "content" field is necessary. It is not validated as "required" 
+     * in order to prevent client-side javaScript enforcement when submitting a 
+     * level file directly.
+     */
+    $result = $this->Level->save(array(
+      'content' => 'LevelName Minimal Level'
+    ));
+
+    $this->assertTrue(!!$result);
   }
 }
 ?>

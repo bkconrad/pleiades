@@ -30,7 +30,7 @@ if(isset($level['Level']['screenshot_filename']) && !empty($level['Level']['scre
 ?>
 
 <?php echo $this->Html->tag('div', $level['Level']['description'], array('escape' => true, 'class' => 'level_description')) ?>
-<?php echo $this->Html->tag('h1', $level_file_name, array('escape' => true)) ?>
+<?php echo $this->Html->tag('h1', $level['Level']['level_filename'], array('escape' => true)) ?>
 <?php echo $this->Html->tag('pre', $level['Level']['content'], array('escape' => true, 'class' => 'submission')) ?>
 <?php 
 if (!empty($level['Level']['levelgen'])) {

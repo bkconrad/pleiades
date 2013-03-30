@@ -87,7 +87,7 @@ class LevelsControllerTest extends ControllerTestCase {
 
     $levelData = array(
       'name' => 'level' . time(),
-      'content' => 'empty (more or less)',
+      'content' => 'LevelName test',
       'levelgen' => '',
       'description' => 'descriptive',
     );
@@ -186,7 +186,7 @@ class LevelsControllerTest extends ControllerTestCase {
 
     $levelData = array(
       'name' => 'level' . time(),
-      'content' => 'empty (more or less)',
+      'content' => 'LevelName test',
       'levelgen' => '',
       'description' => 'descriptive'
     );
@@ -210,7 +210,7 @@ class LevelsControllerTest extends ControllerTestCase {
 
     $levelData = array(
       'name' => 'level' . time(),
-      'content' => 'empty (more or less)',
+      'content' => 'LevelName test',
       'levelgen' => '',
       'description' => 'descriptive'
     );
@@ -232,7 +232,7 @@ class LevelsControllerTest extends ControllerTestCase {
     $this->assertEquals($level['Level']['content'], $result);
 
     $result = $this->testAction('/levels/raw/' . $level['Level']['id'] . '/levelgen', array('return' => 'contents'));
-    $this->assertEquals($level['Level']['levelgen'], $result);
+    $this->assertEquals('-- ' . $level['Level']['levelgen_filename'] . "\r\n" . $level['Level']['levelgen'], $result);
   }
 
   public function testRawBadDisplayMode() {

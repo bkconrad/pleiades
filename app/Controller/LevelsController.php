@@ -12,16 +12,6 @@ class LevelsController extends AppController {
     )
   );
 
-  function levelFileName($level) {
-    $levelName = $level['User']['username'] . "_" . $level['Level']['name'] . ".level";
-    $levelName = strtr($levelName, array(
-      ' ' => '_',
-      '-' => '_'
-    ));
-    $levelName = ereg_replace('[^a-zA-Z0-9_.]', '', $levelName);
-    return $levelName;
-  }
-
   // gets a level by id and returns appropriate errors
   function getLevel($id) {
     if($id == null) {
@@ -121,7 +111,6 @@ class LevelsController extends AppController {
     $level = $this->Level->findById($id);
     $this->set('current_rating', $this->Rating->findByUserIdAndLevelId($this->Auth->user('user_id'), $id));
     $this->set('level', $level);
-    $this->set('level_file_name', $this->levelFileName($level));
     $this->set('logged_in', $this->Auth->loggedIn());
     $this->set('is_owner', $level['User']['user_id'] == $this->Auth->user('user_id'));
   }
@@ -180,7 +169,7 @@ class LevelsController extends AppController {
   public function download($id = null) {
     $level = $this->getLevel($id);
 
-    $levelName = $this->levelFileName($level);
+    $levelName = $level['Level']['level_filename'];
 
     $tmp = tempnam('/tmp', 'levelzip_');
     $zip = new ZipArchive();

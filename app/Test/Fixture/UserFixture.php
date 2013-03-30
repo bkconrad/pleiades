@@ -1,7 +1,8 @@
 <?php
 class UserFixture extends CakeTestFixture {
-  public $import = array('model' => 'User', 'table' => 'users', 'connection' => 'forum');
+  public $import = array('model' => 'User', 'connection' => 'forum', 'records' => false);
   // all users have password "password"
+  public $primaryKey = 'user_id';
   public $records = array(
     array(
       'user_id' => 1,
