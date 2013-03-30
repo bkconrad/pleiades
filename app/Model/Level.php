@@ -68,7 +68,15 @@ class Level extends AppModel {
       $user = $this->User->findByUserId($this->data['Level']['user_id']);
       $prefix = Level::stringToFileName($user['User']['username'], '') . '_';
     }
-    $this->set('level_filename', $prefix . Level::stringToFileName($name, '.level'));
+    $levelFilename = $prefix . Level::stringToFileName($name, '.level');
+    $result = $this->findByLevelFilename($levelFilename);
+
+    if($result) {
+      array_push($this->validationErrors, 'The name "' . $this->data['Level']['name'] . '" is too similar to "' . $result['Level']['name'] . '" by ' . $result['User']['username'] . '. Please be more creative.');
+      return false;
+    }
+
+    $this->set('level_filename', $levelFilename);
 
     foreach (array('levelgen', 'content', 'name', 'description') as $field) {
       if(isset($this->data['Level'][$field])) {

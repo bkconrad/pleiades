@@ -147,7 +147,7 @@ class LevelsController extends AppController {
         $this->Session->setFlash('Your post has been saved.');
         $this->redirect(array('action' => 'index'));
       } else {
-        $this->Session->setFlash('could not save level');
+        $this->Session->setFlash('Could not save level: ' . $this->Level->validationErrors[0]);
       }
     } else {
       $tags = $this->Level->Tag->find('list');
