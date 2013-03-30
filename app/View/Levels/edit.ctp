@@ -1,8 +1,7 @@
 <?php
 echo $this->Form->create('Level', array('type' => 'file'));
 
-echo $this->Form->input('name');
-
+echo $this->Form->input('name'); 
 $fileUpload = $this->Html->tag('span', $this->Form->file('contentFile'),array('class' => 'upload'));
 echo $this->Form->input('content', array('between' => $fileUpload, 'placeholder' => 'Or paste code here'));
 

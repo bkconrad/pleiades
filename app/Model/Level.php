@@ -10,8 +10,7 @@ class Level extends AppModel {
         'rule' => 'levelgenExistence',
         'message' => 'If your level specifies a script it must also include a levelgen, otherwise the levelgen must be empty',
       )
-    ),
-    'name' => 'notEmpty'
+    )
   );
 
   /*
