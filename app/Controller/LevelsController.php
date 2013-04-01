@@ -66,9 +66,20 @@ class LevelsController extends AppController {
 
   public function beforeFilter() {
     parent::beforeFilter();
+    $this->Auth->authenticate = array('Form', 'Basic');
     $this->Auth->allow('download', 'raw', 'index', 'view', 'add');
+
+    if(isset($this->request->data['username']) && isset($this->request->data['password'])) {
+      // auth via post data
+      $credentials = array(
+        'username' => $this->request->data['username'],
+        'user_password' => $this->request->data['password']
+      );
+      $this->Auth->login($credentials);
+    }
+
     if($this->Auth->loggedIn()) {
-      $this->Auth->allow('rate');
+      $this->Auth->allow('rate', 'edit');
     }
   }
 
@@ -88,7 +99,7 @@ class LevelsController extends AppController {
     }
 
     if($this->request->is('post') || $this->request->is('put')) {
-      $this->Level->id = $id;
+      $this->Level->id = $level['Level']['id'];
       $this->Level->set('user_id', $this->Auth->user('user_id'));
 
       $this->checkFile('content');
@@ -128,7 +139,7 @@ class LevelsController extends AppController {
     } else {
       $this->Session->setFlash('Could not set rating');
     }
-    $this->redirect($this->referer());
+    return $this->redirect($this->referer());
   }
 
   public function add() {
@@ -145,7 +156,7 @@ class LevelsController extends AppController {
 
       if($this->Level->save($this->request->data)) {
         $this->Session->setFlash('Your post has been saved.');
-        $this->redirect(array('action' => 'index'));
+        return $this->redirect(array('action' => 'index'));
       } else {
         $this->Session->setFlash('Could not save level: ' . array_shift($this->Level->validationErrors));
       }
@@ -191,6 +202,35 @@ class LevelsController extends AppController {
     $this->response->file($tmp);
     $this->response->download($levelName . '.zip');
     return $this->response;
+  }
+
+  // client unified write interface: updates or creates as needed
+  public function upload() {
+    if(!isset($this->request->data['Level']['content'])) {
+      throw new BadRequestException('No level content found');
+    }
+
+    $id = null;
+    $matches = array();
+    preg_match('/LevelDatabaseId\s+([^\r\n]+)/', $this->request->data['Level']['content'], $matches);
+
+    if(count($matches) > 1) {
+      $id = trim($matches[1]);
+    }
+
+    $level = false;
+    if($id !== null) {
+      try {
+        $level = $this->getLevel($id);
+      } catch (Exception $e) {
+      }
+    }
+
+    if($level) {
+      $this->edit($id);
+    } else {
+      $this->add();
+    }
   }
 }
 ?>

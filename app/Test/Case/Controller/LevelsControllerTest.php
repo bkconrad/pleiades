@@ -7,7 +7,7 @@ class LevelsControllerTest extends ControllerTestCase {
   function mockAsBob($mockLevel = false) {
     // mock Auth component
     $options = array(
-        'components' => array('Auth' => array('user', 'loggedIn'))
+        'components' => array('Auth' => array('user', 'loggedIn', 'login'))
     );
 
     // mock Level#save, as well
@@ -25,6 +25,11 @@ class LevelsControllerTest extends ControllerTestCase {
     $Levels->Auth
       ->expects($this->any())
       ->method('loggedIn')
+      ->will($this->returnValue(true));
+
+    $Levels->Auth
+      ->expects($this->any())
+      ->method('login')
       ->will($this->returnValue(true));
 
     return $Levels;
@@ -240,6 +245,44 @@ class LevelsControllerTest extends ControllerTestCase {
     $level = $this->Level->find('first');
     $result = $this->testAction('/levels/raw/' . $level['Level']['id'] . '/thisDisplayModeDoesNotExist', array('return' => 'contents'));
     $this->assertEquals($level['Level']['content'], $result);
+  }
+
+  public function testUploadNewLevel() {
+    $levelData = array(
+        'username' => 'bob',
+        'password' => 'password',
+        'content' => 'LevelName Level II',
+        'user_id' => 2
+    );
+
+    $oldCount = $this->Level->find('count');
+    $result = $this->testAction('/levels/upload/', array(
+      'data' => array('Level' => $levelData),
+      'method' => 'post'
+    ));
+    $newCount = $this->Level->find('count');
+
+    $this->assertEquals($oldCount + 1, $newCount);
+  }
+
+  public function testUploadOldLevel() {
+    $this->mockAsBob();
+    $levelData = array(
+        'username' => 'bob',
+        'password' => 'password',
+        'content' => 'LevelName Level\nLevelDatabaseId bob_level',
+        'user_id' => 2
+    );
+
+    $oldCount = $this->Level->find('count');
+    $result = $this->testAction('/levels/upload/', array(
+      'data' => array('Level' => $levelData),
+      'method' => 'post'
+    ));
+
+    $newCount = $this->Level->find('count');
+
+    $this->assertEquals($oldCount, $newCount);
   }
 
   /*
