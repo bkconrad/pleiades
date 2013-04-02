@@ -54,7 +54,7 @@ class Level extends AppModel {
   public function beforeValidate($option) {
     // content must have a LevelName line
     $match = array();
-    preg_match('/\s*LevelName\s+([^\n]*)/', $this->data['Level']['content'], $match);
+    preg_match("/\s*LevelName\s+([^\r\n]*)/", $this->data['Level']['content'], $match);
     if(count($match) < 2) {
       array_push($this->validationErrors, 'You must include a LevelName');
       return false;

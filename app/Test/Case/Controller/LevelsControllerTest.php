@@ -268,10 +268,7 @@ class LevelsControllerTest extends ControllerTestCase {
   public function testUploadOldLevel() {
     $this->mockAsBob();
     $levelData = array(
-        'username' => 'bob',
-        'password' => 'password',
-        'content' => 'LevelName Level\nLevelDatabaseId bob_level',
-        'user_id' => 2
+        "content" => "LevelName Updated Level\nLevelDatabaseId 2",
     );
 
     $oldCount = $this->Level->find('count');
@@ -281,8 +278,9 @@ class LevelsControllerTest extends ControllerTestCase {
     ));
 
     $newCount = $this->Level->find('count');
-
+    $level = $this->Level->findById(2);
     $this->assertEquals($oldCount, $newCount);
+    $this->assertEquals('Updated Level', $level['Level']['name']);
   }
 
   /*
