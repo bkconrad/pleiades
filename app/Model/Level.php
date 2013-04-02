@@ -82,6 +82,7 @@ class Level extends AppModel {
     foreach (array('levelgen', 'content', 'name', 'description') as $field) {
       if(isset($this->data['Level'][$field])) {
         $this->data['Level'][$field] = trim($this->data['Level'][$field]);
+        $this->data['Level'][$field] = preg_replace("/[\r\n]+/", "\r\n", $this->data['Level'][$field]);
       }
     }
     return true;

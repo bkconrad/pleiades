@@ -98,6 +98,22 @@ class LevelTest extends CakeTestCase {
     $this->assertEquals($expected, array_intersect($result['Level'], $expected));
   }
 
+  public function testLineBreak() {
+    $data = array(
+      "content" => "  LevelName test\r\nScript foo\nblah\nunix",
+      "levelgen" => "test\nsome\nstuff",
+    );
+
+    $expected = array(
+      "content" => "LevelName test\r\nScript foo\r\nblah\r\nunix",
+      "levelgen" => "test\r\nsome\r\nstuff",
+    );
+
+    $result = $this->Level->save($data);
+    $result = array_intersect_key($result['Level'], $expected);
+    $this->assertEquals($expected, $result);
+  }
+
   public function testName() {
     $result = $this->Level->save(array(
       'content' => "LevelName Bob's level",
