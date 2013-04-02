@@ -114,6 +114,22 @@ class LevelTest extends CakeTestCase {
     $this->assertEquals($expected, $result);
   }
 
+  public function testConsecutiveLineBreak() {
+    $data = array(
+      "content" => "  LevelName test again\r\n\r\nScript foo\nblah\nunix",
+      "levelgen" => "test\r\n\nsome\nstuff",
+    );
+
+    $expected = array(
+      "content" => "LevelName test again\r\n\r\nScript foo\r\nblah\r\nunix",
+      "levelgen" => "test\r\n\r\nsome\r\nstuff",
+    );
+
+    $result = $this->Level->save($data);
+    $result = array_intersect_key($result['Level'], $expected);
+    $this->assertEquals($expected, $result);
+  }
+
   public function testName() {
     $result = $this->Level->save(array(
       'content' => "LevelName Bob's level",
