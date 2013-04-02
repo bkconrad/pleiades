@@ -196,9 +196,10 @@ class LevelsController extends AppController {
 
   // client unified write interface: updates or creates as needed
   public function upload() {
-    debug($this->request->data);
     if(!$this->Auth->loggedIn()) {
-      $this->Auth->login();
+      if(!$this->Auth->login()) {
+        throw new ForbiddenException('You must be logged in');
+      }
     }
 
     if(!isset($this->request->data['Level']['content'])) {
@@ -222,10 +223,22 @@ class LevelsController extends AppController {
     }
 
     if($level) {
-      $this->edit($id);
-    } else {
-      $this->add();
+      if($level['Level']['user_id'] != $this->Auth->user('user_id')) {
+        throw new ForbiddenException('You can only update a level you uploaded');
+      }
+      $this->request->data['Level']['id'] = $level['Level']['id'];
     }
+
+    $this->request->data['Level']['user_id'] = $this->Auth->user('user_id');
+
+    if(!$this->Level->save($this->request->data)) {
+      $this->response->statusCode(403);
+      $this->response->body(array_shift($this->Level->validationErrors));
+      return $this->response;
+    }
+
+    $this->response->body($this->Level->getId());
+    return $this->response;
   }
 }
 ?>
