@@ -1,8 +1,9 @@
 <?php
 class UsersController extends AppController{
 	function login() {
+    $this->Auth->login();
 		if ($this->request->is('post')) {
-			if($this->Auth->login()){
+			if($this->Auth->loggedIn()){
 				return $this->redirect($this->Auth->redirect());
 			}else{
 				$this->Session->setFlash(__('Username or password is incorrect'), 'default', array(), 'auth');

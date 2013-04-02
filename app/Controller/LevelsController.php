@@ -2,7 +2,6 @@
 App::uses('AppController', 'Controller');
 class LevelsController extends AppController {
   public $helpers = array('Html', 'Form');
-  public $components = array('Auth');
   public $uses = array('Level', 'Rating');
 
   public $paginate = array(
@@ -66,17 +65,7 @@ class LevelsController extends AppController {
 
   public function beforeFilter() {
     parent::beforeFilter();
-    $this->Auth->authenticate = array('Form', 'Basic');
-    $this->Auth->allow('download', 'raw', 'index', 'view', 'add');
-
-    if(isset($this->request->data['username']) && isset($this->request->data['password'])) {
-      // auth via post data
-      $credentials = array(
-        'username' => $this->request->data['username'],
-        'user_password' => $this->request->data['password']
-      );
-      $this->Auth->login($credentials);
-    }
+    $this->Auth->allow('upload', 'download', 'raw', 'index', 'view', 'add');
 
     if($this->Auth->loggedIn()) {
       $this->Auth->allow('rate', 'edit');
@@ -206,6 +195,11 @@ class LevelsController extends AppController {
 
   // client unified write interface: updates or creates as needed
   public function upload() {
+    debug($this->request->data);
+    if(!$this->Auth->loggedIn()) {
+      $this->Auth->login();
+    }
+
     if(!isset($this->request->data['Level']['content'])) {
       throw new BadRequestException('No level content found');
     }

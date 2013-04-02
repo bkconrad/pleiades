@@ -4,8 +4,9 @@ class AppController extends Controller{
 		'Auth'=> array(
 			'authenticate' => array(
 				'Phpbb3' => array(
-					'fields' => array('username' => 'username', 'password' => 'user_password')
-				)
+					'fields' => array('username' => 'username', 'password' => 'user_password'),
+          'userModel' => 'User'
+        )
 			)
 		),
 		'Session'
