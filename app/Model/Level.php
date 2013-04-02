@@ -78,6 +78,7 @@ class Level extends AppModel {
     }
 
     $this->set('level_filename', $levelFilename);
+    $this->data['Level']['content'] = preg_replace("/\r?\n?LevelDatabaseId[^\n]*/", "", $this->data['Level']['content']);
 
     foreach (array('levelgen', 'content', 'name', 'description') as $field) {
       if(isset($this->data['Level'][$field])) {
@@ -86,6 +87,16 @@ class Level extends AppModel {
       }
     }
     return true;
+  }
+
+  public function afterFind($results, $primary) {
+    parent::afterFind($results, $primary);
+    foreach($results as $k => $result) {
+      if(isset($result['Level']['content'])) {
+        $results[$k]['Level']['content'] .= "\r\nLevelDatabaseId " . $result['Level']['id'];
+      }
+    }
+    return $results;
   }
 
   public function rate($user_id, $value) {

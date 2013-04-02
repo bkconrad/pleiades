@@ -172,5 +172,19 @@ class LevelTest extends CakeTestCase {
 
     $this->assertTrue(!!$result);
   }
+
+  public function testLevelDatabaseId() {
+    $result = $this->Level->save(array(
+      "content" => "LevelName DBID Test Level\nLevelDatabaseId 1"
+    ));
+
+    // do a query to trigger afterFind
+    $result = $this->Level->findById($result['Level']['id']);
+
+    // the supplied id should be ignored and removed 
+    // then the new id line should be appended
+    $this->assertNotRegExp('/LevelDatabaseId\s+1/', $result['Level']['content']);
+    $this->assertRegExp('/LevelDatabaseId\s+' . $result['Level']['id'] . '/', $result['Level']['content']);
+  }
 }
 ?>
