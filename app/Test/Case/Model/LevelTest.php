@@ -112,6 +112,22 @@ class LevelTest extends CakeTestCase {
     $this->assertEqual($result['Level']['level_filename'], 'bobs_level.level');
   }
 
+  public function testLevelgenFileNameWithoutSuffix() {
+    $result = $this->Level->save(array(
+      'content' => "LevelName levelgen level\nScript test",
+      'levelgen' => "blah"
+    ));
+    $this->assertEqual($result['Level']['levelgen_filename'], 'test.levelgen');
+  }
+
+  public function testLevelgenFileNameWithSuffix() {
+    $result = $this->Level->save(array(
+      'content' => "LevelName levelgen level II\nScript test.levelgen",
+      'levelgen' => "blah"
+    ));
+    $this->assertEqual($result['Level']['levelgen_filename'], 'test.levelgen');
+  }
+
   public function testMinimumLevelData() {
     /*
      * Only the "content" field is necessary. It is not validated as "required" 

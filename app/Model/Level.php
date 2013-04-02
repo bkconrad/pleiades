@@ -41,8 +41,9 @@ class Level extends AppModel {
 
     // if the Script line with one or more arguments is found, require a levelgen
     if(array_key_exists(1, $parts) && trim($parts[1]) != '') {
-      $fileName = $parts[1];
-      $this->data['Level']['levelgen_filename'] = $fileName;
+      $fileName = trim($parts[1]);
+      $fileName = preg_replace('/\.levelgen$/i', '', $fileName);
+      $this->data['Level']['levelgen_filename'] = $fileName . '.levelgen';
       $this->data['Level']['levelgen'] = trim($this->data['Level']['levelgen']);
       return !empty($this->data['Level']['levelgen']);
     } else {
