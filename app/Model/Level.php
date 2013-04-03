@@ -89,6 +89,12 @@ class Level extends AppModel {
     return true;
   }
 
+  public function beforeSave($options) {
+    if(isset($this->data['content']) || isset($this->data['levelgen'])) {
+      $this->data['updated'] = time();
+    }
+  }
+
   public function afterFind($results, $primary) {
     parent::afterFind($results, $primary);
     foreach($results as $k => $result) {

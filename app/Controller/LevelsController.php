@@ -74,7 +74,18 @@ class LevelsController extends AppController {
   }
 
   public function index() {
-    $this->set('levels', $this->paginate('Level'));
+    $levelLists = array(
+      'Recently Updated' => $this->Level->find('all', array(
+        'order' => 'Level.created',
+        'limit' => 3
+      )),
+      'Highest Rated' => $this->Level->find('all', array(
+        'order' => 'Level.rating DESC',
+        'limit' => 3
+      )),
+    );
+
+    $this->set('levelLists', $levelLists);
   }
 
   public function edit($id = null) {

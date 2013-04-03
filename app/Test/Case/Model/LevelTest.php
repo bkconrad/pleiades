@@ -186,5 +186,18 @@ class LevelTest extends CakeTestCase {
     $this->assertNotRegExp('/LevelDatabaseId\s+1/', $result['Level']['content']);
     $this->assertRegExp('/LevelDatabaseId\s+' . $result['Level']['id'] . '/', $result['Level']['content']);
   }
+
+  public function testUpdated() {
+    $result = $this->Level->findById(3);
+    $oldTime = $result['Level']['updated'];
+    $result = $this->Level->save(array(
+      "content" => "LevelName The Newly Updated Time Test Level",
+      "id" => $result['Level']['id']
+    ));
+
+    $newTime = $result['Level']['updated'];
+
+    $this->assertGreaterThan($oldTime, $newTime);
+  }
 }
 ?>
