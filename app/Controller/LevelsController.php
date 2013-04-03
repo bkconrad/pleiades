@@ -37,7 +37,27 @@ class LevelsController extends AppController {
       $parts = pathinfo($arr['name']);
       $newFileName = time() . '.' . $parts['extension'];
       $newPath = APP . 'webroot' . DS . 'img' . DS . $newFileName;
-      move_uploaded_file($arr['tmp_name'], $newPath);
+
+      $source = imagecreatefrompng($arr['tmp_name']);
+      $sourceWidth = imagesx($source);
+      $sourceHeight = imagesy($source);
+
+      $resizeRatio = max(1, $sourceWidth / 800, $sourceHeight / 600);
+      $destWidth = $sourceWidth / $resizeRatio;
+      $destHeight = $sourceHeight / $resizeRatio;
+
+      $dest = imagecreatetruecolor($destWidth, $destHeight);
+      imagecopyresized(
+        $dest, $source,
+        0, 0,
+        0, 0,
+        $destWidth, $destHeight,
+        $sourceWidth, $sourceHeight
+      );
+
+      imagepng($dest, $newPath);
+      imagedestroy($source);
+      imagedestroy($dest);
       $this->request->data['Level']['screenshot_filename'] = $newFileName;
     }
   }
@@ -76,7 +96,7 @@ class LevelsController extends AppController {
   public function index() {
     $levelLists = array(
       'Recently Updated' => $this->Level->find('all', array(
-        'order' => 'Level.created',
+        'order' => 'Level.updated DESC',
         'limit' => 3
       )),
       'Highest Rated' => $this->Level->find('all', array(
