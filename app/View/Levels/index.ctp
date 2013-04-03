@@ -1,21 +1,15 @@
 <?php
 foreach($levelLists as $heading => $levels) {
   echo $this->Html->tag('h1', $heading);
-  echo '
-  <table>
-  <th>Name</th><th>Uploader</th><th>Rating</th>';
   foreach ($levels as $k => $level) {
-
-    $options = array('escape' => true);
-    $rowdata = array(
-      $this->Html->link($level['Level']['name'], array('action' => 'view', $level['Level']['id'])),
-      $level['User']['username'],
-      $level['Level']['rating'],
-      $this->Html->image('t' . $level['Level']['screenshot_filename'])
-    );
-    echo $this->Html->tableCells(array($rowdata), $options, $options);
+    $divContent =
+        $this->Html->link($level['Level']['name'], array('action' => 'view', $level['Level']['id']))
+      . '&nbsp; by ' . $level['User']['username']
+      . '<span class="rating">' . $level['Level']['rating'] . '</span>'
+      . '&nbsp;' . $this->Html->image('t' . $level['Level']['screenshot_filename'], array('class' => 'thumbnail'))
+    ;
+    echo $this->Html->tag('div', $divContent, array('class' => 'level'));
   }
-  echo '</table>';
 }
 
 ?>

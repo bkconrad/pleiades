@@ -797,3 +797,26 @@ li.tag {
   display: block;
   margin: .5em auto;
 }
+
+.level {
+  display: inline-block;
+  vertical-align: top;
+  padding: .5em;
+  margin: .25em;
+	background: #4f5d75;
+}
+
+.level > * {
+  float: left;
+  vertical-align: top;
+}
+
+.level > .rating {
+  float: none;
+}
+
+.thumbnail {
+  clear: left;
+  float: right;
+  margin-top: .5em;
+}
