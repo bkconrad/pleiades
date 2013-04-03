@@ -65,6 +65,7 @@ class LevelsController extends AppController {
 
   public function beforeFilter() {
     parent::beforeFilter();
+    $this->Auth->deny();
     $this->Auth->allow('upload', 'download', 'raw', 'index', 'view', 'add');
 
     if($this->Auth->loggedIn()) {
@@ -239,6 +240,17 @@ class LevelsController extends AppController {
 
     $this->response->body($this->Level->getId());
     return $this->response;
+  }
+
+  public function delete($id) {
+    $level = $this->getLevel($id);
+
+    if($level['Level']['user_id'] != $this->Auth->user('user_id')) {
+      throw new ForbiddenException('You can only delete a level you uploaded');
+    }
+
+    $this->Level->delete($id);
+    $this->redirect('index');
   }
 }
 ?>

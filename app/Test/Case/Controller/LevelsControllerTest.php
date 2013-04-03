@@ -248,6 +248,7 @@ class LevelsControllerTest extends ControllerTestCase {
   }
 
   public function testUploadNewLevel() {
+    $this->mockAsBob();
     $levelData = array(
         'username' => 'bob',
         'password' => 'password',
@@ -281,6 +282,29 @@ class LevelsControllerTest extends ControllerTestCase {
     $level = $this->Level->findById(2);
     $this->assertEquals($oldCount, $newCount);
     $this->assertEquals('Updated Level', $level['Level']['name']);
+  }
+
+  public function testDeleteSuccess() {
+    $this->mockAsBob();
+    $result = $this->Level->save(array(
+        "content" => "LevelName Dead Man",
+        "user_id" => 2
+    ));
+    $oldCount = $this->Level->find('count');
+    $this->testAction('/levels/delete/' . $result['Level']['id']);
+    $newCount = $this->Level->find('count');
+    $this->assertEquals($oldCount - 1, $newCount);
+  }
+
+  public function testDeleteUnownedLevel() {
+    $this->mockAsUnauthenticated();
+    $this->setExpectedException('ForbiddenException');
+
+    $oldCount = $this->Level->find('count');
+    $this->testAction('/levels/delete/2');
+    $newCount = $this->Level->find('count');
+
+    $this->assertEquals($oldCount, $newCount);
   }
 
   /*

@@ -20,6 +20,11 @@ if($is_owner) {
     'action' => 'edit',
     $level['Level']['id']
   ));
+  echo '&nbsp;';
+  echo $this->Html->link('Delete', array(
+    'action' => 'delete',
+    $level['Level']['id']
+  ), array('confirm' => 'Are you sure you wish to delete this level?'));
 }
 ?>
 </div>
