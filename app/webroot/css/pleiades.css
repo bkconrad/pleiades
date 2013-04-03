@@ -828,6 +828,7 @@ li.tag {
 }
 
 .thumbnail-wrapper {
+  margin-top: .25em;
   height: 150px;
   width: 200px;
   background: black;
