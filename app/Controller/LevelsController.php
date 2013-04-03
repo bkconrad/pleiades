@@ -127,6 +127,10 @@ class LevelsController extends AppController {
     $this->set('levelLists', $levelLists);
   }
 
+  public function all() {
+    $this->set('levels', $this->paginate());
+  }
+
   public function edit($id = null) {
     $level = $this->getLevel($id);
 

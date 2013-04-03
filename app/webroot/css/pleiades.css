@@ -743,7 +743,7 @@ pre {
 }
 
 #navmenu {
-  float: right;
+  text-align: right;
 }
 
 .rating {
@@ -804,6 +804,7 @@ li.tag {
   padding: .5em;
   margin: .25em;
 	background: #4f5d75;
+  clear: both;
 }
 
 .level > * {

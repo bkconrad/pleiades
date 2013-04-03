@@ -1,8 +1,15 @@
 <div id="navmenu">
 <?php
-echo $this->Html->link('View All Levels', array(
+echo $this->Html->link('Home', array(
   'controller' => 'levels',
   'action' => 'index'
+)); 
+
+echo '&nbsp;';
+
+echo $this->Html->link('View All Levels', array(
+  'controller' => 'levels',
+  'action' => 'all'
 )); 
 
 echo '&nbsp;';
