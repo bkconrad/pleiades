@@ -195,9 +195,15 @@ class LevelTest extends CakeTestCase {
       "id" => $result['Level']['id']
     ));
 
+    // editing contents or levelgens should update
     $newTime = $result['Level']['updated'];
-
     $this->assertGreaterThan($oldTime, $newTime);
+
+    // but ratings etc. should not
+    $this->Level->rate(1, 1);
+    $result = $this->Level->findById($result['Level']['id']);
+    $ratingTime = $result['Level']['updated'];
+    $this->assertEquals($newTime, $ratingTime);
   }
 }
 ?>
