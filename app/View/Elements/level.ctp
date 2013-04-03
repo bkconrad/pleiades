@@ -1,8 +1,8 @@
 <?php
 $divContent =
-    $this->Html->link($level['Level']['name'], array('action' => 'view', $level['Level']['id']))
-  . '&nbsp; by ' . $level['User']['username']
-  . '&nbsp;<span class="rating">' . $level['Level']['rating'] . '</span>'
+    $this->Html->link($level['Level']['name'], array('action' => 'view', $level['Level']['id']), array('class' => 'name'))
+  . '<span class="author">&nbsp;by&nbsp;' . $level['User']['username'] . '</span>'
+  . '<span class="rating">' . $level['Level']['rating'] . '</span>'
   . '<div class="thumbnail-wrapper">'
   . '<span class="thumbnail-helper">'
   . '</span>'

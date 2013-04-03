@@ -809,12 +809,30 @@ li.tag {
 }
 
 .level > * {
-  float: left;
   vertical-align: top;
 }
 
-.level > .rating {
-  float: none;
+.level .name {
+  display: inline-block;
+  max-width: 100px;
+  max-height: 1.25em;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.level .rating {
+  display: inline-block;
+  height: 1.25em;
+  padding: 0 .25em;
+	background: #303948;
+}
+
+.level .author {
+  display: inline-block;
+  max-width: 100px;
+  max-height: 1.25em;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .thumbnail {
@@ -828,7 +846,7 @@ li.tag {
 }
 
 .thumbnail-wrapper {
-  margin-top: .25em;
+  margin-top: .5em;
   height: 150px;
   width: 200px;
   background: black;
