@@ -10,7 +10,8 @@ foreach($levelLists as $heading => $levels) {
     $rowdata = array(
       $this->Html->link($level['Level']['name'], array('action' => 'view', $level['Level']['id'])),
       $level['User']['username'],
-      $level['Level']['rating']
+      $level['Level']['rating'],
+      $this->Html->image('t' . $level['Level']['screenshot_filename'])
     );
     echo $this->Html->tableCells(array($rowdata), $options, $options);
   }

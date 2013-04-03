@@ -37,11 +37,13 @@ class LevelsController extends AppController {
       $parts = pathinfo($arr['name']);
       $newFileName = time() . '.' . $parts['extension'];
       $newPath = APP . 'webroot' . DS . 'img' . DS . $newFileName;
+      $newThumbnailPath = APP . 'webroot' . DS . 'img' . DS . 't' .  $newFileName;
 
       $source = imagecreatefrompng($arr['tmp_name']);
       $sourceWidth = imagesx($source);
       $sourceHeight = imagesy($source);
 
+      // resize image
       $resizeRatio = max(1, $sourceWidth / 800, $sourceHeight / 600);
       $destWidth = $sourceWidth / $resizeRatio;
       $destHeight = $sourceHeight / $resizeRatio;
@@ -56,8 +58,25 @@ class LevelsController extends AppController {
       );
 
       imagepng($dest, $newPath);
-      imagedestroy($source);
       imagedestroy($dest);
+
+      // create thumbnail
+      $resizeRatio = max(1, $sourceWidth / 200, $sourceHeight / 150);
+      $thumbWidth = $sourceWidth / $resizeRatio;
+      $thumbHeight = $sourceHeight / $resizeRatio;
+
+      $thumb = imagecreatetruecolor($thumbWidth, $thumbHeight);
+      imagecopyresized(
+        $thumb, $source,
+        0, 0,
+        0, 0,
+        $thumbWidth, $thumbHeight,
+        $sourceWidth, $sourceHeight
+      );
+
+      imagepng($thumb, $newThumbnailPath);
+      imagedestroy($thumb);
+      imagedestroy($source);
       $this->request->data['Level']['screenshot_filename'] = $newFileName;
     }
   }
