@@ -805,6 +805,7 @@ li.tag {
   margin: .25em;
 	background: #4f5d75;
   clear: both;
+  width: 200px;
 }
 
 .level > * {
@@ -817,7 +818,19 @@ li.tag {
 }
 
 .thumbnail {
-  clear: left;
-  float: right;
-  margin-top: .5em;
+  vertical-align: middle;
+}
+
+.thumbnail-helper {
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+
+.thumbnail-wrapper {
+  height: 150px;
+  width: 200px;
+  background: black;
+  vertical-align: middle;
+  text-align: center;
 }

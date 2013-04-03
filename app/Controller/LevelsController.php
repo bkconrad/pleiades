@@ -116,11 +116,11 @@ class LevelsController extends AppController {
     $levelLists = array(
       'Recently Updated' => $this->Level->find('all', array(
         'order' => 'Level.updated DESC',
-        'limit' => 3
+        'limit' => 8
       )),
       'Highest Rated' => $this->Level->find('all', array(
         'order' => 'Level.rating DESC',
-        'limit' => 3
+        'limit' => 8
       )),
     );
 
