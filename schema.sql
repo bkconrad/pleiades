@@ -32,12 +32,12 @@ CREATE TABLE `levels` (
   `levelgen_filename` varchar(128) DEFAULT '',
   `rating` int(11) NOT NULL,
   `tags` int(11) NOT NULL,
-  `screenshot_filename` varchar(256) NOT NULL DEFAULT '',
+  `screenshot_filename` varchar(256) NOT NULL DEFAULT 'no-screenshot.png',
   `level_filename` varchar(256) NOT NULL DEFAULT '',
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -95,4 +95,4 @@ CREATE TABLE `tags` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-04-03  9:55:49
+-- Dump completed on 2013-04-03 11:29:09
