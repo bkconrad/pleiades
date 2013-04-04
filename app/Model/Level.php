@@ -93,7 +93,6 @@ class Level extends AppModel {
   }
 
   public function beforeSave($options) {
-    debug($this->data);
     if(isset($this->data['Level']['author'])) {
       // author may only be manually set by a mod or admin
     }
@@ -110,7 +109,7 @@ class Level extends AppModel {
       if(isset($result['Level']['content'])) {
         $results[$k]['Level']['content'] .= "\r\nLevelDatabaseId " . $result['Level']['id'];
       }
-      if(isset($result['Level']['author'])) {
+      if(isset($result['Level']['author']) && !empty($result['Level']['author'])) {
         if(!isset($result['User'])) {
           $results[$k]['User'] = array();
         }
