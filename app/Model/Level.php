@@ -93,11 +93,14 @@ class Level extends AppModel {
   }
 
   public function beforeSave($options) {
-    if(isset($this->data['author'])) {
+    debug($this->data);
+    if(isset($this->data['Level']['author'])) {
       // author may only be manually set by a mod or admin
     }
-    if(isset($this->data['content']) || isset($this->data['levelgen'])) {
-      $this->data['updated'] = time();
+    if(isset($this->data['Level']['content']) || isset($this->data['Level']['levelgen'])) {
+      $this->data['Level']['last_updated'] = date('Y:m:d h:i:s');
+    } else {
+      unset($this->data['Level']['last_updated']);
     }
   }
 

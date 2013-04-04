@@ -189,20 +189,21 @@ class LevelTest extends CakeTestCase {
 
   public function testUpdated() {
     $result = $this->Level->findById(3);
-    $oldTime = $result['Level']['updated'];
+    $oldTime = $result['Level']['last_updated'];
     $result = $this->Level->save(array(
       "content" => "LevelName The Newly Updated Time Test Level",
       "id" => $result['Level']['id']
     ));
 
     // editing contents or levelgens should update
-    $newTime = $result['Level']['updated'];
+    $result = $this->Level->findById(3);
+    $newTime = $result['Level']['last_updated'];
     $this->assertGreaterThan($oldTime, $newTime);
 
     // but ratings etc. should not
     $this->Level->rate(1, 1);
     $result = $this->Level->findById($result['Level']['id']);
-    $ratingTime = $result['Level']['updated'];
+    $ratingTime = $result['Level']['last_updated'];
     $this->assertEquals($newTime, $ratingTime);
   }
 
@@ -238,7 +239,6 @@ class LevelTest extends CakeTestCase {
     ));
 
     $found = $this->Level->findById($result['Level']['id']);
-    debug($found);
     $this->assertEquals('nobody', $found['User']['username']);
   }
 }

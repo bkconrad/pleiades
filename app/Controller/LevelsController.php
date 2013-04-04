@@ -115,7 +115,7 @@ class LevelsController extends AppController {
   public function index() {
     $levelLists = array(
       'Recently Updated' => $this->Level->find('all', array(
-        'order' => 'Level.updated DESC',
+        'order' => 'Level.last_updated DESC',
         'limit' => 8
       )),
       'Highest Rated' => $this->Level->find('all', array(

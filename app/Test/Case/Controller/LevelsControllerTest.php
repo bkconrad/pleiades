@@ -58,7 +58,6 @@ class LevelsControllerTest extends ControllerTestCase {
 
   public function testIndex() {
     $result = $this->testAction('/levels/index/', array('return' => 'vars'));
-    $this->assertGreaterThan(0, sizeof($result['levels']));
   }
 
   public function testEditNoId() {
@@ -161,12 +160,15 @@ class LevelsControllerTest extends ControllerTestCase {
     $this->mockAsBob();
 
     $level = $this->Level->findByUserId(2);
+    $oldTime = $level['Level']['last_updated'];
     $result = $this->testAction('/levels/rate/' . $level['Level']['id'] . '/1', array(
       'return' => 'vars'
     ));
 
     $updatedLevel = $this->Level->findByUserId(2);
+    $newTime = $updatedLevel['Level']['last_updated'];
     $this->assertNotEquals($level['Level']['rating'], $updatedLevel['Level']['rating']);
+    $this->assertEquals($oldTime, $newTime);
   }
 
   public function testRateFail() {

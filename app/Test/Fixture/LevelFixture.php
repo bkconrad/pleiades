@@ -10,6 +10,7 @@ class LevelFixture extends CakeTestFixture {
       'levelgen_filename' => 'test.levelgen',
       'description' => 'descriptive',
       'user_id' => 1,
+      'last_updated' => 0,
       'id' => 1
     ),
     array(
@@ -20,6 +21,7 @@ class LevelFixture extends CakeTestFixture {
       'levelgen_filename' => 'test.levelgen',
       'description' => 'descriptive',
       'user_id' => 2,
+      'last_updated' => 0,
       'id' => 2
     ),
     array(
@@ -30,6 +32,7 @@ class LevelFixture extends CakeTestFixture {
       'levelgen_filename' => 'test.levelgen',
       'description' => 'uploaded by bob',
       'user_id' => 2,
+      'last_updated' => 0,
       'id' => 3
     ),
   );
