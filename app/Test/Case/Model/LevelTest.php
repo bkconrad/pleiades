@@ -223,5 +223,23 @@ class LevelTest extends CakeTestCase {
     $this->assertEquals('nobody_author_test.level', $result['Level']['level_filename']);
     $this->assertEquals('nobody', $result['Level']['author']);
   }
+
+  public function testAuthorAsUsername() {
+    $Auth = $this->getMock('Auth');
+    $Auth
+      ->staticExpects($this->any())
+      ->method('user')
+      ->with('user_id')
+      ->will($this->returnValue(2));
+
+    $result = $this->Level->save(array(
+      "content" => "LevelName Author As Username Test",
+      "author" => "nobody",
+    ));
+
+    $found = $this->Level->findById($result['Level']['id']);
+    debug($found);
+    $this->assertEquals('nobody', $found['User']['username']);
+  }
 }
 ?>

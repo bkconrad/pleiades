@@ -107,6 +107,12 @@ class Level extends AppModel {
       if(isset($result['Level']['content'])) {
         $results[$k]['Level']['content'] .= "\r\nLevelDatabaseId " . $result['Level']['id'];
       }
+      if(isset($result['Level']['author'])) {
+        if(!isset($result['User'])) {
+          $results[$k]['User'] = array();
+        }
+        $results[$k]['User']['username'] = $result['Level']['author'];
+      }
     }
     return $results;
   }
