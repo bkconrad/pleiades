@@ -65,10 +65,13 @@ class Level extends AppModel {
     $this->set('name', $name);
 
     $prefix = '';
-    if(isset($this->data['Level']['user_id'])) {
+    if(isset($this->data['Level']['author'])) {
+      $prefix = $this->data['Level']['author'] . '_';
+    } else if(isset($this->data['Level']['user_id'])) {
       $user = $this->User->findByUserId($this->data['Level']['user_id']);
       $prefix = Level::stringToFileName($user['User']['username'], '') . '_';
     }
+
     $levelFilename = $prefix . Level::stringToFileName($name, '.level');
     $result = $this->findByLevelFilename($levelFilename);
 
@@ -90,6 +93,9 @@ class Level extends AppModel {
   }
 
   public function beforeSave($options) {
+    if(isset($this->data['author'])) {
+      // author may only be manually set by a mod or admin
+    }
     if(isset($this->data['content']) || isset($this->data['levelgen'])) {
       $this->data['updated'] = time();
     }

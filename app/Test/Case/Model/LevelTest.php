@@ -205,5 +205,23 @@ class LevelTest extends CakeTestCase {
     $ratingTime = $result['Level']['updated'];
     $this->assertEquals($newTime, $ratingTime);
   }
+
+  public function testSetAuthor() {
+    $Auth = $this->getMock('Auth');
+    $Auth
+      ->staticExpects($this->any())
+      ->method('user')
+      ->with('user_id')
+      ->will($this->returnValue(2));
+
+    $result = $this->Level->save(array(
+      "content" => "LevelName Author Test",
+      "author" => "nobody",
+      'user_id' => 2
+    ));
+
+    $this->assertEquals('nobody_author_test.level', $result['Level']['level_filename']);
+    $this->assertEquals('nobody', $result['Level']['author']);
+  }
 }
 ?>
