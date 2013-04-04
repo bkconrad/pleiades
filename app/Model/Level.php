@@ -65,7 +65,7 @@ class Level extends AppModel {
     $this->set('name', $name);
 
     $prefix = '';
-    if(isset($this->data['Level']['author'])) {
+    if(isset($this->data['Level']['author']) && !empty($this->data['Level']['author'])) {
       $prefix = $this->data['Level']['author'] . '_';
     } else if(isset($this->data['Level']['user_id'])) {
       $user = $this->User->findByUserId($this->data['Level']['user_id']);
