@@ -51,7 +51,7 @@ class Level extends AppModel {
     }
   }
 
-  public function beforeValidate($option) {
+  public function beforeValidate($options = array()) {
     // content must have a LevelName line
     $match = array();
     preg_match("/\s*LevelName\s+([^\r\n]*)/", $this->data['Level']['content'], $match);
@@ -65,7 +65,7 @@ class Level extends AppModel {
     $this->set('name', $name);
 
     $prefix = '';
-    if(isset($this->data['Level']['author']) && !empty($this->data['Level']['author'])) {
+    if(!empty($this->data['Level']['author'])) {
       $prefix = $this->data['Level']['author'] . '_';
     } else if(isset($this->data['Level']['user_id'])) {
       $user = $this->User->findByUserId($this->data['Level']['user_id']);
@@ -92,7 +92,7 @@ class Level extends AppModel {
     return true;
   }
 
-  public function beforeSave($options) {
+  public function beforeSave($options = array()) {
     if(isset($this->data['Level']['author'])) {
       // author may only be manually set by a mod or admin
     }
@@ -103,7 +103,7 @@ class Level extends AppModel {
     }
   }
 
-  public function afterFind($results, $primary) {
+  public function afterFind($results, $primary = false) {
     parent::afterFind($results, $primary);
     foreach($results as $k => $result) {
       if(isset($result['Level']['content'])) {
