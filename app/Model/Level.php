@@ -64,6 +64,7 @@ class Level extends AppModel {
     $name = preg_replace('/"/', '', $name);
     $this->set('name', $name);
 
+    // setting the author will affect the filename
     $prefix = '';
     if(!empty($this->data['Level']['author'])) {
       $prefix = $this->data['Level']['author'] . '_';
@@ -95,6 +96,11 @@ class Level extends AppModel {
   public function beforeSave($options = array()) {
     if(isset($this->data['Level']['author'])) {
       // author may only be manually set by a mod or admin
+      $this->User->id = $this->data['Level']['user_id'];
+      if(!in_array(Configure::read('Phpbb.admin_group'), $this->User->getGroups())) {
+        array_push($this->validationErrors, 'You do not have permission to manually set the author.');
+        return false;
+      }
     }
     if(isset($this->data['Level']['content']) || isset($this->data['Level']['levelgen'])) {
       $this->data['Level']['last_updated'] = date('Y:m:d h:i:s');

@@ -2,11 +2,18 @@
 App::import('Model', 'Level');
 App::import('Model', 'Rating');
 class LevelTest extends CakeTestCase {
-  public $fixtures = array('app.level', 'app.user', 'app.rating');
+  public $fixtures = array('app.level', 'app.user', 'app.rating', 'app.user_group');
   public function setUp() {
     parent::setUp();
-    $this->Level = ClassRegistry::init('Level');
     $this->Rating = ClassRegistry::init('Rating');
+
+    // need to change the db config for User (since it is manually set to 
+    // 'forum' in the model definition)
+    $this->Level = ClassRegistry::init('Level');
+    $this->Level->User->useDbConfig = 'test';
+
+    // then we need to set the "admin" group number for phpbb
+    Configure::write('Phpbb.admin_group', 2);
   }
 
   public function testRating() {
@@ -236,10 +243,11 @@ class LevelTest extends CakeTestCase {
       ->with('user_id')
       ->will($this->returnValue(2));
 
-    $result = $this->Level->save(array(
+    $result = $this->Level->save(array('Level' => array(
       "content" => "LevelName Author As Username Test",
       "author" => "nobody",
-    ));
+      "user_id" => "2"
+    )));
 
     $found = $this->Level->findById($result['Level']['id']);
     $this->assertEquals('nobody', $found['User']['username']);

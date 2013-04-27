@@ -1,7 +1,11 @@
 <?php
 class UserGroupFixture extends CakeTestFixture {
-  public $import = array('table' => 'user_group', 'connection' => 'forum', 'records' => false);
-  public $table = 'pleiades_test.phpbb_user_group';
+  public $fields = array(
+    'id' => array('type' => 'integer', 'key' => 'primary'),
+    'user_id' => 'integer',
+    'group_id' => 'integer'
+  );
+  public $table = 'phpbb_user_group';
   public $records = array(
     array(
       'user_id' => 1,
