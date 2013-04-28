@@ -1,18 +1,19 @@
 @import "compass";
 
-$black: #000;
+$black: #070707;
 $dark: #111;
 $mid: #444;
-$high: #999;
+$midhigh: #999;
+$high: #AAA;
 $white: #EEE;
 
 @mixin rounded {
   border-radius: 3px;
 }
 
-@mixin rounded-face($color, $mag: 0.1, $offset: 40%) {
+@mixin rounded-face($color, $mag: 0.1, $offset: 50%) {
   background: $color;
-  @include background-image(linear-gradient(top, rgba(white, $mag), rgba(black, 0) $offset, rgba(black, 0) (100% - $offset), rgba(black, $mag)));
+  @include background-image(linear-gradient(top, rgba(white, $mag), rgba(white, 0.0) $offset, rgba(black, 0.0) (100% - $offset), rgba(black, $mag)));
 }
 
 @mixin raised-box($highalpha: 0.3, $lowalpha: 0.3) {
@@ -343,6 +344,9 @@ input, textarea {
 	padding: 1%;
 	width:98%;
 }
+textarea {
+  min-height: 20em;
+}
 select {
 	clear: both;
 	font-size: 120%;
@@ -381,17 +385,12 @@ input[type=submit] {
 	width: auto;
 }
 form .submit input[type=submit] {
-	background:#62af56;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#76BF6B), to(#3B8230));
-	background-image: -webkit-linear-gradient(top, #76BF6B, #3B8230);
-	background-image: -moz-linear-gradient(top, #76BF6B, #3B8230);
 	border-color: #2d6324;
 	color: #fff;
 	text-shadow: rgba(0, 0, 0, 0.5) 0px -1px 0px;
 	padding: 8px 10px;
 }
 form .submit input[type=submit]:hover {
-	background: #5BA150;
 }
 /* Form errors */
 form .error {
@@ -534,50 +533,31 @@ p.error em {
 input[type=submit],
 .actions ul li a,
 .actions a {
+  @include rounded-face($midhigh, 0.4);
+  @include rounded;
+  @include inset-text($high);
 	font-weight:normal;
 	padding: 4px 8px;
-	background: #dcdcdc;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#fefefe), to(#dcdcdc));
-	background-image: -webkit-linear-gradient(top, #fefefe, #dcdcdc);
-	background-image: -moz-linear-gradient(top, #fefefe, #dcdcdc);
-	background-image: -ms-linear-gradient(top, #fefefe, #dcdcdc);
-	background-image: -o-linear-gradient(top, #fefefe, #dcdcdc);
-	background-image: linear-gradient(top, #fefefe, #dcdcdc);
-	color:$mid;
-	border:1px solid #bbb;
-	-webkit-border-radius: 4px;
-	-moz-border-radius: 4px;
-	border-radius: 4px;
+	color:$dark;
 	text-decoration: none;
-	text-shadow: #fff 0px 1px 0px;
 	min-width: 0;
-	-moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0px 1px 1px rgba(0, 0, 0, 0.2);
-	-webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0px 1px 1px rgba(0, 0, 0, 0.2);
-	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0px 1px 1px rgba(0, 0, 0, 0.2);
 	-webkit-user-select: none;
 	user-select: none;
+  text-shadow: 0 1px 0 rgba($white, 0.3);
 }
+
+input[type=submit]:hover,
 .actions ul li a:hover,
 .actions a:hover {
-	background: #ededed;
-	border-color: #acacac;
+  @include rounded-face($high, 0.4);
 	text-decoration: none;
 }
 input[type=submit]:active,
 .actions ul li a:active,
 .actions a:active {
-	background: #eee;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#dfdfdf), to(#eee));
-	background-image: -webkit-linear-gradient(top, #dfdfdf, #eee);
-	background-image: -moz-linear-gradient(top, #dfdfdf, #eee);
-	background-image: -ms-linear-gradient(top, #dfdfdf, #eee);
-	background-image: -o-linear-gradient(top, #dfdfdf, #eee);
-	background-image: linear-gradient(top, #dfdfdf, #eee);
-	text-shadow: #eee 0px 1px 0px;
-	-moz-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.3);
-	-webkit-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.3);
-	box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.3);
-	border-color: #aaa;
+  @include rounded-face($high, 0.3);
+  position: relative;
+  top: 1px;
 	text-decoration: none;
 }
 
@@ -852,7 +832,7 @@ li.tag a, .tags .checkbox label {
 .level {
   @include rounded;
   @include raised-box(0.1, 0.6);
-  background: $dark;
+  @include rounded-face($dark);
   display: inline-block;
   vertical-align: top;
   padding: .5em;
@@ -874,6 +854,7 @@ li.tag a, .tags .checkbox label {
   font-weight: normal;
   font-size: 1.5em;
   float: left;
+  max-width: 80%;
 }
 
 .level a.name:hover {
