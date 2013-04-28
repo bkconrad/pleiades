@@ -159,13 +159,13 @@ class LevelsControllerTest extends ControllerTestCase {
   public function testRate() {
     $this->mockAsBob();
 
-    $level = $this->Level->findByUserId(2);
+    $level = $this->Level->findById(1);
     $oldTime = $level['Level']['last_updated'];
     $result = $this->testAction('/levels/rate/' . $level['Level']['id'] . '/1', array(
       'return' => 'vars'
     ));
 
-    $updatedLevel = $this->Level->findByUserId(2);
+    $updatedLevel = $this->Level->findById(1);
     $newTime = $updatedLevel['Level']['last_updated'];
     $this->assertNotEquals($level['Level']['rating'], $updatedLevel['Level']['rating']);
     $this->assertEquals($oldTime, $newTime);
@@ -179,12 +179,12 @@ class LevelsControllerTest extends ControllerTestCase {
       ->method('save')
       ->will($this->returnValue(false));
 
-    $level = $this->Level->findByUserId(2);
+    $level = $this->Level->findById(1);
     $this->testAction('/levels/rate/' . $level['Level']['id'] . '/1', array(
       'return' => 'vars'
     ));
 
-    $updatedLevel = $this->Level->findByUserId(2);
+    $updatedLevel = $this->Level->findById(1);
     $this->assertEquals($level, $updatedLevel);
   }
 
