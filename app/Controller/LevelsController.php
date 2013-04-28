@@ -1,6 +1,9 @@
 <?php
 App::uses('AppController', 'Controller');
 class LevelsController extends AppController {
+  public $components = array('Search.Prg');
+  public $presetVars = true;
+
   public $helpers = array('Html', 'Form');
   public $uses = array('Level', 'Rating');
 
@@ -105,7 +108,7 @@ class LevelsController extends AppController {
   public function beforeFilter() {
     parent::beforeFilter();
     $this->Auth->deny();
-    $this->Auth->allow('upload', 'download', 'raw', 'index', 'view', 'add');
+    $this->Auth->allow('upload', 'download', 'raw', 'index', 'view', 'add', 'search');
 
     if($this->Auth->loggedIn()) {
       $this->Auth->allow('rate', 'edit');
@@ -305,6 +308,12 @@ class LevelsController extends AppController {
 
     $this->Level->delete($id);
     $this->redirect('index');
+  }
+
+  public function search() {
+    $this->Prg->commonProcess();
+    $this->paginate['conditions'] = $this->Level->parseCriteria($this->passedArgs);
+    $this->set('levels', $this->paginate());
   }
 }
 ?>

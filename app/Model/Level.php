@@ -1,5 +1,11 @@
 <?php
 class Level extends AppModel {
+  public $actsAs = array('Search.Searchable');
+  public $filterArgs = array(
+    'name' => array('type' => 'like'),
+    'range' => array('type' => 'expression', 'method' => 'makeRangeCondition', 'field' => 'Levels.rating BETWEEN ? AND ?'),
+  );
+
   public $uses = array('User', 'Rating');
   public $belongsTo = array('User' => array('fields' => array('username', 'user_id')));
   public $hasAndBelongsToMany = array('Tag');

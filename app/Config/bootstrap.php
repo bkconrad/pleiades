@@ -109,3 +109,4 @@ CakeLog::config('error', array(
 ));
 
 Configure::write('Phpbb.admin_group', 5);
+CakePlugin::loadAll();
