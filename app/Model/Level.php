@@ -3,6 +3,7 @@ class Level extends AppModel {
   public $actsAs = array('Search.Searchable');
   public $filterArgs = array(
     'name' => array('type' => 'like'),
+    'game_type' => array('type' => 'like'),
     'range' => array('type' => 'expression', 'method' => 'makeRangeCondition', 'field' => 'Levels.rating BETWEEN ? AND ?'),
   );
 
