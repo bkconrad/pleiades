@@ -1,6 +1,16 @@
 <?php echo $this->Html->tag('h2', $level['Level']['name']  . " by " . $level['User']['username'], array('escape' => true)); ?>
 
 <?php
+$downloads = 'Downloaded ' . $level['Level']['downloads'] . ' times&nbsp;';
+if ($level['Level']['downloads'] == 1) {
+  $downloads = 'Downloaded once';
+} else if ($level['Level']['downloads'] == 0) {
+  $downloads = 'No downloads yet';
+}
+echo $this->Html->tag('div', $downloads);
+?>
+
+<?php
 echo $this->element('rating', array(
   'id' => $level['Level']['id'],
   'rating' => $level['Level']['rating'],

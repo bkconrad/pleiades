@@ -232,6 +232,8 @@ class LevelsController extends AppController {
 
   public function download($id = null) {
     $level = $this->getLevel($id);
+    $this->Level->id = $level['Level']['id'];
+    $this->Level->saveField('downloads', $level['Level']['downloads'] + 1);
 
     $levelName = $level['Level']['level_filename'];
     $levelName = preg_replace('/\.level$/i', '', $levelName);
