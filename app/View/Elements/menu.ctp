@@ -7,9 +7,9 @@ echo $this->Html->link('Home', array(
 
 echo '&nbsp;';
 
-echo $this->Html->link('View All Levels', array(
+echo $this->Html->link('Search', array(
   'controller' => 'levels',
-  'action' => 'all'
+  'action' => 'search'
 )); 
 
 echo '&nbsp;';
