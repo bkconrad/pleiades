@@ -1,3 +1,5 @@
+@import "compass";
+
 $black: #000;
 $dark: #111;
 $mid: #444;
@@ -10,7 +12,7 @@ $white: #EEE;
 
 @mixin rounded-face($color, $mag: 0.1, $offset: 50%) {
   background: $color;
-  background-image: -webkit-linear-gradient(top, rgba(white, $mag), rgba(black, 0) $offset, rgba(black, 0) (100% - $offset), rgba(black, $mag));
+  @include background-image(linear-gradient(top, rgba(white, $mag), rgba(black, 0) $offset, rgba(black, 0) (100% - $offset), rgba(black, $mag)));
 }
 
 @mixin raised-box($highalpha: 0.3, $lowalpha: 0.3) {
@@ -65,6 +67,7 @@ h1, h2, h3, h4 {
 }
 h1 {
   @include raised-text($high);
+  border-bottom: 1px solid $high;
 	font-size: 2em;
 	margin-top:1em;
 }
@@ -582,7 +585,7 @@ input[type=submit]:active,
 /** Debugging **/
 pre {
 	color: #eee;
-	background: $mid;
+	background: $dark;
 	padding: 15px;
 	-moz-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 	-webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
@@ -788,7 +791,7 @@ pre.submission {
 li.tag {
   @include rounded;
   @include rounded-face($high, 0.4);
-  @include raised-box;
+  @include raised-box(0.1, 0.3);
   display: inline-block;
   margin: .5em;
   padding: .5em;
@@ -815,8 +818,6 @@ li.tag a, .tags label {
 }
 
 .small-tags li.tag {
-  @include rounded;
-  @include raised-box;
   margin-left: 0em;
   padding: .3em;
 }
