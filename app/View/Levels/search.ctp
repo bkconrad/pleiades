@@ -2,9 +2,9 @@
 echo $this->Form->create('Level', array(
     'url' => array_merge(array('action' => 'search'), $this->params['pass'])
 ));
-echo $this->Form->input('name', array('div' => false));
-echo $this->Form->input('game_type', array('div' => false));
-echo $this->Form->input('author', array('div' => false));
+echo $this->Form->input('name');
+echo $this->Form->input('game_type');
+echo $this->Form->input('author');
 
 $tagInput = $this->Form->input('tags', array(
   'type' => 'select',

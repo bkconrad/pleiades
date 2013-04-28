@@ -10,7 +10,7 @@ $white: #EEE;
   border-radius: 3px;
 }
 
-@mixin rounded-face($color, $mag: 0.1, $offset: 50%) {
+@mixin rounded-face($color, $mag: 0.1, $offset: 40%) {
   background: $color;
   @include background-image(linear-gradient(top, rgba(white, $mag), rgba(black, 0) $offset, rgba(black, 0) (100% - $offset), rgba(black, $mag)));
 }
@@ -309,7 +309,7 @@ form div {
 	vertical-align: text-top;
 }
 form .input {
-	color: $mid;
+	color: #EEE;
 }
 form .required {
 	font-weight: bold;
@@ -332,7 +332,9 @@ label {
 	margin-bottom:3px;
 }
 input, textarea {
-  background: #eee;
+  background: $dark;
+  border: 1px solid $mid;
+  color: $white;
 	clear: both;
 	font-family: monospace;
 	padding: 1%;
@@ -788,7 +790,7 @@ pre.submission {
   -webkit-padding-start: 0;
 }
 
-li.tag {
+li.tag, .tags div.checkbox {
   @include rounded;
   @include rounded-face($high, 0.4);
   @include raised-box(0.1, 0.3);
@@ -798,7 +800,7 @@ li.tag {
   list-style: none;
 }
 
-li.tag a, .tags label {
+li.tag a, .tags .checkbox label {
   @include inset-text($dark);
   text-decoration: none;
   font-weight: normal;
