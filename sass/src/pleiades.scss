@@ -1,6 +1,6 @@
 $dark: #111;
-$mid: #444;
-$high: #666;
+$mid: #666;
+$high: #AAA;
 
 @mixin rounded {
   border-radius: 3px;
@@ -8,6 +8,13 @@ $high: #666;
 
 @mixin raised-box {
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.6), 0 1px 1px rgba(255, 255, 255, 0.2) inset;
+}
+
+@mixin inset-text($color) {
+  $lightness: lightness($color) / 100%;
+  $factor: 100%;
+  text-shadow: 0 1px 0px rgba(lighten($color, $factor), $lightness), 0 -1px 0px rgba(0,0,0, 1.0 - $lightness);
+  color: $color;
 }
 
 * {
@@ -772,8 +779,21 @@ li.tag {
   list-style: none;
 }
 
+li.tag a, .tags label {
+  @include inset-text($mid);
+  text-decoration: none;
+  font-weight: normal;
+}
+
+.small-tags li.tag:hover {
+  background: $dark;
+  a {
+    text-shadow: none;
+  }
+}
+
 .small-tags {
-  height: 2.3em;
+  height: 2.5em;
   text-align: left;
   overflow: hidden;
 }
