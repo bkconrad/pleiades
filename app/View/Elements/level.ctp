@@ -16,7 +16,7 @@ $divContent =
   . '<div class="thumbnail-wrapper">'
   . '<span class="thumbnail-helper">'
   . '</span>'
-  . $this->Html->image('t' . $level['Level']['screenshot_filename'], array('class' => 'thumbnail'))
+  . $this->Html->link($this->Html->image('t' . $level['Level']['screenshot_filename'], array('class' => 'thumbnail')), '/levels/view/' . $level['Level']['id'], array('escape' => false))
   . '</div>'
   . $this->Html->tag('ul', $tagList, array('class' => 'small-tags'))
 ;
