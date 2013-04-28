@@ -320,6 +320,8 @@ class LevelsController extends AppController {
     $this->Prg->commonProcess();
     $this->paginate['conditions'] = $this->Level->parseCriteria($this->passedArgs);
     $this->set('levels', $this->paginate());
+    $tags = $this->Level->Tag->find('list');
+    $this->set(compact('tags'));
   }
 }
 ?>

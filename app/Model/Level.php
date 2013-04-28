@@ -5,6 +5,7 @@ class Level extends AppModel {
     'name' => array('type' => 'like'),
     'game_type' => array('type' => 'like'),
     'author' => array('type' => 'like'),
+    'tags' => array('type' => 'subquery', 'method' => 'findByTags', 'field' => 'Level.id'),
     'range' => array('type' => 'expression', 'method' => 'makeRangeCondition', 'field' => 'Levels.rating BETWEEN ? AND ?'),
   );
 
@@ -194,6 +195,17 @@ class Level extends AppModel {
     }
     $this->saveField('rating', $total);
     return true;
+  }
+
+  public function findByTags($data = array()) {
+    $this->LevelsTag->Behaviors->attach('Containable', array('autoFields' => false));
+    $this->LevelsTag->Behaviors->attach('Search.Searchable');
+    $query = $this->LevelsTag->getQuery('all', array(
+      'conditions' => array('LevelsTag.tag_id' => $data['tags']),
+      'fields' => array('level_id'),
+      'contain' => array('Tag')
+    ));
+    return $query;
   }
 }
 ?>
