@@ -113,6 +113,10 @@ class Level extends AppModel {
   }
 
   public function beforeSave($options = array()) {
+    if(!empty($this->data['Level']['content'])) {
+      $teams = preg_grep('/^\s*Team/', split("\n", $this->data['Level']['content']));
+      $this->data['Level']['team_count'] = count($teams);
+    }
     if(isset($this->data['Level']['author'])) {
       // author may only be manually set by a mod or admin
       $this->User->id = $this->data['Level']['user_id'];
