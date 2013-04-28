@@ -6,6 +6,7 @@ $divContent =
   . '<br>'
   . '<span class="team_count">' . $level['Level']['team_count'] . '&nbsp;Team&nbsp;</span>'
   . '<span class="game_type">' . $level['Level']['game_type'] . '</span>'
+  . '<span class="levelgen">' . (empty($level['Level']['levelgen_filename']) ? '' : '&nbsp;-&nbsp;LG') .  '</span>'
   . '<div class="thumbnail-wrapper">'
   . '<span class="thumbnail-helper">'
   . '</span>'

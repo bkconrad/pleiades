@@ -835,6 +835,18 @@ li.tag {
   white-space: nowrap;
 }
 
+.level .levelgen {
+  color: #00FFFF;
+}
+
+.level .team_count {
+	color: #89a2cc;
+}
+
+.level .game_type {
+	color: #e6523e;
+}
+
 .thumbnail {
   vertical-align: middle;
 }
