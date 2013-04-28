@@ -118,7 +118,7 @@ class Level extends AppModel {
       $teams = preg_grep('/^\s*Team/', split("\n", $this->data['Level']['content']));
       $this->data['Level']['team_count'] = count($teams);
     }
-    if(isset($this->data['Level']['author'])) {
+    if(!empty($this->data['Level']['author'])) {
       // author may only be manually set by a mod or admin
       $this->User->id = $this->data['Level']['user_id'];
       if(!in_array(Configure::read('Phpbb.admin_group'), $this->User->getGroups())) {
@@ -126,7 +126,7 @@ class Level extends AppModel {
         return false;
       }
     } else {
-      $user = $this->User->findByUserId($this->data['Level']['user_id']);
+      $user = $this->User->findByUserId($this->field('user_id'));
       $this->data['Level']['author'] = $user['User']['username'];
     }
     if(isset($this->data['Level']['content']) || isset($this->data['Level']['levelgen'])) {
