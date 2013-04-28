@@ -14,7 +14,9 @@ echo $this->Html->tag('div', $downloads);
 echo $this->element('rating', array(
   'id' => $level['Level']['id'],
   'rating' => $level['Level']['rating'],
-  'current_rating' => $current_rating
+  'current_rating' => $current_rating,
+  'is_owner' => $is_owner,
+  'logged_in' => $logged_in
 ));
 ?>
 

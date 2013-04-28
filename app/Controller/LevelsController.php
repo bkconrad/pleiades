@@ -173,10 +173,10 @@ class LevelsController extends AppController {
 
   public function view($id) {
     $level = $this->Level->findById($id);
+    $this->set('logged_in', $this->Auth->loggedIn());
+    $this->set('is_owner', intval($level['Level']['user_id']) == intval($this->Auth->user('user_id')));
     $this->set('current_rating', $this->Rating->findByUserIdAndLevelId($this->Auth->user('user_id'), $id));
     $this->set('level', $level);
-    $this->set('logged_in', $this->Auth->loggedIn());
-    $this->set('is_owner', $level['User']['user_id'] == $this->Auth->user('user_id'));
   }
 
   public function rate($id, $value) {

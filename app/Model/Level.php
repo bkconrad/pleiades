@@ -133,11 +133,17 @@ class Level extends AppModel {
 
   public function rate($user_id, $value) {
     $Rating = ClassRegistry::init('Rating');
-    $rating = $Rating->findByUserIdAndLevelId($user_id, $this->id);
 
     if(!$this->id) {
       return false;
     }
+
+    $this->read('user_id');
+    if(intval($this->data['Level']['user_id']) == intval($user_id)) {
+      return false;
+    }
+
+    $rating = $Rating->findByUserIdAndLevelId($user_id, $this->id);
 
     if(empty($rating)) {
       // create a new rating

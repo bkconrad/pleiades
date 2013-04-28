@@ -17,20 +17,7 @@ class LevelTest extends CakeTestCase {
   }
 
   public function testRating() {
-    $this->Level->create();
-    // requires $this->Level->id to be set
-    $this->assertFalse($this->Level->rate(1, -1));
-
-    $this->Level->save(array(
-      'name' => 'level',
-      'content' => 'LevelName foo',
-      'levelgen' => '',
-      'description' => 'descriptive'
-    ));
-    $this->Level->find('first');
-
-    // starts at zero
-    $this->assertEquals(0, $this->Level->field('rating'));
+    $this->Level->id = 2;
 
     // can be negative
     $this->assertTrue($this->Level->rate(1, -1));
@@ -41,8 +28,14 @@ class LevelTest extends CakeTestCase {
     $this->assertEquals(1, $this->Level->field('rating'));
 
     // accumlates for each level
-    $this->assertTrue($this->Level->rate(2, 1));
+    $this->assertTrue($this->Level->rate(3, 1));
     $this->assertEquals(2, $this->Level->field('rating'));
+  }
+
+  public function testRatingOwnLevel() {
+    // alice's level
+    $this->Level->id = 1;
+    $this->assertFalse($this->Level->rate(1, 1));
   }
 
   public function testLevelgenRequirement() {

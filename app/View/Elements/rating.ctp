@@ -12,6 +12,7 @@ if(!empty($current_rating)) {
 ?>
 <span class='rating'>
 <?php echo $rating ?>
+  <?php if($logged_in && !$is_owner): ?>
   <span class='upvote'>
   <?php
     $link_opts = array('action' => 'rate', $id, $up_value);
@@ -36,5 +37,6 @@ if(!empty($current_rating)) {
     echo $this->Html->link($link_text, $link_opts, $link_attr)
   ?>
   </span>
+  <?php endif; ?>
 </span>
 </div>
