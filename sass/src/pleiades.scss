@@ -33,6 +33,7 @@ $white: #EEE;
 
 @mixin inset-box($alpha: 0.3) {
   box-shadow: 0 -1px 0px rgba(0, 0, 0, $alpha), 0 1px 0px rgba(255, 255, 255, $alpha);
+  border: 1px solid rgba(0,0,0,0.2);
 }
 
 * {
@@ -43,6 +44,8 @@ $white: #EEE;
 /** General Style Info **/
 body {
 	background: $black;
+  background-image: url(../img/stars.gif);
+  background-attachment: fixed;
 	color: #fff;
 	font-family:'lucida grande',verdana,helvetica,arial,sans-serif;
 	font-size:90%;
@@ -849,7 +852,7 @@ li.tag a, .tags .checkbox label {
 .level {
   @include rounded;
   @include raised-box(0.1, 0.6);
-  @include rounded-face($dark, 0.15, 20%);
+  background: $dark;
   display: inline-block;
   vertical-align: top;
   padding: .5em;
@@ -923,8 +926,8 @@ li.tag a, .tags .checkbox label {
 
 .thumbnail-wrapper {
   margin-top: .5em;
-  height: 150px;
-  width: 200px;
+  height: 152px;
+  width: 202px;
   background: black;
   vertical-align: middle;
   text-align: center;
