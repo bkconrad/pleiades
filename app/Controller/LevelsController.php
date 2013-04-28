@@ -52,7 +52,7 @@ class LevelsController extends AppController {
       $destHeight = $sourceHeight / $resizeRatio;
 
       $dest = imagecreatetruecolor($destWidth, $destHeight);
-      imagecopyresized(
+      imagecopyresampled(
         $dest, $source,
         0, 0,
         0, 0,
@@ -69,7 +69,7 @@ class LevelsController extends AppController {
       $thumbHeight = $sourceHeight / $resizeRatio;
 
       $thumb = imagecreatetruecolor($thumbWidth, $thumbHeight);
-      imagecopyresized(
+      imagecopyresampled(
         $thumb, $source,
         0, 0,
         0, 0,
