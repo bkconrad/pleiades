@@ -125,6 +125,10 @@ class LevelsController extends AppController {
         'order' => 'Level.rating DESC',
         'limit' => 8
       )),
+      'Random' => $this->Level->find('all', array(
+        'order' => 'RAND()',
+        'limit' => 8
+      )),
     );
 
     $this->set('levelLists', $levelLists);
