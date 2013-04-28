@@ -330,4 +330,18 @@ class LevelsControllerTest extends ControllerTestCase {
 
     $this->assertGreaterThan($oldCount, $newCount);
   }
+  
+  public function testSearch() {
+    $result = $this->testAction('/levels/search/name:bob\'s', array(
+      'return' => 'vars'
+    ));
+    // matches "bob's level"
+    $this->assertEqual(1, count($result['levels']));
+
+    $result = $this->testAction('/levels/search/name:blah', array(
+      'return' => 'vars'
+    ));
+    // no matches
+    $this->assertEqual(0, count($result['levels']));
+  }
 }
