@@ -70,6 +70,18 @@ class Level extends AppModel {
     $name = preg_replace('/"/', '', $name);
     $this->set('name', $name);
 
+    // try to parse the gametype
+    $match = array();
+    preg_match("/\s*(\w*)GameType/", $this->data['Level']['content'], $match);
+    if(!empty($match[1])) {
+      if($match[1] == "Hunters") {
+        $match[1] = "Nexus";
+      }
+      $this->set('game_type', $match[1]);
+    } else {
+      $this->set('game_type', 'Bitmatch');
+    }
+
     // setting the author will affect the filename
     $prefix = '';
     if(!empty($this->data['Level']['author'])) {

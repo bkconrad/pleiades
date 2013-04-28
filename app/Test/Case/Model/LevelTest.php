@@ -245,5 +245,23 @@ class LevelTest extends CakeTestCase {
     $found = $this->Level->findById($result['Level']['id']);
     $this->assertEquals('nobody', $found['User']['username']);
   }
+
+  public function testGameType() {
+    $this->Level->create();
+    $this->Level->save(array(
+      'content' => "LevelName ctf level\nCTFGameType"
+    ));
+    $this->assertEquals('CTF', $this->Level->field('game_type'));
+
+    $result = $this->Level->save(array(
+      'content' => "LevelName bitmatch level\nGameType"
+    ));
+    $this->assertEquals('Bitmatch', $this->Level->field('game_type'));
+
+    $this->Level->save(array(
+      'content' => "LevelName hunters level\nHuntersGameType"
+    ));
+    $this->assertEquals('Nexus', $this->Level->field('game_type'));
+  }
 }
 ?>
