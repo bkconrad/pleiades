@@ -1,7 +1,8 @@
 <?php
 $tagList = '';
 foreach($level['Tag'] as $k => $tag) {
-  $tagList .= $this->Html->tag('li', $tag['name'], array('escape' => true, 'class' => 'tag'));
+  $link = $this->Html->link($tag['name'], '/levels/search/tags[0]:' . $tag['id'] , array('escape' => true));
+  $tagList .= $this->Html->tag('li', $link, array('class' => 'tag'));
 }
 
 $divContent =

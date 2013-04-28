@@ -59,7 +59,8 @@ if (!empty($level['Tag'])) {
   echo $this->Html->tag('h1', 'Tags');
   echo '<ul class="tags">';
   foreach($level['Tag'] as $k => $tag) {
-    echo $this->Html->tag('li', $tag['name'], array('escape' => true, 'class' => 'tag'));
+    $link = $this->Html->link($tag['name'], '/levels/search/tags[0]:' . $tag['id'] , array('escape' => true));
+    echo $this->Html->tag('li', $link, array('class' => 'tag'));
   }
   echo '</ul>';
 }
