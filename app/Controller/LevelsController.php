@@ -304,7 +304,7 @@ class LevelsController extends AppController {
   public function delete($id) {
     $level = $this->getLevel($id);
 
-    if($level['Level']['user_id'] != $this->Auth->user('user_id')) {
+    if(!$this->Auth->loggedIn() || intval($level['Level']['user_id']) != intval($this->Auth->user('user_id'))) {
       throw new ForbiddenException('You can only delete a level you uploaded');
     }
 
