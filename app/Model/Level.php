@@ -4,6 +4,7 @@ class Level extends AppModel {
   public $filterArgs = array(
     'name' => array('type' => 'like'),
     'game_type' => array('type' => 'like'),
+    'author' => array('type' => 'like'),
     'range' => array('type' => 'expression', 'method' => 'makeRangeCondition', 'field' => 'Levels.rating BETWEEN ? AND ?'),
   );
 
@@ -124,6 +125,9 @@ class Level extends AppModel {
         array_push($this->validationErrors, 'You do not have permission to manually set the author.');
         return false;
       }
+    } else {
+      $user = $this->User->findByUserId($this->data['Level']['user_id']);
+      $this->data['Level']['author'] = $user['User']['username'];
     }
     if(isset($this->data['Level']['content']) || isset($this->data['Level']['levelgen'])) {
       $this->data['Level']['last_updated'] = date('Y:m:d h:i:s');

@@ -4,6 +4,7 @@ echo $this->Form->create('Level', array(
 ));
 echo $this->Form->input('name', array('div' => false));
 echo $this->Form->input('game_type', array('div' => false));
+echo $this->Form->input('author', array('div' => false));
 echo $this->Form->submit(__('Search'), array('div' => false));
 echo $this->Form->end();
 
