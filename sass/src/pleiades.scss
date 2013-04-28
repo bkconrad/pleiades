@@ -1,20 +1,36 @@
+$black: #000;
 $dark: #111;
-$mid: #666;
-$high: #AAA;
+$mid: #444;
+$high: #999;
+$white: #EEE;
 
 @mixin rounded {
   border-radius: 3px;
 }
 
-@mixin raised-box {
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.6), 0 1px 1px rgba(255, 255, 255, 0.2) inset;
+@mixin rounded-face($color, $mag: 0.1, $offset: 50%) {
+  background: $color;
+  background-image: -webkit-linear-gradient(top, rgba(white, $mag), rgba(black, 0) $offset, rgba(black, 0) (100% - $offset), rgba(black, $mag));
+}
+
+@mixin raised-box($highalpha: 0.3, $lowalpha: 0.3) {
+  box-shadow: 0 -1px 0px rgba(0, 0, 0, $lowalpha) inset, 0 1px 0px rgba(255, 255, 255, $highalpha) inset, 1px 1px 1px rgba(0,0,0, $lowalpha);
 }
 
 @mixin inset-text($color) {
-  $lightness: lightness($color) / 100%;
-  $factor: 100%;
-  text-shadow: 0 1px 0px rgba(lighten($color, $factor), $lightness), 0 -1px 0px rgba(0,0,0, 1.0 - $lightness);
+  text-shadow: 0 -1px 0px rgba(0,0,0, 0.3);
   color: $color;
+}
+
+@mixin raised-text($color) {
+  $alpha: 0.6;
+  $factor: 100%;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, $alpha);
+  color: $color;
+}
+
+@mixin inset-box($alpha: 0.3) {
+  box-shadow: -1px -1px 0px rgba(0, 0, 0, $alpha), 1px 1px 0px rgba(255, 255, 255, $alpha);
 }
 
 * {
@@ -24,7 +40,7 @@ $high: #AAA;
 
 /** General Style Info **/
 body {
-	background: $dark;
+	background: $black;
 	color: #fff;
 	font-family:'lucida grande',verdana,helvetica,arial,sans-serif;
 	font-size:90%;
@@ -48,8 +64,8 @@ h1, h2, h3, h4 {
 	margin-bottom:0.5em;
 }
 h1 {
-	color: #89a2cc;
-	font-size: 100%;
+  @include raised-text($high);
+	font-size: 2em;
 	margin-top:1em;
 }
 h2 {
@@ -771,24 +787,24 @@ pre.submission {
 
 li.tag {
   @include rounded;
+  @include rounded-face($high, 0.4);
   @include raised-box;
   display: inline-block;
-	background: $high;
   margin: .5em;
   padding: .5em;
   list-style: none;
 }
 
 li.tag a, .tags label {
-  @include inset-text($mid);
+  @include inset-text($dark);
   text-decoration: none;
   font-weight: normal;
 }
 
 .small-tags li.tag:hover {
-  background: $dark;
+  @include rounded-face($black, 0.1);
   a {
-    text-shadow: none;
+    @include inset-text($high);
   }
 }
 
@@ -829,12 +845,12 @@ li.tag a, .tags label {
 
 .level {
   @include rounded;
-  @include raised-box;
+  @include raised-box(0.1, 0.6);
+  @include rounded-face($dark, 0.15, 20%);
   display: inline-block;
   vertical-align: top;
   padding: .5em;
-  margin: .25em;
-	background: $mid;
+  margin: .5em;
   clear: both;
   width: 200px;
 }
@@ -843,23 +859,35 @@ li.tag a, .tags label {
   vertical-align: top;
 }
 
-.level .name {
-  display: inline-block;
-  max-width: 100px;
-  max-height: 1.25em;
+.level a.name {
+  @include raised-text($high);
+  display: block;
   overflow: hidden;
   white-space: nowrap;
+  text-decoration: none;
+  font-weight: normal;
+  font-size: 1.5em;
+  float: left;
+}
+
+.level a.name:hover {
+  @include raised-text($white);
+  text-decoration: underline;
 }
 
 .level .rating {
-  display: inline-block;
+  @include rounded;
+  @include inset-box;
+  display: block;
   height: 1.25em;
   padding: 0 .25em;
+  float: right;
 	background: $dark;
 }
 
 .level .author {
-  display: inline-block;
+  clear: both;
+  display: block;
   max-width: 100px;
   max-height: 1.25em;
   overflow: hidden;
@@ -879,6 +907,8 @@ li.tag a, .tags label {
 }
 
 .thumbnail {
+  @include inset-box;
+  @include rounded;
   vertical-align: middle;
 }
 
