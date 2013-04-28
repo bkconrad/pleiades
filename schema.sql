@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.1.67, for debian-linux-gnu (i686)
+-- MySQL dump 10.13  Distrib 5.5.30, for debian-linux-gnu (x86_64)
 --
 -- Host: localhost    Database: pleiades
 -- ------------------------------------------------------
--- Server version	5.1.67-0ubuntu0.11.10.1
+-- Server version	5.5.30-1.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -31,6 +31,7 @@ CREATE TABLE `levels` (
   `content` mediumtext NOT NULL,
   `levelgen` mediumtext,
   `levelgen_filename` varchar(128) DEFAULT '',
+  `downloads` int(11) NOT NULL DEFAULT '0',
   `rating` int(11) NOT NULL,
   `tags` int(11) NOT NULL,
   `screenshot_filename` varchar(256) NOT NULL DEFAULT 'no-screenshot.png',
@@ -38,7 +39,7 @@ CREATE TABLE `levels` (
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `last_updated` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -53,7 +54,7 @@ CREATE TABLE `levels_tags` (
   `tag_id` int(11) NOT NULL,
   `id` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=55 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -70,7 +71,7 @@ CREATE TABLE `ratings` (
   `value` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `level_id` (`level_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -96,4 +97,4 @@ CREATE TABLE `tags` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-04-03 19:56:09
+-- Dump completed on 2013-04-28  6:38:03
