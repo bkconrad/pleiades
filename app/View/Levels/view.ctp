@@ -64,14 +64,8 @@ echo $this->Html->tag('div',
   <h1>Description</h1>
   <?php echo $this->Html->tag('div', $level['Level']['description'], array('escape' => true, 'class' => 'level_description')) ?>
 <?php endif; ?>
-<?php echo $this->Html->tag('h1', $level['Level']['level_filename'], array('escape' => true)) ?>
-<?php echo $this->Html->tag('pre', $level['Level']['content'], array('escape' => true, 'class' => 'submission')) ?>
-<?php 
-if (!empty($level['Level']['levelgen'])) {
-  echo $this->Html->tag('h1', $level['Level']['levelgen_filename'], array('escape' => true));
-  echo $this->Html->tag('pre', $level['Level']['levelgen'], array('escape' => true, 'class' => 'submission'));
-}
 
+<?php
 if (!empty($level['Tag'])) {
   echo $this->Html->tag('h1', 'Tags');
   echo '<ul class="tags">';
@@ -80,5 +74,14 @@ if (!empty($level['Tag'])) {
     echo $this->Html->tag('li', $link, array('class' => 'tag'));
   }
   echo '</ul>';
+}
+?>
+
+<?php echo $this->Html->tag('h1', $level['Level']['level_filename'], array('escape' => true)) ?>
+<?php echo $this->Html->tag('pre', $level['Level']['content'], array('escape' => true, 'class' => 'submission')) ?>
+<?php 
+if (!empty($level['Level']['levelgen'])) {
+  echo $this->Html->tag('h1', $level['Level']['levelgen_filename'], array('escape' => true));
+  echo $this->Html->tag('pre', $level['Level']['levelgen'], array('escape' => true, 'class' => 'submission'));
 }
 ?>
