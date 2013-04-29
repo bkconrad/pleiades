@@ -46,6 +46,20 @@ if(isset($level['Level']['screenshot_filename']) && !empty($level['Level']['scre
 }
 ?>
 
+<?php
+echo $this->Html->tag('div',
+  'To download this map, run:' .
+  $this->Html->tag('div',
+    '/dlmap&nbsp;' . preg_replace('/\.level$/', '', $level['Level']['level_filename']),
+    array(
+      'class' => 'download-instructions'
+    )
+  ),
+  array(
+    'class' => 'download-instructions-container'
+  )
+);
+?>
 <?php echo $this->Html->tag('div', $level['Level']['description'], array('escape' => true, 'class' => 'level_description')) ?>
 <?php echo $this->Html->tag('h1', $level['Level']['level_filename'], array('escape' => true)) ?>
 <?php echo $this->Html->tag('pre', $level['Level']['content'], array('escape' => true, 'class' => 'submission')) ?>
