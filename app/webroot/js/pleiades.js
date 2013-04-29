@@ -6,7 +6,7 @@ function addCodeButtons() {
     var content = $(this).text();
     $(this).text('');
     var $selectAll = $('<a href="javascript:return false;" class="codeButton">').text('Select All');
-    var $expand = $('<a href="javascript:return false;" class="codeButton">').text('Expand');
+    var $expand = $('<a href="javascript:return false;" class="codeButton">').text('Shrink');
     var $wrap = $('<div class="selectTarget">');
     $wrap.text(content);
     $buttonDiv = $('<div></div>').css('float', 'right');
