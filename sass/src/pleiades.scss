@@ -779,8 +779,8 @@ pre.submission {
 
 li.tag, .tags div.checkbox {
   @include rounded;
-  @include rounded-face($high, 0.4);
   @include raised-box(0.1, 0.3);
+  background: $high;
   display: inline-block;
   margin: .5em;
   padding: .5em;
@@ -793,8 +793,8 @@ li.tag a, .tags .checkbox label {
   font-weight: normal;
 }
 
-.small-tags li.tag:hover {
-  @include rounded-face($black, 0.1);
+li.tag:hover, .tags .checkbox:hover {
+  background: $mid;
   a {
     @include inset-text($high);
   }
