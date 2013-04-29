@@ -60,8 +60,10 @@ echo $this->Html->tag('div',
   )
 );
 ?>
-<h1>Description</h1>
-<?php echo $this->Html->tag('div', $level['Level']['description'], array('escape' => true, 'class' => 'level_description')) ?>
+<?php if(!empty($level['Level']['description'])): ?>
+  <h1>Description</h1>
+  <?php echo $this->Html->tag('div', $level['Level']['description'], array('escape' => true, 'class' => 'level_description')) ?>
+<?php endif; ?>
 <?php echo $this->Html->tag('h1', $level['Level']['level_filename'], array('escape' => true)) ?>
 <?php echo $this->Html->tag('pre', $level['Level']['content'], array('escape' => true, 'class' => 'submission')) ?>
 <?php 
