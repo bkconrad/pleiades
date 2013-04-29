@@ -330,6 +330,28 @@ class LevelsControllerTest extends ControllerTestCase {
 
     $this->assertGreaterThan($oldCount, $newCount);
   }
+
+  public function testRawIncrementsDownloadCount() {
+    $this->mockAsUnauthenticated();
+
+    $level = $this->Level->findById(1);
+    $oldCount = $level['Level']['downloads'];
+
+    $this->testAction('/levels/raw/' . $level['Level']['id']);
+
+    $level = $this->Level->findById(1);
+    $countAfterRawLevel = $level['Level']['downloads'];
+
+    $this->testAction('/levels/raw/' . $level['Level']['id'] .'/levelgen');
+
+    $level = $this->Level->findById(1);
+    $countAfterRawLevelgen = $level['Level']['downloads'];
+
+    // getting the raw level code increments download count
+    $this->assertGreaterThan($oldCount, $countAfterRawLevelgen);
+    // but getting the levelgen doesn't
+    $this->assertEquals($countAfterRawLevelgen, $countAfterRawLevel);
+  }
   
   public function testSearch() {
     $result = $this->testAction('/levels/search/name:bob\'s', array(

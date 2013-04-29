@@ -229,6 +229,11 @@ class LevelsController extends AppController {
       $responseBody = "-- " . $level['Level']['levelgen_filename'] . "\r\n" . $responseBody;
     }
 
+    if($type != 'levelgen') {
+      $this->Level->id = $level['Level']['id'];
+      $this->Level->saveField('downloads', $level['Level']['downloads'] + 1);
+    }
+
     $this->response->type('text/text');
     $this->response->body($responseBody);
     return $this->response;
