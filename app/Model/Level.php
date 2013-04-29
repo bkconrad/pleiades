@@ -94,7 +94,7 @@ class Level extends AppModel {
       $prefix = Level::stringToFileName($user['User']['username'], '');
     }
 
-    $levelFilename = $prefix . '_' . Level::stringToFileName($name, '.level');
+    $levelFilename = $prefix . (!empty($prefix) ? '_' : '') . Level::stringToFileName($name, '.level');
     $result = $this->findByLevelFilename($levelFilename);
 
     if($result && (!isset($this->id) || $this->id != $result['Level']['id'])) {

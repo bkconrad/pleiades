@@ -40,33 +40,38 @@ class LevelTest extends CakeTestCase {
 
   public function testLevelgenRequirement() {
     $this->Level->create();
+    $this->Level->set('user_id', 2);
 
     $noLineNoLevelgen = array(
       'name' => 'level',
       'content' => 'LevelName foo',
       'levelgen' => '',
-      'description' => 'descriptive'
+      'description' => 'descriptive',
+      'user_id' => 2
     );
 
     $noLineYesLevelgen = array(
       'name' => 'level',
       'content' => 'LevelName foo',
       'levelgen' => 'test',
-      'description' => 'descriptive'
+      'description' => 'descriptive',
+      'user_id' => 2
     );
 
     $yesLineNoLevelgen = array(
       'name' => 'level',
       'content' => "LevelName foo\r\nScript test.levelgen",
       'levelgen' => '',
-      'description' => 'descriptive'
+      'description' => 'descriptive',
+      'user_id' => 2
     );
 
     $yesLineYesLevelgen = array(
       'name' => 'level',
       'content' => "LevelName foo\nScript test.levelgen",
       'levelgen' => 'foo',
-      'description' => 'descriptive'
+      'description' => 'descriptive',
+      'user_id' => 2
     );
 
     $this->assertFalse($this->Level->save($noLineYesLevelgen));
@@ -248,6 +253,7 @@ class LevelTest extends CakeTestCase {
 
   public function testGameType() {
     $this->Level->create();
+    $this->Level->set('user_id', 2);
     $this->Level->save(array(
       'content' => "LevelName ctf level\nCTFGameType"
     ));
