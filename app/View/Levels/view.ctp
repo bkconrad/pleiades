@@ -48,7 +48,7 @@ if(isset($level['Level']['screenshot_filename']) && !empty($level['Level']['scre
 
 <?php
 echo $this->Html->tag('div',
-  'To download this map while playing Bitfighter, run:' .
+  'To download this map while playing Bitfighter, type:' .
   $this->Html->tag('div',
     '/dlmap&nbsp;' . preg_replace('/\.level$/', '', $level['Level']['level_filename']),
     array(
