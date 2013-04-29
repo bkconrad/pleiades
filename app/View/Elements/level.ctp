@@ -8,7 +8,7 @@ foreach($level['Tag'] as $k => $tag) {
 $divContent =
     $this->Html->link($level['Level']['name'], array('action' => 'view', $level['Level']['id']), array('class' => 'name'))
   . '<span class="rating">' . $level['Level']['rating'] . '</span>'
-  . '<span class="author">by&nbsp;' . $level['User']['username'] . '</span>'
+  . '<span class="author">by&nbsp;' . $this->Html->link($level['User']['username'], '/levels/search/author:' . $level['User']['username']) . '</span>'
   . '<br>'
   . '<span class="team_count">' . $level['Level']['team_count'] . '&nbsp;Team&nbsp;</span>'
   . '<span class="game_type">' . $level['Level']['game_type'] . '</span>'

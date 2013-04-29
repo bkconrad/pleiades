@@ -56,7 +56,6 @@ body {
 a {
 	color: #b1bbcc;
 	text-decoration: underline;
-	font-weight: bold;
 }
 a:hover {
   color: #e9f3f7;
@@ -881,6 +880,16 @@ li.tag:hover, .tags .checkbox:hover {
   display: block;
   overflow: hidden;
   white-space: nowrap;
+}
+
+.level .author a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.level .author a:hover {
+	color: #b1bbcc;
+  text-decoration: underline;
 }
 
 .level .levelgen {
