@@ -88,13 +88,13 @@ class Level extends AppModel {
     // setting the author will affect the filename
     $prefix = '';
     if(!empty($this->data['Level']['author'])) {
-      $prefix = $this->data['Level']['author'] . '_';
+      $prefix = Level::stringToFileName($this->data['Level']['author'], '');
     } else if(isset($this->data['Level']['user_id'])) {
       $user = $this->User->findByUserId($this->data['Level']['user_id']);
-      $prefix = Level::stringToFileName($user['User']['username'], '') . '_';
+      $prefix = Level::stringToFileName($user['User']['username'], '');
     }
 
-    $levelFilename = $prefix . Level::stringToFileName($name, '.level');
+    $levelFilename = $prefix . '_' . Level::stringToFileName($name, '.level');
     $result = $this->findByLevelFilename($levelFilename);
 
     if($result && (!isset($this->id) || $this->id != $result['Level']['id'])) {

@@ -70,8 +70,8 @@ h1, h2, h3, h4 {
 	margin-bottom:0.5em;
 }
 h1 {
-  @include raised-text($high);
-  border-bottom: 1px solid $high;
+  color: $white;
+  border-bottom: 1px solid $white;
 	font-size: 2em;
 	margin-top:1em;
 }
@@ -917,8 +917,8 @@ li.tag a, .tags .checkbox label {
 }
 
 .download-instructions-container {
+  @include rounded;
   @include raised-box;
-  @include inset-box;
   @include inset-text($dark);
   background: $high;
   text-align: center;
