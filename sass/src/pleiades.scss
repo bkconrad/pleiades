@@ -926,8 +926,10 @@ li.tag a, .tags .checkbox label {
   text-align: center;
   border: 1px solid $dark;
   padding: .25em;
+  overflow: hidden;
 }
 
 .download-instructions {
-  font-size: 3em;
+  font-size: 2em;
+  font-family: monospace;
 }
