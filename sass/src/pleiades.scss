@@ -1,14 +1,20 @@
 @import "compass";
 
+// base colors
 $black: #070707;
 $dark: #101214;
 $mid: #444648;
 $midhigh: #909294;
 $high: #A0A2A4;
 $white: #E0E2E4;
+$red: #c6523e;
+$blue: #89a2cc;
+
+// semantics
+$link_hover: $red;
 
 @mixin rounded {
-  border-radius: 3px;
+  border-radius: 6px 6px;
 }
 
 @mixin rounded-face($color, $mag: 0.1, $offset: 50%) {
@@ -32,9 +38,10 @@ $white: #E0E2E4;
   color: $color;
 }
 
-@mixin inset-box($alpha: 0.3) {
-  box-shadow: 0 -1px 0px rgba(0, 0, 0, $alpha), 0 1px 0px rgba(255, 255, 255, $alpha);
+@mixin inset-box($highalpha: 0.3, $lowalpha: 0.3) {
+  box-shadow: 0 -1px 0px rgba(0, 0, 0, $lowalpha), 0 1px 0px rgba(255, 255, 255, $highalpha);
   border: 1px solid rgba(0,0,0,0.2);
+  border-top: 1px solid rgba(0, 0, 0, 0.6);
 }
 
 * {
@@ -58,7 +65,7 @@ a {
 	text-decoration: underline;
 }
 a:hover {
-  color: #e9f3f7;
+	color: $link_hover;
 	text-decoration:none;
 }
 a img {
@@ -76,7 +83,7 @@ h1 {
 }
 h2 {
   clear: both;
-	color: #e6523e;
+	color: $red;
 	font-family:'Gill Sans','lucida grande', helvetica, arial, sans-serif;
 	font-size: 190%;
 }
@@ -161,7 +168,7 @@ table {
 	width: 100%;
 }
 th {
-  color: #e6523e;
+  color: $red;
 	border:0;
 	border-bottom:2px solid #555;
 	text-align: left;
@@ -543,6 +550,8 @@ input[type=submit],
 	-webkit-user-select: none;
 	user-select: none;
   text-shadow: 0 1px 0 rgba($white, 0.3);
+  border: 1px solid $mid;
+  border-top: 1px solid $white;
 }
 
 input[type=submit]:hover,
@@ -862,7 +871,7 @@ li.tag:hover, .tags .checkbox:hover {
 }
 
 .level a.name {
-  @include raised-text($high);
+  @include raised-text($blue);
   display: block;
   overflow: hidden;
   white-space: nowrap;
@@ -874,7 +883,7 @@ li.tag:hover, .tags .checkbox:hover {
 }
 
 .level a.name:hover {
-  @include raised-text($white);
+  @include raised-text($link_hover);
   text-decoration: underline;
 }
 
@@ -901,7 +910,7 @@ li.tag:hover, .tags .checkbox:hover {
 }
 
 .level .author a:hover {
-	color: #b1bbcc;
+	color: $link_hover;
   text-decoration: underline;
 }
 
@@ -910,15 +919,15 @@ li.tag:hover, .tags .checkbox:hover {
 }
 
 .level .team_count {
-	color: #89a2cc;
+	color: $blue;
 }
 
 .level .game_type {
-	color: #e6523e;
+	color: $red;
 }
 
 .thumbnail {
-  @include inset-box;
+  @include inset-box(0.1, 0.3);
   @include rounded;
   vertical-align: middle;
 }
@@ -933,7 +942,6 @@ li.tag:hover, .tags .checkbox:hover {
   margin-top: .5em;
   height: 152px;
   width: 202px;
-  background: black;
   vertical-align: middle;
   text-align: center;
 }
