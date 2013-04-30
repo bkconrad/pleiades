@@ -3,7 +3,9 @@
 // base colors
 $black: #070707;
 $dark: #101214;
+$lowmid: #333639;
 $mid: #444648;
+$midmidhigh: #666870;
 $midhigh: #909294;
 $high: #A0A2A4;
 $white: #E0E2E4;
@@ -12,9 +14,10 @@ $blue: #89a2cc;
 
 // semantics
 $link_hover: $red;
+$button_color: $midhigh;
 
 @mixin rounded {
-  border-radius: 6px 6px;
+  border-radius: 4px 4px;
 }
 
 @mixin rounded-face($color, $mag: 0.1, $offset: 50%) {
@@ -539,34 +542,33 @@ p.error em {
 input[type=submit],
 .actions ul li a,
 .actions a {
-  @include rounded-face($midhigh, 0.4);
+  @include rounded-face($button_color, 0.4);
   @include rounded;
-  @include inset-text($high);
 	font-weight:normal;
 	padding: 4px 8px;
-	color:$dark;
 	text-decoration: none;
 	min-width: 0;
 	-webkit-user-select: none;
 	user-select: none;
   text-shadow: 0 1px 0 rgba($white, 0.3);
+  color: $dark;
   border: 1px solid $mid;
-  border-top: 1px solid $white;
 }
 
 input[type=submit]:hover,
 .actions ul li a:hover,
 .actions a:hover {
-  @include rounded-face($high, 0.4);
+  @include rounded-face(lighten($button_color, 10), 0.4);
 	text-decoration: none;
 }
 input[type=submit]:active,
 .actions ul li a:active,
 .actions a:active {
-  @include rounded-face($high, 0.3);
+  @include rounded-face(lighten($button_color, 5), 0.3);
   position: relative;
-  top: 1px;
+  top: 2px;
 	text-decoration: none;
+  border-bottom-width: 1px;
 }
 
 /** Related **/
@@ -878,8 +880,11 @@ li.tag:hover, .tags .checkbox:hover {
   text-decoration: none;
   font-weight: normal;
   font-size: 1.5em;
-  float: left;
-  max-width: 80%;
+  width: 100%;
+  border-bottom: 1px solid $dark;
+  box-shadow: 0px 1px 0px $mid;
+  padding-bottom: .1em;
+  margin-bottom: .25em;
 }
 
 .level a.name:hover {
@@ -898,10 +903,10 @@ li.tag:hover, .tags .checkbox:hover {
 }
 
 .level .author {
-  clear: both;
   display: block;
-  overflow: hidden;
   white-space: nowrap;
+  max-width: 80%;
+  overflow: hidden;
 }
 
 .level .author a {
