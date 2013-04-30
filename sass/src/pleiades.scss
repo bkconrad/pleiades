@@ -776,20 +776,34 @@ pre.submission {
   -webkit-padding-start: 0;
 }
 
-li.tag, .tags div.checkbox {
+li.tag {
   @include rounded;
   @include raised-box(0.1, 0.3);
   background: $high;
   display: inline-block;
   margin: .5em;
-  padding: .5em;
   list-style: none;
+}
+
+.tags .checkbox {
+  padding: 0;
+  vertical-align: middle;
+}
+
+.tags .checkbox input {
+  padding: 0 0 0 .5em;
+  margin: .5em 0 0 .5em;
 }
 
 li.tag a, .tags .checkbox label {
   @include inset-text($dark);
   text-decoration: none;
   font-weight: normal;
+  line-height: 2em;
+  height: 2em;
+  padding: 0 .5em;
+  margin: 0;
+  display: inline-block;
 }
 
 li.tag:hover, .tags .checkbox:hover {
@@ -807,7 +821,6 @@ li.tag:hover, .tags .checkbox:hover {
 
 .small-tags li.tag {
   margin-left: 0em;
-  padding: .3em;
 }
 
 .tags .checkbox {
