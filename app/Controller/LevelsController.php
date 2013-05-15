@@ -277,6 +277,10 @@ class LevelsController extends AppController {
       }
     }
 
+    if(isset($this->request->data['Level']['screenshot'])) {
+      $this->getScreenshot($this->request->data['Level']['screenshot']);
+    }
+
     if(!isset($this->request->data['Level']['content'])) {
       throw new BadRequestException('No level content found');
     }
