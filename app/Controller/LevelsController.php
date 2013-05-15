@@ -108,10 +108,10 @@ class LevelsController extends AppController {
   public function beforeFilter() {
     parent::beforeFilter();
     $this->Auth->deny();
-    $this->Auth->allow('upload', 'download', 'raw', 'index', 'view', 'add', 'search');
+    $this->Auth->allow('upload', 'download', 'raw', 'index', 'view', 'add', 'search', 'rate');
 
     if($this->Auth->loggedIn()) {
-      $this->Auth->allow('rate', 'edit');
+      $this->Auth->allow('edit');
     }
   }
 
@@ -184,6 +184,12 @@ class LevelsController extends AppController {
   }
 
   public function rate($id, $value) {
+    if(!$this->Auth->loggedIn()) {
+      if(!$this->Auth->login()) {
+        throw new ForbiddenException('You must be logged in');
+      }
+    }
+
     $this->Level->id = $id;
     if($this->Level->rate($this->Auth->user('user_id'), $value)) {
       $this->Session->setFlash('Rating updated');

@@ -188,6 +188,26 @@ class LevelsControllerTest extends ControllerTestCase {
     $this->assertEquals($level, $updatedLevel);
   }
 
+  public function testRateWithAuthData() {
+    $data = array(
+        'username' => 'bob',
+        'user_password' => 'password',
+    );
+
+    $level = $this->Level->findById(1);
+    $oldRating = $level["Level"]["rating"];
+
+    $result = $this->testAction('/levels/rate/1/up', array(
+      'data' => array('User' => $data),
+      'method' => 'post'
+    ));
+
+    $level = $this->Level->findById(1);
+    $newRating = $level["Level"]["rating"];
+
+    $this->assertEquals($oldRating + 1, $newRating);
+  }
+
   public function testAdd() {
     $this->mockAsBob();
 
