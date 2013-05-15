@@ -160,6 +160,13 @@ class Level extends AppModel {
       return false;
     }
 
+    if(count($this->findById($this->id)) < 1) {
+      return false;
+    }
+
+    $RATINGS = array("1" => 1, "-1" => -1, "up" => 1, "down" => -1);
+    $value = $RATINGS[$value];
+
     $this->read('user_id');
     if(intval($this->data['Level']['user_id']) == intval($user_id)) {
       return false;

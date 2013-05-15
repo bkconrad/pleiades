@@ -194,7 +194,7 @@ class LevelsController extends AppController {
     if($this->Level->rate($this->Auth->user('user_id'), $value)) {
       $this->Session->setFlash('Rating updated');
     } else {
-      $this->Session->setFlash('Could not set rating');
+        throw new BadRequestException('Unable to update rating');
     }
     return $this->redirect($this->referer());
   }

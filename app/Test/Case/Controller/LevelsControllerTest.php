@@ -170,8 +170,31 @@ class LevelsControllerTest extends ControllerTestCase {
     $this->assertNotEquals($level['Level']['rating'], $updatedLevel['Level']['rating']);
     $this->assertEquals($oldTime, $newTime);
   }
+ 
+  public function testRateUpDown() {
+    $this->mockAsBob();
+
+    $level = $this->Level->findById(1);
+    $oldTime = $level['Level']['last_updated'];
+    $result = $this->testAction('/levels/rate/' . $level['Level']['id'] . '/up', array(
+      'return' => 'vars'
+    ));
+
+    $updatedLevel = $this->Level->findById(1);
+    $newTime = $updatedLevel['Level']['last_updated'];
+    $this->assertEquals($level['Level']['rating'] + 1, $updatedLevel['Level']['rating']);
+    $this->assertEquals($oldTime, $newTime);
+
+    $result = $this->testAction('/levels/rate/' . $level['Level']['id'] . '/down', array(
+      'return' => 'vars'
+    ));
+
+    $updatedLevel = $this->Level->findById(1);
+    $this->assertEquals($level['Level']['rating'], $updatedLevel['Level']['rating']);
+  }
 
   public function testRateFail() {
+    $this->setExpectedException('BadRequestException');
     $this->mockAsBob();
     $Rating = $this->getMockForModel('Rating', array('save'));
     $Rating
@@ -206,6 +229,16 @@ class LevelsControllerTest extends ControllerTestCase {
     $newRating = $level["Level"]["rating"];
 
     $this->assertEquals($oldRating + 1, $newRating);
+  }
+
+  public function testRateNonExistentLevel() {
+    $this->setExpectedException('BadRequestException');
+    $this->mockAsBob();
+
+    $level = $this->Level->findById(1);
+    $oldRating = $level["Level"]["rating"];
+
+    $result = $this->testAction('/levels/rate/1337/up');
   }
 
   public function testAdd() {
