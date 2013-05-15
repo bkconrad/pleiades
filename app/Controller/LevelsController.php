@@ -192,9 +192,14 @@ class LevelsController extends AppController {
 
     $this->Level->id = $id;
     if($this->Level->rate($this->Auth->user('user_id'), $value)) {
-      $this->Session->setFlash('Rating updated');
+      if($this->layout == 'client') {
+        $level = $this->Level->findById($id);
+        $this->Session->setFlash('New rating for ' . $level['Level']['name'] . ' by ' . $level['Level']['author'] . ': ' . $level['Level']['rating']);
+        return;
+      }
     } else {
-        throw new BadRequestException('Unable to update rating');
+      $this->Session->setFlash($this->Level->validationErrors);
+      throw new BadRequestException(array_shift($this->Level->validationErrors));
     }
     return $this->redirect($this->referer());
   }

@@ -157,10 +157,12 @@ class Level extends AppModel {
     $Rating = ClassRegistry::init('Rating');
 
     if(!$this->id) {
+      array_push($this->validationErrors, 'You must specify a Level');
       return false;
     }
 
     if(count($this->findById($this->id)) < 1) {
+      array_push($this->validationErrors, 'Specified level not found');
       return false;
     }
 
@@ -169,6 +171,7 @@ class Level extends AppModel {
 
     $this->read('user_id');
     if(intval($this->data['Level']['user_id']) == intval($user_id)) {
+      array_push($this->validationErrors, 'You can not rate your own level');
       return false;
     }
 
