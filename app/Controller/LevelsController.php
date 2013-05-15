@@ -198,8 +198,8 @@ class LevelsController extends AppController {
         return;
       }
     } else {
-      $this->Session->setFlash($this->Level->validationErrors);
-      throw new BadRequestException(array_shift($this->Level->validationErrors));
+      $this->Session->setFlash(array_shift($this->Level->validationErrors));
+      throw new BadRequestException($this->Level->validationErrors);
     }
     return $this->redirect($this->referer());
   }
