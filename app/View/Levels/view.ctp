@@ -1,4 +1,8 @@
-<?php echo $this->Html->tag('h2', $level['Level']['name']  . " by " . $level['User']['username'], array('escape' => true)); ?>
+<?php
+echo $this->Html->tag('h2', $level['Level']['name']  . " by " . $level['User']['username'], array('escape' => true));
+echo '<span class="team_count">' . $level['Level']['team_count'] . '&nbsp;Team&nbsp;</span>';
+echo '<span class="game_type">' . $level['Level']['game_type'] . '</span>';
+?>
 
 <?php
 $downloads = 'Downloaded ' . $level['Level']['downloads'] . ' times&nbsp;';
