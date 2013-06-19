@@ -168,7 +168,7 @@ class Level extends AppModel {
       return false;
     }
 
-    $RATINGS = array("1" => 1, "-1" => -1, "up" => 1, "down" => -1);
+    $RATINGS = array("0" => 0, "1" => 1, "-1" => -1, "up" => 1, "down" => -1);
     $value = $RATINGS[$value];
 
     $this->read('user_id');
