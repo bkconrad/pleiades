@@ -76,14 +76,12 @@ class Level extends AppModel {
     // try to parse the gametype
     $match = array();
     preg_match("/\s*(\w*)GameType/", $this->data['Level']['content'], $match);
-    if(!empty($match[1])) {
-      if($match[1] == "Hunters") {
-        $match[1] = "Nexus";
-      }
-      $this->set('game_type', $match[1]);
-    } else {
-      $this->set('game_type', 'Bitmatch');
+    $match[1] = empty($match[1]) ? "" : $match[1];
+    if($match[1] == "Hunters") {
+      $match[1] = "Nexus";
     }
+    $prettyNames = Configure::read('App.gametype_prefix_to_pretty_name_map');
+    $this->set('game_type', $prettyNames[$match[1]]);
 
     // setting the author will affect the filename
     $prefix = '';
@@ -115,10 +113,12 @@ class Level extends AppModel {
   }
 
   public function beforeSave($options = array()) {
-    if(!empty($this->data['Level']['content'])) {
+    
+  	if(!empty($this->data['Level']['content'])) {
       $teams = preg_grep('/^\s*Team/', split("\n", $this->data['Level']['content']));
       $this->data['Level']['team_count'] = count($teams);
     }
+
     if(!empty($this->data['Level']['author'])) {
       // author may only be manually set by a mod or admin
       $this->User->id = $this->data['Level']['user_id'];
@@ -127,9 +127,11 @@ class Level extends AppModel {
         return false;
       }
     } else {
-      $user = $this->User->findByUserId($this->field('user_id'));
+      $userid = $this->field('user_id');
+      $user = $this->User->findByUserId($userid);
       $this->data['Level']['author'] = $user['User']['username'];
     }
+    
     if(isset($this->data['Level']['content']) || isset($this->data['Level']['levelgen'])) {
       $this->data['Level']['last_updated'] = date('Y:m:d h:i:s');
     } else {

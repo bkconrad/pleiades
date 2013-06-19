@@ -257,12 +257,12 @@ class LevelTest extends CakeTestCase {
     $this->Level->save(array(
       'content' => "LevelName ctf level\nCTFGameType"
     ));
-    $this->assertEquals('CTF', $this->Level->field('game_type'));
+    $this->assertEquals('Capture The Flag', $this->Level->field('game_type'));
 
     $result = $this->Level->save(array(
       'content' => "LevelName bitmatch level\nGameType"
     ));
-    $this->assertEquals('Bitmatch', $this->Level->field('game_type'));
+    $this->assertEquals('Bit Match', $this->Level->field('game_type'));
 
     $this->Level->save(array(
       'content' => "LevelName hunters level\nHuntersGameType"
