@@ -71,6 +71,10 @@ class Level extends AppModel {
 
     $name = $match[1];
     $name = preg_replace('/"/', '', $name);
+    if(empty($name))
+    {
+    	$name = "Untitled";
+    }
     $this->set('name', $name);
 
     // try to parse the gametype

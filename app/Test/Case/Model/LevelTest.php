@@ -277,5 +277,13 @@ class LevelTest extends CakeTestCase {
     ));
     $this->assertEquals(2, $this->Level->field('team_count'));
   }
+  
+  public function testEmptyName() {
+  	$this->Level->create();
+  	$this->Level->save(array(
+  			'content' => "LevelName \"\"\nGameType"
+  	));
+  	$this->assertEquals($this->Level->field('name'), "Untitled");
+  }
 }
 ?>
