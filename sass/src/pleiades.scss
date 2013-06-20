@@ -761,7 +761,7 @@ pre {
   text-align: right;
 }
 
-.rating {
+div.rating {
   float: right;
 }
 
@@ -855,6 +855,7 @@ li.tag:hover, .tags .checkbox:hover {
   border: 1px solid $mid;
   display: block;
   margin: .5em auto;
+  clear: both;
 }
 
 .level {
@@ -968,4 +969,50 @@ li.tag:hover, .tags .checkbox:hover {
   margin-top: .5em;
   font-size: 2em;
   font-family: monospace;
+}
+
+.actions span.rating {
+  width: 10em;
+  display: inline-block;
+}
+
+.rating a, .rating a:hover {
+  background: none;
+  background-repeat: no-repeat;
+  border: none;
+  overflow: visible;
+  height: 50px;
+  width: 30px;
+  display: inline-block;
+  padding: 0;
+}
+
+.rating .upvote, .rating .downvote {
+  float: left;
+  clear: left;
+}
+
+.rating .upvote a {
+  background-image: url("../img/up_inactive.png");
+}
+
+.rating .downvote a {
+  background-image: url("../img/down_inactive.png");
+  background-position: left bottom;
+  margin-bottom: -100px;
+}
+
+.rating .upvote .active {
+  background-image: url("../img/up_active.png");
+}
+
+.rating .downvote .active {
+  background-image: url("../img/down_active.png");
+}
+
+.rating .total {
+  font-size: 5em;
+  font-weight: bold;
+  float: right;
+  line-height: 100px;
 }

@@ -50,6 +50,4 @@ then
 	ssh_commands="$ssh_commands ; mysql -u $REMOTE_MYSQL_USER -p$REMOTE_PASSWORD $REMOTE_MYSQL_DB < $REMOTE_DIRECTORY/schema.sql"
 fi
 
-echo "$ssh_commands"
-
 ssh $REMOTE_HOST "$ssh_commands"
