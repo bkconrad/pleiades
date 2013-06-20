@@ -972,7 +972,6 @@ li.tag:hover, .tags .checkbox:hover {
 }
 
 .actions span.rating {
-  width: 10em;
   display: inline-block;
 }
 
@@ -985,6 +984,7 @@ li.tag:hover, .tags .checkbox:hover {
   width: 30px;
   display: inline-block;
   padding: 0;
+  padding-right: 1em;
 }
 
 .rating .upvote, .rating .downvote {
