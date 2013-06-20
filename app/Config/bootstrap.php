@@ -108,7 +108,6 @@ CakeLog::config('error', array(
 	'file' => 'error',
 ));
 
-Configure::write('Phpbb.admin_group', 5);
 Configure::write('App.gametype_prefix_to_pretty_name_map', array(
 	'' => 'Bit Match',
 	'Nexus' => 'Nexus',
@@ -132,5 +131,7 @@ Configure::write('App.gametype_pretty_name_to_abbreviation_map', array(
 		'Soccer' => 'SOC',
 		'Zone Control' => 'ZC'
 ));
+
+Configure::write('Phpbb.admin_group', 5);
 
 CakePlugin::loadAll();

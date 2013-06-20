@@ -122,18 +122,19 @@ class Level extends AppModel {
       $teams = preg_grep('/^\s*Team/', split("\n", $this->data['Level']['content']));
       $this->data['Level']['team_count'] = count($teams);
     }
+    
+    $this->User->id = AuthComponent::user('user_id');
 
-    if(!empty($this->data['Level']['author'])) {
+    if(
+      !in_array(Configure::read('Phpbb.admin_group'), $this->User->getGroups()) &&
+      !empty($this->data['Level']['author'])
+    ) {
       // author may only be manually set by a mod or admin
-      $this->User->id = $this->data['Level']['user_id'];
-      if(!in_array(Configure::read('Phpbb.admin_group'), $this->User->getGroups())) {
-        array_push($this->validationErrors, 'You do not have permission to manually set the author.');
-        return false;
-      }
-    } else {
       $userid = $this->field('user_id');
       $user = $this->User->findByUserId($userid);
       $this->data['Level']['author'] = $user['User']['username'];
+    } else {
+      $this->User->id = $this->data['Level']['user_id'];
     }
     
     if(isset($this->data['Level']['content']) || isset($this->data['Level']['levelgen'])) {
