@@ -152,6 +152,15 @@ class LevelsController extends AppController {
     if($level['User']['user_id'] != $this->Auth->user('user_id')) {
       throw new ForbiddenException('You can only edit a level you uploaded');
     }
+    
+    if(
+      empty($this->data['Level']['author']) ||
+      !in_array(Configure::read('Phpbb.admin_group'), $this->Level->User->getGroups())
+    ) {
+      $userid = $this->Auth->user('user_id');
+      $user = $this->Level->User->findByUserId($userid);
+      $this->Level->set('author', $user['User']['username']);
+    }
 
     if($this->request->is('post') || $this->request->is('put')) {
       $this->Level->id = $level['Level']['id'];
@@ -188,10 +197,8 @@ class LevelsController extends AppController {
   }
 
   public function rate($id, $value) {
-    if(!$this->Auth->loggedIn()) {
-      if(!$this->Auth->login()) {
-        throw new ForbiddenException('You must be logged in');
-      }
+    if(!$this->Auth->loggedIn() && !$this->Auth->login()) {
+      throw new ForbiddenException('You must be logged in');
     }
 
     $this->Level->id = $id;

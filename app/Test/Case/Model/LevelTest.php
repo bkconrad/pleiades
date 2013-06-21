@@ -1,8 +1,10 @@
 <?php
 App::import('Model', 'Level');
 App::import('Model', 'Rating');
+App::uses('AuthComponent', 'Controller/Component');
 class LevelTest extends CakeTestCase {
   public $fixtures = array('app.level', 'app.user', 'app.rating', 'app.user_group');
+
   public function setUp() {
     parent::setUp();
     $this->Rating = ClassRegistry::init('Rating');
@@ -216,13 +218,6 @@ class LevelTest extends CakeTestCase {
   }
 
   public function testSetAuthor() {
-    $Auth = $this->getMock('Auth');
-    $Auth
-      ->staticExpects($this->any())
-      ->method('user')
-      ->with('user_id')
-      ->will($this->returnValue(2));
-
     $result = $this->Level->save(array(
       "content" => "LevelName Author Test",
       "author" => "nobody",

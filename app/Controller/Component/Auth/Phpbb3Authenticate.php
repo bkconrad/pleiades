@@ -33,7 +33,7 @@ class Phpbb3Authenticate extends BaseAuthenticate {
 		{
 			return false;
 		}
-		
+
 		$conditions = array(
 			$model . '.' . $fields['username'] => $username,
 			$model . '.' . $fields['password'] => $phpbb_pw,
