@@ -15,5 +15,6 @@ class CommentsController extends AppController {
         }
 
         $this->Session->setFlash('Comment added successfully');
+        return $this->redirect($this->referer());
     }
 }

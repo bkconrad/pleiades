@@ -1016,3 +1016,20 @@ li.tag:hover, .tags .checkbox:hover {
   float: right;
   line-height: 100px;
 }
+
+.comment {
+  background: $dark;
+  border: 1px solid $mid;
+  margin-bottom: 1em;
+  padding: .5em;
+}
+
+.comment-author {
+  font-weight: bold;
+  font-size: 1.2em;
+  line-height: 1.5em;
+  margin-bottom: .5em;
+}
+
+.comment-text {
+}

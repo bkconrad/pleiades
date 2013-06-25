@@ -89,3 +89,21 @@ if (!empty($level['Level']['levelgen'])) {
   echo $this->Html->tag('pre', $level['Level']['levelgen'], array('escape' => true, 'class' => 'submission'));
 }
 ?>
+<?php
+if (!empty($comments)) {
+    echo '<h1>Comments</h1>';
+    foreach ($comments as $k => $comment) {
+        echo $this->element('comment', array(
+            'comment' => $comment
+        ));
+    }
+}
+
+if ($logged_in) {
+    echo '<h1>Add Comment</h1>';
+    echo $this->Form->create('Comment', array('url' => '/comments/add'));
+    echo $this->Form->input('text');
+    echo $this->Form->hidden('level_id', array('default' => $level['Level']['id']));
+    echo $this->Form->end('Submit Comment');
+}
+?>

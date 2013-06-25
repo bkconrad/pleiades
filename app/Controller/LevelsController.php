@@ -5,7 +5,7 @@ class LevelsController extends AppController {
   public $presetVars = true;
 
   public $helpers = array('Html', 'Form');
-  public $uses = array('Level', 'Rating');
+  public $uses = array('Level', 'Rating', 'Comment');
 
   public $paginate = array(
     'limit' => 25,
@@ -194,6 +194,7 @@ class LevelsController extends AppController {
     $this->set('is_owner', intval($level['Level']['user_id']) == intval($this->Auth->user('user_id')));
     $this->set('current_rating', $this->Rating->findByUserIdAndLevelId($this->Auth->user('user_id'), $id));
     $this->set('level', $level);
+    $this->set('comments', $this->Comment->findAllByLevelId($id));
   }
 
   public function rate($id, $value) {
