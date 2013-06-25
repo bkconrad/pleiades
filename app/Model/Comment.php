@@ -43,11 +43,13 @@ class Comment extends AppModel {
     public $validate = array(
         'level_id' => array(
             'rule' => 'levelExists',
-            'message' => 'The specified level does not exist'
+            'message' => 'The specified level does not exist',
+            'required' => true
         ),
         'user_id' => array(
             'rule' => 'userExists',
-            'message' => 'The specified user does not exist'
+            'message' => 'The specified user does not exist',
+            'required' => true
         )
     );
 

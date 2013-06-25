@@ -40,6 +40,12 @@ class CommentTest extends CakeTestCase {
 		parent::tearDown();
 	}
 
+    function createValidComment() {
+        $this->Comment->create();
+        $this->Comment->set('user_id', 1);
+        $this->Comment->set('level_id', 1);
+    }
+
 /**
  * testLevelExists method
  *
@@ -57,12 +63,27 @@ class CommentTest extends CakeTestCase {
         $this->Comment->set('level_id', '');
         $this->assertFalse($this->Comment->levelExists());
         $this->assertFalse($this->Comment->save());
+	}
 
-        $level = $this->Comment->Level->find('first');
-        $this->Comment->set('level_id', $level['Level']['id']);
+    public function testLevelRequired() {
+        $this->createValidComment();
+        unset($this->Comment->data['Comment']['level_id']);
+        $this->assertFalse($this->Comment->save());
+
+        $this->Comment->set('level_id', 1);
         $this->assertTrue($this->Comment->levelExists());
         $this->assertTrue(!!$this->Comment->save());
-	}
+    }
+
+    public function testUserRequired() {
+        $this->createValidComment();
+        unset($this->Comment->data['Comment']['user_id']);
+        $this->assertFalse($this->Comment->save());
+
+        $this->Comment->set('user_id', 1);
+        $this->assertTrue($this->Comment->levelExists());
+        $this->assertTrue(!!$this->Comment->save());
+    }
 
     public function testUserExists() {
         $this->Comment->create();
@@ -79,6 +100,7 @@ class CommentTest extends CakeTestCase {
 
         $user = $this->Comment->User->find('first');
         $this->Comment->set('user_id', $user['User']['user_id']);
+        $this->Comment->set('level_id', 1);
         $this->assertTrue($this->Comment->userExists());
         $this->assertTrue(!!$this->Comment->save());
     }
