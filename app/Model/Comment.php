@@ -39,4 +39,21 @@ class Comment extends AppModel {
 			'order' => ''
 		)
 	);
+
+    public $validate = array(
+        'level_id' => array(
+            'rule' => 'levelExists',
+            'message' => 'The specified level does not exist'
+        )
+    );
+
+    public function levelExists() {
+        if (!isset($this->data['Comment'])) {
+            return false;
+        }
+
+        $id = $this->data['Comment']['level_id'];
+        $result = $this->Level->findById($id);
+        return !empty($result['Level']);
+    }
 }
