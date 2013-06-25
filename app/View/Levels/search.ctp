@@ -6,7 +6,8 @@ echo $this->Form->create('Level', array(
 echo $this->Form->input('name');
 
 $gameTypeOptions = Configure::read('App.gametype_prefix_to_pretty_name_map');
-$gameTypeOptions = array_combine($gameTypeOptions, $gameTypeOptions); 
+$gameTypeOptions = array_combine($gameTypeOptions, $gameTypeOptions);
+$gameTypeOptions = array_merge(array('' => 'Any'), $gameTypeOptions);
 echo $this->Form->input('game_type', array(
 	'options' => $gameTypeOptions
 ));
