@@ -63,4 +63,24 @@ class CommentTest extends CakeTestCase {
         $this->assertTrue($this->Comment->levelExists());
         $this->assertTrue(!!$this->Comment->save());
 	}
+
+    public function testUserExists() {
+        $this->Comment->create();
+        $this->assertFalse($this->Comment->userExists());
+        $this->assertFalse($this->Comment->save());
+
+        $this->Comment->set('user_id', '1337');
+        $this->assertFalse($this->Comment->levelExists());
+        $this->assertFalse($this->Comment->save());
+
+        $this->Comment->set('user_id', '');
+        $this->assertFalse($this->Comment->userExists());
+        $this->assertFalse($this->Comment->save());
+
+        $user = $this->Comment->User->find('first');
+        $this->Comment->set('user_id', $user['User']['user_id']);
+        $this->assertTrue($this->Comment->userExists());
+        $this->assertTrue(!!$this->Comment->save());
+    }
+
 }
