@@ -86,7 +86,7 @@ $button_color: $midhigh;
 
 /** General Style Info **/
 body {
-  @include linear-gradient($high, $midhigh);
+  @include linear-gradient($white, $high);
   color: #fff;
   font-family:'lucida grande',verdana,helvetica,arial,sans-serif;
   font-size:90%;
@@ -109,11 +109,10 @@ h1, h2, h3, h4 {
 	margin-bottom:0.5em;
 }
 h1 {
-  @include simple_base($mid);
+  @include simple_base($high);
   width: 100%;
-  border-bottom: 1px solid $mid;
-	font-size: 2em;
-	margin-top:1em;
+  font-size: 2em;
+  margin-top:1em;
 }
 h2 {
   clear: both;
@@ -146,6 +145,8 @@ p {
 
 #header{
 	padding: 10px 20px;
+  @include simple_base($midhigh);
+  width: 100%;
 }
 #header h1 {
 	line-height:20px;
@@ -368,7 +369,7 @@ form div.submit {
 	margin-top: 10px;
 }
 label {
-	color: #89a2cc;
+	color: $blue;
   font-weight: bold;
 	display: block;
 	font-size: 110%;
@@ -376,7 +377,7 @@ label {
 }
 input, textarea, pre.submission, .level_description {
   background: $white;
-  border: 1px solid $mid;
+  border: 1px solid $midhigh;
   color: $black;
 	clear: both;
 	font-family: monospace;
@@ -563,7 +564,8 @@ p.error em {
 }
 
 input[type=submit] {
-  @include button($blue);
+  @include button($green);
+  font-family: inherit;
 }
 
 /** Related **/
@@ -825,7 +827,7 @@ li.tag a, .tags .checkbox label {
 }
 
 li.tag:hover, .tags .checkbox:hover {
-  background: $mid;
+  background: $red;
   a, label {
     @include inset-text($high);
   }
@@ -868,7 +870,7 @@ li.tag:hover, .tags .checkbox:hover {
 .level {
   @include rounded;
   border: 1px solid $mid;
-  @include simple_base($midhigh);
+  @include simple_base($high);
   display: inline-block;
   vertical-align: top;
   padding: .5em;
