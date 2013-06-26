@@ -42,9 +42,11 @@
 </head>
 <body>
 	<div id="container">
+      <div id="header_wrapper">
 		<div id="header">
       <?php echo $this->Html->link($this->Html->image('pleiades.png', array('alt' => 'Pleiades - Bitfighter level database')), '/', array('escape' => false)) ?>
 		</div>
+      </div>
 		<div id="content">
       <div id="menu"><?php echo $this->element('menu') ?></div>
 
