@@ -11,8 +11,9 @@ $midmidhigh: #CCC;
 $midhigh: #DDD;
 $high: #EEE;
 $white: #FEFEFE;
-$red: #c6523e;
-$blue: #89a2cc;
+$red: #D21;
+$blue: #57D;
+$green: #293;
 
 // semantics
 $link_hover: $red;
@@ -108,7 +109,8 @@ h1, h2, h3, h4 {
 	margin-bottom:0.5em;
 }
 h1 {
-  color: $midmid;
+  @include simple_base($mid);
+  width: 100%;
   border-bottom: 1px solid $mid;
 	font-size: 2em;
 	margin-top:1em;
@@ -555,10 +557,13 @@ p.error em {
 }
 
 /* Buttons and button links */
-input[type=submit],
 .actions ul li a,
 .actions a {
-  @include button($mid);
+  @include button($midhigh);
+}
+
+input[type=submit] {
+  @include button($blue);
 }
 
 /** Related **/
@@ -927,16 +932,20 @@ li.tag:hover, .tags .checkbox:hover {
   text-decoration: underline;
 }
 
+.level .levelgen, .team_count, .game_type {
+  text-shadow: 1px 1px 0px $midmidhigh;
+}
+
 .level .levelgen {
   color: #00FFFF;
 }
 
 .team_count {
-	color: $blue;
+	color: $dark;
 }
 
 .game_type {
-	color: $red;
+  color: $green;
 }
 
 .thumbnail {
@@ -967,7 +976,7 @@ li.tag:hover, .tags .checkbox:hover {
   padding: .25em;
   overflow: hidden;
   @include inset-text($white, 0.4, 0.4);
-  @include simple_base($mid);
+  @include simple_base($midmidhigh);
   width: 100%;
   padding: 1em;
 }
