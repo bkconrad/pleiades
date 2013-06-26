@@ -815,6 +815,10 @@ pre.submission {
   -webkit-padding-start: 0;
 }
 
+.small-tags {
+  min-height: 3em;
+}
+
 .tags {
   input, .input {
     margin-bottom: 0;
@@ -823,8 +827,8 @@ pre.submission {
 
 li.tag, .tags .checkbox {
   @include rounded;
-  @include raised-box(0.1, 0.3);
-  background: $midmid;
+  background: $dark;
+  border: 1px solid $mid;
   clear: none;
   display: inline-block;
 }
@@ -832,6 +836,7 @@ li.tag, .tags .checkbox {
 li.tag {
   margin: .5em;
   list-style: none;
+  box-shadow: 0 2px 3px $offblack;
 }
 
 .tags .checkbox {
@@ -849,7 +854,7 @@ li.tag {
 }
 
 li.tag a, .tags .checkbox label {
-  @include inset-text($dark);
+  @include inset-text($high);
   text-decoration: none;
   font-weight: normal;
   font-size: 1em;
@@ -862,8 +867,9 @@ li.tag a, .tags .checkbox label {
 
 li.tag:hover, .tags .checkbox:hover {
   background: $mid;
+  border-color: $midhigh;
   a, label {
-    @include inset-text($high);
+    @include inset-text($midhigh);
   }
 }
 
