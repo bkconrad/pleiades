@@ -4,12 +4,13 @@
 // base colors
 $black: #070707;
 $dark: #101214;
-$lowmid: #333639;
-$mid: #444648;
-$midmidhigh: #666870;
-$midhigh: #909294;
-$high: #A0A2A4;
-$white: #E0E2E4;
+$lowmid: #333;
+$mid: #444;
+$midmid: #666;
+$midmidhigh: #CCC;
+$midhigh: #DDD;
+$high: #EEE;
+$white: #FEFEFE;
 $red: #c6523e;
 $blue: #89a2cc;
 
@@ -48,6 +49,35 @@ $button_color: $midhigh;
   border-top: 1px solid rgba(0, 0, 0, 0.6);
 }
 
+@mixin simple_base($base-color, $grayscale: false) {
+  $color:         hsl(0, 0, 100%);
+  $border:        adjust-color($base-color, $saturation:  9%,  $lightness: -14%);
+  $inset-shadow:  adjust-color($base-color, $saturation: -8%,  $lightness:  15%);
+  $stop-gradient: adjust-color($base-color, $saturation:  9%,  $lightness: -11%);
+  $text-shadow:   adjust-color($base-color, $saturation:  15%, $lightness: -18%);
+
+  @if lightness($base-color) > 70% {
+    $color:       hsl(0, 0, 20%);
+    $text-shadow: adjust-color($base-color, $saturation: 10%, $lightness: 4%);
+  }
+
+  @if $grayscale == true {
+    $border:        grayscale($border);
+    $inset-shadow:  grayscale($inset-shadow);
+    $stop-gradient: grayscale($stop-gradient);
+    $text-shadow:   grayscale($text-shadow);
+  }
+
+  border: 1px solid $border;
+  border-radius: 3px;
+  box-shadow: inset 0 1px 0 0 $inset-shadow;
+  color: $color;
+  display: inline-block;
+  @include linear-gradient ($base-color, $stop-gradient);
+  padding: 7px 18px;
+  background-clip: padding-box;
+}
+
 * {
 	margin:0;
 	padding:0;
@@ -55,17 +85,15 @@ $button_color: $midhigh;
 
 /** General Style Info **/
 body {
-	background: $black;
-  background-image: url(../img/stars.gif);
-  background-attachment: fixed;
-	color: #fff;
-	font-family:'lucida grande',verdana,helvetica,arial,sans-serif;
-	font-size:90%;
-	margin: 0;
+  @include linear-gradient($high, $midhigh);
+  color: #fff;
+  font-family:'lucida grande',verdana,helvetica,arial,sans-serif;
+  font-size:90%;
+  margin: 0;
   overflow-y: scroll;
 }
 a {
-	color: #b1bbcc;
+	color: $blue;
 	text-decoration: underline;
 }
 a:hover {
@@ -80,8 +108,8 @@ h1, h2, h3, h4 {
 	margin-bottom:0.5em;
 }
 h1 {
-  color: $white;
-  border-bottom: 1px solid $white;
+  color: $midmid;
+  border-bottom: 1px solid $mid;
 	font-size: 2em;
 	margin-top:1em;
 }
@@ -345,10 +373,10 @@ label {
 	font-size: 110%;
 	margin-bottom:3px;
 }
-input, textarea {
-  background: $dark;
+input, textarea, pre.submission, .level_description {
+  background: $white;
   border: 1px solid $mid;
-  color: $white;
+  color: $black;
 	clear: both;
 	font-family: monospace;
 	padding: 1%;
@@ -542,15 +570,11 @@ input[type=submit],
 
 /** Debugging **/
 pre {
-	color: #eee;
-	background: $dark;
-	padding: 1em;
-	-moz-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-	-webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-	box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  padding: 1em;
   border: 1px solid $mid;
   overflow-x: auto;
 }
+
 .cake-debug-output {
 	padding: 0;
 	position: relative;
@@ -736,8 +760,6 @@ pre.submission {
 .level_description {
 	padding: 1em;
   white-space: pre-line;
-  background: $dark;
-  border: 1px solid $mid;
 }
 
 .codeButton {
@@ -748,6 +770,19 @@ pre.submission {
   padding: 0;
   list-style: none;
   -webkit-padding-start: 0;
+}
+
+.tags {
+  @include simple_base($midhigh);
+  padding: .5em;
+
+  input, .input {
+    margin-bottom: 0;
+  }
+
+  label {
+    @include inset-text($blue);
+  }
 }
 
 li.tag {
@@ -762,17 +797,22 @@ li.tag {
 .tags .checkbox {
   padding: 0;
   vertical-align: middle;
+  height: 2em;
+  margin-bottom: 0;
 }
 
 .tags .checkbox input {
   padding: 0 0 0 .5em;
-  margin: .5em 0 0 .5em;
+  margin: 0 0 0 .5em;
+  line-height: 100%;
+  height: 100%;
 }
 
 li.tag a, .tags .checkbox label {
   @include inset-text($dark);
   text-decoration: none;
   font-weight: normal;
+  font-size: 1em;
   line-height: 2em;
   height: 2em;
   padding: 0 .5em;
@@ -782,7 +822,7 @@ li.tag a, .tags .checkbox label {
 
 li.tag:hover, .tags .checkbox:hover {
   background: $mid;
-  a {
+  a, label {
     @include inset-text($high);
   }
 }
@@ -823,8 +863,8 @@ li.tag:hover, .tags .checkbox:hover {
 
 .level {
   @include rounded;
-  @include raised-box(0.1, 0.6);
-  @include rounded-face($dark);
+  border: 1px solid $mid;
+  @include simple_base($midhigh);
   display: inline-block;
   vertical-align: top;
   padding: .5em;
@@ -862,9 +902,13 @@ li.tag:hover, .tags .checkbox:hover {
   @include inset-box;
   display: block;
   height: 1.25em;
+  width: 1.5em;
   padding: 0 .25em;
   float: right;
-	background: $dark;
+  background: $midhigh;
+  color: $mid;
+  font-weight: bold;
+  text-align: right;
 }
 
 .level .author {
@@ -918,13 +962,14 @@ li.tag:hover, .tags .checkbox:hover {
 
 .download-instructions-container {
   margin-top: 1em;
-  background: $mid;
+  background: $midhigh;
   text-align: center;
-  border: 1px solid $dark;
+  border: 1px solid $mid;
   padding: .25em;
   overflow: hidden;
   @include inset-text($white, 0.4, 0.4);
-  border: 1px dashed white;
+  @include simple_base($mid);
+  width: 100%;
   padding: 1em;
 }
 
@@ -934,8 +979,10 @@ li.tag:hover, .tags .checkbox:hover {
   font-family: monospace;
 }
 
-.actions span.rating {
+.rating .rating {
+  @include simple_base($black);
   display: inline-block;
+  width: 150px;
 }
 
 .rating a, .rating a:hover {
@@ -947,12 +994,13 @@ li.tag:hover, .tags .checkbox:hover {
   width: 30px;
   display: inline-block;
   padding: 0;
-  padding-right: 1em;
+  margin-left: 1em;
+  text-decoration: none;
 }
 
 .rating .upvote, .rating .downvote {
-  float: left;
-  clear: left;
+  float: right;
+  clear: right;
 }
 
 .rating .upvote a {
@@ -976,8 +1024,11 @@ li.tag:hover, .tags .checkbox:hover {
 .rating .total {
   font-size: 5em;
   font-weight: bold;
-  float: right;
+  float: left;
   line-height: 100px;
+  display: inline-block;
+  width: 100px;
+  text-align: right;
 }
 
 .comment {
