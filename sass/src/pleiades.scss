@@ -150,8 +150,9 @@ p {
 }
 
 #header_wrapper {
-  @include rounded-face($dark, .1, 40%);
-  border-bottom: 1px solid $mid;
+  background: $dark;
+  border-bottom: 3px solid $lowmid;
+  box-shadow: 0 3px 0 $lowmid;
 }
 
 #header{
