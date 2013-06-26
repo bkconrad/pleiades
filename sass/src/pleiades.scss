@@ -857,15 +857,15 @@ pre.submission {
 li.tag, .tags .checkbox {
   @include rounded;
   background: $dark;
-  border: 1px solid $mid;
+  border: 1px solid $midmid;
   clear: none;
   display: inline-block;
+  box-shadow: 0 1px $mid, 0 2px 3px $offblack;
 }
 
 li.tag {
   margin: .5em;
   list-style: none;
-  box-shadow: 0 2px 3px $offblack;
 }
 
 .tags .checkbox {
