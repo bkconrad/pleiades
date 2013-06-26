@@ -347,9 +347,7 @@ dd {
 /** Forms **/
 form {
 	clear: both;
-	margin-right: 20px;
 	padding: 0;
-	width: 95%;
 }
 fieldset {
 	border: none;
@@ -399,6 +397,7 @@ form div.submit {
 	border: 0;
 	clear: both;
 	margin-top: 10px;
+  padding: 0;
 }
 label {
 	color: $blue;
