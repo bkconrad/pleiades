@@ -23,6 +23,7 @@ $button_color: $midhigh;
 $title_shadow: #666;
 
 $contentWidth: 960px;
+$headerHeight: 40px;
 
 @mixin rounded {
   border-radius: 4px 4px;
@@ -153,6 +154,7 @@ p {
   background: $dark;
   border-bottom: 3px solid $lowmid;
   box-shadow: 0 3px 0 $lowmid;
+  height: $headerHeight;
 }
 
 #header{
@@ -163,7 +165,7 @@ p {
 
 #header a {
   display: inline-block;
-  height: 3em;
+  height: $headerHeight;
 }
 
 #header img {
@@ -787,8 +789,35 @@ pre {
 	display:none;
 }
 
+#menu {
+  float: right;
+}
+
 #navmenu {
   text-align: right;
+  font-size: 1em;
+  font-weight: bold;
+  width: ($contentWidth*0.75);
+  height: $headerHeight;
+  line-height: $headerHeight;
+}
+
+#navmenu a {
+  text-decoration: none;
+  text-shadow: 0 2px 0 $mid;
+  color: $high;
+  margin-left: .5em;
+  @include transition (top 0.1s ease-in-out, text-shadow 0.1s);
+}
+
+#navmenu a:hover {
+  color: $white;
+}
+
+#navmenu a:active {
+  position: relative;
+  top: 2px;
+  text-shadow: none;
 }
 
 div.rating {
