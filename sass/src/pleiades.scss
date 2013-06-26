@@ -1,4 +1,5 @@
 @import "compass";
+@import "bourbon/bourbon";
 
 // base colors
 $black: #070707;
@@ -353,6 +354,11 @@ input, textarea {
 	padding: 1%;
 	width:98%;
 }
+
+input[type=submit] {
+  width: auto;
+}
+
 textarea {
   min-height: 20em;
 }
@@ -388,19 +394,7 @@ input[type=radio] {
 	margin: 0 0 6px 20px;
 	line-height: 26px;
 }
-input[type=submit] {
-	display: inline;
-	font-size: 110%;
-	width: auto;
-}
-form .submit input[type=submit] {
-	border-color: #2d6324;
-	color: #fff;
-	text-shadow: rgba(0, 0, 0, 0.5) 0px -1px 0px;
-	padding: 8px 10px;
-}
-form .submit input[type=submit]:hover {
-}
+
 /* Form errors */
 form .error {
 	background: #FFDACC;
@@ -532,43 +526,12 @@ p.error em {
 	white-space: nowrap;
 	padding: 0;
 }
-.actions ul li a {
-	font-weight: normal;
-	display: block;
-	clear: both;
-}
 
 /* Buttons and button links */
 input[type=submit],
 .actions ul li a,
 .actions a {
-  @include rounded-face($button_color, 0.4);
-  @include rounded;
-	font-weight:normal;
-	padding: 4px 8px;
-	text-decoration: none;
-	min-width: 0;
-	-webkit-user-select: none;
-	user-select: none;
-  text-shadow: 0 1px 0 rgba($white, 0.3);
-  color: $dark;
-  border: 1px solid $mid;
-}
-
-input[type=submit]:hover,
-.actions ul li a:hover,
-.actions a:hover {
-  @include rounded-face(lighten($button_color, 10), 0.4);
-	text-decoration: none;
-}
-input[type=submit]:active,
-.actions ul li a:active,
-.actions a:active {
-  @include rounded-face(lighten($button_color, 5), 0.3);
-  position: relative;
-  top: 2px;
-	text-decoration: none;
-  border-bottom-width: 1px;
+  @include button($mid);
 }
 
 /** Related **/
