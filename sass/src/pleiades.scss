@@ -966,8 +966,19 @@ li.tag:hover, .tags .checkbox:hover {
 }
 
 .level .author a:hover {
-	color: $link_hover;
+  color: $link_hover;
   text-decoration: underline;
+}
+
+.level_info {
+  @include rounded;
+  @include inset-box();
+  background: $lowmid;
+  padding: 0 .25em;
+}
+
+.level .level_info {
+  display: block;
 }
 
 .level .levelgen, .team_count, .game_type {
@@ -979,11 +990,11 @@ li.tag:hover, .tags .checkbox:hover {
 }
 
 .team_count {
-  // color: $yellow;
+  color: $green;
 }
 
-.game_type {
-  // color: $green;
+.level .game_type {
+  float: right;
 }
 
 .thumbnail {
