@@ -6,18 +6,21 @@ $black: #070707;
 $dark: #101214;
 $lowmid: #333;
 $mid: #444;
-$midmid: #666;
+$midmid: #999;
 $midmidhigh: #CCC;
 $midhigh: #DDD;
 $high: #EEE;
 $white: #FEFEFE;
 $red: #D21;
 $blue: #57D;
-$green: #293;
+$green: #5D7;
+$yellow: #EE7;
 
 // semantics
 $link_hover: $red;
 $button_color: $midhigh;
+
+$contentWidth: 960px;
 
 @mixin rounded {
   border-radius: 4px 4px;
@@ -86,7 +89,8 @@ $button_color: $midhigh;
 
 /** General Style Info **/
 body {
-  @include linear-gradient($white, $high);
+  background: black;
+  background-image: url(../img/stars.gif);
   color: #fff;
   font-family:'lucida grande',verdana,helvetica,arial,sans-serif;
   font-size:90%;
@@ -109,10 +113,12 @@ h1, h2, h3, h4 {
 	margin-bottom:0.5em;
 }
 h1 {
-  @include simple_base($high);
   width: 100%;
+  text-shadow: 0px 2px 0px $mid;
+  border-bottom: 1px solid $mid;
   font-size: 2em;
   margin-top:1em;
+  padding: .25em;
 }
 h2 {
   clear: both;
@@ -139,13 +145,12 @@ p {
 /** Layout **/
 #container {
 	text-align: left;
-  max-width: 960px;
+  max-width: $contentWidth;
   margin: 0 auto;
 }
 
 #header{
-	padding: 10px 20px;
-  @include simple_base($midhigh);
+  padding: 10px 20px;
   width: 100%;
 }
 #header h1 {
@@ -376,13 +381,14 @@ label {
 	margin-bottom:3px;
 }
 input, textarea, pre.submission, .level_description {
-  background: $white;
-  border: 1px solid $midhigh;
-  color: $black;
-	clear: both;
-	font-family: monospace;
-	padding: 1%;
-	width:98%;
+  background: $dark;
+  border: 1px solid $mid;
+  color: $high;
+
+  clear: both;
+  font-family: monospace;
+  padding: 1%;
+  width:98%;
 }
 
 input[type=submit] {
@@ -560,11 +566,11 @@ p.error em {
 /* Buttons and button links */
 .actions ul li a,
 .actions a {
-  @include button($midhigh);
+  @include button($mid);
 }
 
 input[type=submit] {
-  @include button($green);
+  @include button(darken($green, 30%));
   font-family: inherit;
 }
 
@@ -764,7 +770,7 @@ pre.submission {
 }
 
 .level_description {
-	padding: 1em;
+  padding: 1em;
   white-space: pre-line;
 }
 
@@ -779,23 +785,20 @@ pre.submission {
 }
 
 .tags {
-  @include simple_base($midhigh);
-  padding: .5em;
-
   input, .input {
     margin-bottom: 0;
   }
+}
 
-  label {
-    @include inset-text($blue);
-  }
+li.tag, .tags .checkbox {
+  @include rounded;
+  @include raised-box(0.1, 0.3);
+  background: $midmid;
+  clear: none;
+  display: inline-block;
 }
 
 li.tag {
-  @include rounded;
-  @include raised-box(0.1, 0.3);
-  background: $high;
-  display: inline-block;
   margin: .5em;
   list-style: none;
 }
@@ -827,7 +830,7 @@ li.tag a, .tags .checkbox label {
 }
 
 li.tag:hover, .tags .checkbox:hover {
-  background: $red;
+  background: $mid;
   a, label {
     @include inset-text($high);
   }
@@ -841,14 +844,6 @@ li.tag:hover, .tags .checkbox:hover {
 
 .small-tags li.tag {
   margin-left: 0em;
-}
-
-.tags .checkbox {
-  @include rounded;
-  @include raised-box;
-  clear: none;
-  display: inline-block;
-	background: $high;
 }
 
 .checkbox>input {
@@ -869,8 +864,9 @@ li.tag:hover, .tags .checkbox:hover {
 
 .level {
   @include rounded;
-  border: 1px solid $mid;
-  @include simple_base($high);
+  @include raised-box;
+  @include rounded-face($dark);
+  border: 1px solid $dark;
   display: inline-block;
   vertical-align: top;
   padding: .5em;
@@ -903,6 +899,11 @@ li.tag:hover, .tags .checkbox:hover {
   text-decoration: underline;
 }
 
+.rating {
+  font-family: monospace;
+  font-weight: bold;
+}
+
 .level .rating {
   @include rounded;
   @include inset-box;
@@ -911,9 +912,8 @@ li.tag:hover, .tags .checkbox:hover {
   width: 1.5em;
   padding: 0 .25em;
   float: right;
-  background: $midhigh;
-  color: $mid;
-  font-weight: bold;
+  background: $dark;
+  color: $high;
   text-align: right;
 }
 
@@ -925,7 +925,7 @@ li.tag:hover, .tags .checkbox:hover {
 }
 
 .level .author a {
-  color: inherit;
+  color: $white;
   text-decoration: none;
 }
 
@@ -935,19 +935,19 @@ li.tag:hover, .tags .checkbox:hover {
 }
 
 .level .levelgen, .team_count, .game_type {
-  text-shadow: 1px 1px 0px $midmidhigh;
+  text-shadow: 1px 1px 0px $black;
 }
 
 .level .levelgen {
-  color: #00FFFF;
+  color: $blue;
 }
 
 .team_count {
-	color: $dark;
+  // color: $yellow;
 }
 
 .game_type {
-  color: $green;
+  // color: $green;
 }
 
 .thumbnail {
@@ -972,25 +972,26 @@ li.tag:hover, .tags .checkbox:hover {
 
 .download-instructions-container {
   margin-top: 1em;
-  background: $midhigh;
   text-align: center;
-  border: 1px solid $mid;
-  padding: .25em;
   overflow: hidden;
-  @include inset-text($white, 0.4, 0.4);
-  @include simple_base($midmidhigh);
   width: 100%;
   padding: 1em;
 }
 
 .download-instructions {
-  margin-top: .5em;
+  @include rounded();
+  border: 1px solid $mid;
+  margin: .5em auto;
+  width: golden-ratio($contentWidth, -1);
   font-size: 2em;
   font-family: monospace;
+  color: $blue;
+  padding: .25em;
+  background: $dark;
+  display: block;
 }
 
 .rating .rating {
-  @include simple_base($black);
   display: inline-block;
   width: 150px;
 }
