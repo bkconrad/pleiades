@@ -1033,6 +1033,7 @@ li.tag:hover, .tags .checkbox:hover {
 .thumbnail {
   @include inset-box(0.1, 0.3);
   @include rounded;
+  border: 0px;
   vertical-align: middle;
 }
 
