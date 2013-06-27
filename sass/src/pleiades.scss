@@ -1006,6 +1006,8 @@ li.tag:hover, .tags .checkbox:hover {
   @include inset-box();
   background: $lowmid;
   padding: 0 .25em;
+  margin-bottom: .5em;
+  display: inline-block;
 }
 
 .level .level_info {
@@ -1041,7 +1043,6 @@ li.tag:hover, .tags .checkbox:hover {
 }
 
 .thumbnail-wrapper {
-  margin-top: .5em;
   height: 152px;
   width: 202px;
   vertical-align: middle;
