@@ -1,25 +1,44 @@
 @import "compass";
 @import "bourbon/bourbon";
 
+@font-face {
+  font-family: Checkbook;
+  src: url('../font/Checkbook.ttf');
+}
+
+@font-face {
+  font-family: TenbyFive;
+  font-weight: bold;
+  src: url('../font/tenbyfive.ttf');
+}
+
 // base colors
-$offblack: #010101;
-$black: #070707;
-$dark: #101214;
-$lowmid: #333537;
-$mid: #444648;
-$midmid: #99A1A3;
-$midmidhigh: #CCCED1;
-$midhigh: #DDDFE2;
-$high: #EEF1F3;
+$black: #010101;
+$grey1: #111315;
+$grey2: #222426;
+$grey3: #333537;
+$grey4: #444648;
+$grey5: #555759;
+$grey6: #666870;
+$grey7: #77797A;
+$grey8: #888A8C;
+$grey9: #999B9D;
+$greyA: #AAACAE;
+$greyB: #BBBDBF;
+$greyC: #CCCED0;
+$greyD: #DDDFE1;
+$greyE: #EEF0F2;
 $white: #FEFEFE;
 $red: #D21;
 $blue: #57D;
 $green: #5D7;
 $yellow: #EE7;
 
+$fullgreen: #00FF00;
+
 // semantics
 $link_hover: $red;
-$button_color: $midhigh;
+$button_color: $greyD;
 $title_shadow: #666;
 
 $contentWidth: 960px;
@@ -50,9 +69,9 @@ $headerHeight: 40px;
   color: $color;
 }
 
-@mixin inset-box($highalpha: 0.3, $lowalpha: 0.3) {
+@mixin inset-box($highalpha: 0.3, $lowalpha: 0.3, $borderalpha: 0.3) {
   box-shadow: 0 -1px 0px rgba(0, 0, 0, $lowalpha), 0 1px 0px rgba(255, 255, 255, $highalpha);
-  border: 1px solid rgba(0,0,0,0.2);
+  // border: 1px solid rgba(0,0,0,$borderalpha);
   border-top: 1px solid rgba(0, 0, 0, 0.6);
 }
 
@@ -94,11 +113,9 @@ $headerHeight: 40px;
 body {
   background: black;
   background-image: url(../img/stars.gif);
-  color: #fff;
-  font-family:'lucida grande',verdana,helvetica,arial,sans-serif;
-  font-size:90%;
   margin: 0;
   overflow-y: scroll;
+  color: #F00;
 }
 a {
 	color: $blue;
@@ -116,21 +133,20 @@ h1, h2, h3, h4 {
 	margin-bottom:0.5em;
 }
 h1 {
-  text-shadow: 0px 2px 0px $title_shadow;
-  border-bottom: 1px solid $mid;
+  color: $grey1;
+  text-shadow: 0px 1px 0px $title_shadow;
+  border-bottom: 1px solid $grey2;
   font-size: 2em;
   margin-top:1em;
   padding: .25em;
 }
 h2 {
   clear: both;
-	color: $red;
-	font-family:'Gill Sans','lucida grande', helvetica, arial, sans-serif;
+	color: $white;
 	font-size: 190%;
 }
 h3 {
 	color: #2c6877;
-	font-family:'Gill Sans','lucida grande', helvetica, arial, sans-serif;
 	font-size: 165%;
 }
 h4 {
@@ -151,16 +167,27 @@ p {
 }
 
 #header_wrapper {
-  background: $dark;
-  border-bottom: 3px solid $lowmid;
-  box-shadow: 0 3px 0 $lowmid;
+  background: $grey2;
+  border-bottom: 3px solid $grey3;
   height: $headerHeight;
 }
 
-#header{
+#header {
   padding: 0 .5em;
-  width: $contentWidth;
+  max-width: 90%;
   margin: 0 auto;
+
+  a.logo {
+    color: $white;
+    font-size: 2em;
+    font-family: "Checkbook";
+    text-decoration: none;
+    text-shadow: 0 2px 0 black;
+  }
+
+  a.logo:hover {
+    color: $fullgreen;
+  }
 }
 
 #header a {
@@ -190,17 +217,19 @@ p {
 	background: #003d4c;
 	text-decoration: underline;
 }
+
 #content{
-  background: $offblack;
+  background: $grey4;
+  @include background-image(linear-gradient(top, rgba($greyA, .3), $grey4 600px));
   clear: both;
-  color: #eee;
   text-align: left;
-  max-width: $contentWidth;
+  max-width: 90%;
   min-height: 800px;
   margin: 0 auto;
   padding: 1em;
-  border-left: 1px solid $dark;
-  border-right: 1px solid $dark;
+  border-left: 1px solid $grey2;
+  border-right: 1px solid $grey2;
+  color: $black;
 }
 #base_footer {
 	clear: both;
@@ -256,7 +285,7 @@ table tr td {
 	vertical-align: top;
 }
 table tr:nth-child(even) {
-	background: $mid;
+	background: $grey4;
 }
 td.actions {
 	text-align: center;
@@ -404,20 +433,20 @@ form div.submit {
   padding: 0;
 }
 label {
-	color: $blue;
+	color: $black;
   font-weight: bold;
 	display: block;
 	font-size: 110%;
 	margin-bottom:3px;
 }
-input, textarea, pre.submission, .level_description {
-  background: lighten($offblack, 1%);
-  border: 1px solid $dark;
-  color: $midhigh;
+input, textarea, pre.submission, .level_description, .comment {
+  background: $grey1;
+  color: $greyD;
   clear: both;
   font-family: monospace;
   padding: 1%;
   width:98%;
+  border: 0;
   @include rounded;
 }
 
@@ -600,7 +629,7 @@ p.error em {
 /* Buttons and button links */
 .actions ul li a,
 .actions a {
-  @include button($mid);
+  @include button($grey4);
 }
 
 input[type=submit] {
@@ -617,7 +646,7 @@ input[type=submit] {
 /** Debugging **/
 pre {
   padding: 1em;
-  border: 1px solid $mid;
+  border: 1px solid $grey4;
   overflow-x: auto;
 }
 
@@ -656,7 +685,7 @@ pre {
 }
 .cake-stack-trace {
 	background: rgba(255, 255, 255, 0.7);
-	color: $mid;
+	color: $grey4;
 	margin: 10px 0 5px 0;
 	padding: 10px 10px 0 10px;
 	font-size: 120%;
@@ -795,18 +824,18 @@ pre {
 }
 
 #navmenu {
+  display: inline-block;
   text-align: right;
   font-size: 1em;
   font-weight: bold;
-  width: ($contentWidth*0.75);
   height: $headerHeight;
   line-height: $headerHeight;
 }
 
 #navmenu a {
   text-decoration: none;
-  text-shadow: 0 2px 0 $mid;
-  color: $high;
+  text-shadow: 0 2px 0 $grey4;
+  color: $greyE;
   margin-left: .5em;
   @include transition (top 0.1s ease-in-out, text-shadow 0.1s);
 }
@@ -857,11 +886,11 @@ pre.submission {
 
 li.tag, .tags .checkbox {
   @include rounded;
-  background: $dark;
-  border: 1px solid $midmid;
+  background: $grey2;
+  border: 1px solid $grey8;
   clear: none;
   display: inline-block;
-  box-shadow: 0 1px $mid, 0 2px 3px $offblack;
+  box-shadow: 0 1px $grey4, 0 2px 3px $black;
 }
 
 li.tag {
@@ -874,6 +903,7 @@ li.tag {
   vertical-align: middle;
   height: 2em;
   margin-bottom: 0;
+  margin-top: 0;
 }
 
 .tags .checkbox input {
@@ -884,7 +914,7 @@ li.tag {
 }
 
 li.tag a, .tags .checkbox label {
-  @include inset-text($high);
+  @include inset-text($greyE);
   text-decoration: none;
   font-weight: normal;
   font-size: 1em;
@@ -896,10 +926,10 @@ li.tag a, .tags .checkbox label {
 }
 
 li.tag:hover, .tags .checkbox:hover {
-  background: $mid;
-  border-color: $midhigh;
+  background: $grey4;
+  border-color: $greyD;
   a, label {
-    @include inset-text($midhigh);
+    @include inset-text($greyD);
   }
 }
 
@@ -922,24 +952,28 @@ li.tag:hover, .tags .checkbox:hover {
   margin-bottom: .5em;
 }
 
+.screenshot-wrapper {
+  display: inline-block;
+  width: 100%;
+  height: 600px;
+  line-height: 600px;
+  vertical-align: middle;
+  text-align: center;
+  background: black;
+}
+
 .screenshot {
-  border: 1px solid $mid;
-  display: block;
-  margin: .5em auto;
-  clear: both;
+  margin: auto;
+  max-height: 100%;
 }
 
 .level {
   @include rounded;
-  @include raised-box;
-  @include rounded-face($dark);
-  border: 1px solid $dark;
-  display: inline-block;
+  @include raised-box(.2);
+  @include rounded-face($grey2);
   vertical-align: top;
-  padding: .5em;
-  margin: .5em;
-  clear: both;
-  width: 200px;
+  margin-bottom: 30px;
+  color: $grey9;
 }
 
 .level > * {
@@ -947,16 +981,18 @@ li.tag:hover, .tags .checkbox:hover {
 }
 
 .level a.name {
-  @include raised-text($blue);
+  @include raised-text($greyD);
   display: block;
   overflow: hidden;
   white-space: nowrap;
   text-decoration: none;
+  font-family: "Checkbook";
   font-weight: normal;
-  font-size: 1.5em;
+  font-size: 2em;
   width: 100%;
-  border-bottom: 1px solid $dark;
-  box-shadow: 0px 1px 0px $mid;
+  border-bottom: 1px solid $grey2;
+  box-shadow: 0px 1px 0px $grey4;
+  text-shadow: 0px 1px 0px $black;
   padding-bottom: .1em;
   margin-bottom: .25em;
 }
@@ -968,20 +1004,39 @@ li.tag:hover, .tags .checkbox:hover {
 
 .rating {
   font-family: monospace;
-  font-weight: bold;
+}
+
+.level {
+  padding: 0 .5em;
+
+  .thumbnail-wrapper {
+    width: 100%;
+    background: black;
+    border: 1px solid $grey4;
+    display: block;
+  }
+
+  .thumbnail {
+    border: 0px;
+    border-radius: 0;
+    padding: 0;
+    margin: 0 auto;
+    vertical-align: middle;
+    max-width: 100%;
+  }
 }
 
 .level .rating {
   @include rounded;
-  @include inset-box;
+  @include inset-box(.1, .1);
   display: block;
-  height: 1.25em;
-  width: 1.5em;
+  height: 1.418em;
+  width: 15%;
   padding: 0 .25em;
   float: right;
-  background: $dark;
-  color: $high;
+  background: $grey2;
   text-align: right;
+  font-weight: bold;
 }
 
 .level .author {
@@ -992,7 +1047,7 @@ li.tag:hover, .tags .checkbox:hover {
 }
 
 .level .author a {
-  color: $white;
+  color: $greyC;
   text-decoration: none;
 }
 
@@ -1003,8 +1058,8 @@ li.tag:hover, .tags .checkbox:hover {
 
 .level_info {
   @include rounded;
-  @include inset-box();
-  background: $lowmid;
+  @include inset-box(.1, .1, .5);
+  background: $grey4;
   padding: 0 .25em;
   margin-bottom: .5em;
   display: inline-block;
@@ -1015,7 +1070,7 @@ li.tag:hover, .tags .checkbox:hover {
 }
 
 .level .levelgen, .team_count, .game_type {
-  text-shadow: 1px 1px 0px $black;
+  text-shadow: 1px 1px 0px $grey1;
 }
 
 .level .levelgen {
@@ -1023,31 +1078,12 @@ li.tag:hover, .tags .checkbox:hover {
 }
 
 .team_count {
-  color: $green;
+  color: $greyA;
 }
 
-.level .game_type {
+.game_type {
+  color: $greyA;
   float: right;
-}
-
-.thumbnail {
-  @include inset-box(0.1, 0.3);
-  @include rounded;
-  border: 0px;
-  vertical-align: middle;
-}
-
-.thumbnail-helper {
-  display: inline-block;
-  height: 100%;
-  vertical-align: middle;
-}
-
-.thumbnail-wrapper {
-  height: 152px;
-  width: 202px;
-  vertical-align: middle;
-  text-align: center;
 }
 
 .download-instructions-container {
@@ -1055,25 +1091,22 @@ li.tag:hover, .tags .checkbox:hover {
   text-align: center;
   overflow: hidden;
   width: 100%;
-  padding: 1em;
 }
 
 .download-instructions {
   @include rounded();
-  border: 1px solid $mid;
   margin: .5em auto;
-  width: golden-ratio($contentWidth, -1);
   font-size: 2em;
   font-family: monospace;
-  color: $blue;
+  color: $greyD;
   padding: .25em;
-  background: $dark;
+  background: $grey1;
   display: block;
+  overflow: hidden;
 }
 
 .rating .rating {
   display: inline-block;
-  width: 150px;
 }
 
 .rating a, .rating a:hover {
@@ -1118,22 +1151,19 @@ li.tag:hover, .tags .checkbox:hover {
   float: left;
   line-height: 100px;
   display: inline-block;
-  width: 100px;
+  min-width: 100px;
   text-align: right;
+  color: $greyE;
 }
 
 .comment {
-  @include rounded;
-  background: lighten($offblack, 3%);
-  border: 1px solid $mid;
+  font-family: sans-serif;
   margin-bottom: 1em;
   padding: .5em;
 }
 
 .comment-author {
   font-weight: bold;
-  font-size: 1.2em;
-  line-height: 1.5em;
   margin-bottom: .5em;
 }
 

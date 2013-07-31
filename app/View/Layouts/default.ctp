@@ -28,24 +28,26 @@
 	<?php
 		echo $this->Html->meta('icon');
 
+    echo $this->Html->css('bootstrap');
 		echo $this->Html->css('pleiades');
 
 		echo $this->Html->meta('icon');
 
+    echo $this->Html->script('jquery');
+    echo $this->Html->script('bootstrap');
+    echo $this->Html->script('pleiades');
+
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
 		echo $this->fetch('script');
-
-    echo $this->Html->script('jquery');
-    echo $this->Html->script('pleiades');
 	?>
 </head>
 <body>
 	<div id="container">
       <div id="header_wrapper">
 		<div id="header">
-      <?php echo $this->Html->link($this->Html->image('pleiades.png', array('alt' => 'Pleiades - Bitfighter level database')), '/', array('escape' => false)) ?>
-            <div id="menu"><?php echo $this->element('menu') ?></div>
+      <?php echo $this->Html->link('Pleiades', '/', array('class' => 'logo', 'escape' => false)) ?>
+      <div id="menu"><?php echo $this->element('menu') ?></div>
 		</div>
       </div>
 		<div id="content">

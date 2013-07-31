@@ -19,16 +19,17 @@ $tagInput = $this->Form->input('tags', array(
 ));
 
 echo $this->Html->tag('div', $tagInput, array('class' => 'tags'));
-
 echo $this->Html->tag('br');
-
 echo $this->Form->submit(__('Search'), array('div' => false));
 echo $this->Form->end();
 if(count($levels) > 0) {
   echo '<h1>Results</h1>';
 }
+
+echo '<div class="row">';
 foreach ($levels as $level) {
   echo $this->element('level', array(
     'level' => $level
   ));
 }
+echo '</div>';

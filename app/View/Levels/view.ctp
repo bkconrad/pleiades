@@ -47,9 +47,9 @@ if($is_owner) {
 ?>
 </div>
 <?php
-if(isset($level['Level']['screenshot_filename']) && !empty($level['Level']['screenshot_filename'])) {
-  echo '<img class="screenshot" src="' . $this->webroot . 'img/' . $level['Level']['screenshot_filename'] . '">';
-}
+echo '<span class="screenshot-wrapper">';
+echo '<img class="screenshot" src="' . $this->webroot . 'img/' . $level['Level']['screenshot_filename'] . '">';
+echo '</span>';
 ?>
 
 <?php
