@@ -30,12 +30,14 @@
 
     echo $this->Html->css('bootstrap');
 		echo $this->Html->css('pleiades');
+		echo $this->Html->css('solarized-dark');
 
 		echo $this->Html->meta('icon');
 
     echo $this->Html->script('jquery');
     echo $this->Html->script('bootstrap');
     echo $this->Html->script('pleiades');
+    echo $this->Html->script('rainbow-custom.min');
 
 		echo $this->fetch('meta');
 		echo $this->fetch('css');

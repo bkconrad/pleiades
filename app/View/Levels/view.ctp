@@ -14,9 +14,7 @@ if ($level['Level']['downloads'] == 1) {
   $downloads = 'No downloads yet';
 }
 echo $this->Html->tag('div', $downloads, array('class' => 'download-count'));
-?>
 
-<?php
 echo $this->element('rating', array(
   'id' => $level['Level']['id'],
   'rating' => $level['Level']['rating'],
@@ -24,9 +22,7 @@ echo $this->element('rating', array(
   'is_owner' => $is_owner,
   'logged_in' => $logged_in
 ));
-?>
 
-<?php
 echo '<span class="level_info">';
 echo '<span class="team_count">' . $level['Level']['team_count'] . '&nbsp;Team&nbsp;</span>';
 echo '<span class="game_type">' . $level['Level']['game_type'] . '</span>';
@@ -88,17 +84,19 @@ if (!empty($level['Tag'])) {
   }
   echo '</ul>';
 }
-?>
 
-<?php echo $this->Html->tag('h1', $level['Level']['level_filename'], array('escape' => true)) ?>
-<?php echo $this->Html->tag('pre', $level['Level']['content'], array('escape' => true, 'class' => 'submission')) ?>
-<?php 
+echo $this->Html->tag('h1', $level['Level']['level_filename'], array('escape' => true));
+echo '<div class="submission-wrapper">';
+echo $this->Html->tag('pre', $level['Level']['content'], array('escape' => true, 'class' => 'submission'));
+echo '</div>';
+
 if (!empty($level['Level']['levelgen'])) {
   echo $this->Html->tag('h1', $level['Level']['levelgen_filename'], array('escape' => true));
-  echo $this->Html->tag('pre', $level['Level']['levelgen'], array('escape' => true, 'class' => 'submission'));
+  echo '<div class="submission-wrapper">';
+  echo $this->Html->tag('pre', $level['Level']['levelgen'], array('escape' => true, 'class' => 'submission', 'data-language' => 'lua'));
+  echo '</div>';
 }
-?>
-<?php
+
 if (!empty($comments)) {
     echo '<h1>Comments</h1>';
     foreach ($comments as $k => $comment) {

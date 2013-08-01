@@ -281,7 +281,7 @@ class LevelsController extends AppController {
     $zip->close();
 
     $this->response->file($tmp);
-    $this->response->download($levelName . '.zip');
+    $this->response->download(preg_replace('/\.level$/', '', $levelName) . '.zip');
     return $this->response;
   }
 

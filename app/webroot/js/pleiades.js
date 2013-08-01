@@ -3,24 +3,21 @@ $(function() {
 });
 
 function addCodeButtons() {
-    var content = $(this).text();
-    $(this).text('');
     var $selectAll = $('<a href="javascript:return false;" class="codeButton">').text('Select All');
     var $expand = $('<a href="javascript:return false;" class="codeButton">').text('Shrink');
-    var $wrap = $('<div class="selectTarget">');
-    $wrap.text(content);
-    $buttonDiv = $('<div></div>').css('float', 'right');
+    var $wrapper = $(this).parent();
+    $buttonDiv = $('<div class="buttonDiv"></div>');
 
     $buttonDiv.append($selectAll);
     $buttonDiv.append($expand);
-    $(this).append($buttonDiv);
-    $(this).append($wrap);
+    $wrapper.prepend($buttonDiv);
 
     $selectAll.click(function () {
-        select_text($wrap.get(0));
+        select_text($wrapper.find('pre').get(0));
     });
+
     $expand.click(function () {
-        if(toggle_expansion($wrap.parent().get(0))) {
+        if(toggle_expansion($wrapper.find('pre'))) {
             $(this).text('Shrink');
         } else {
             $(this).text('Expand');

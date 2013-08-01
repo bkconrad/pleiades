@@ -455,7 +455,7 @@ label {
 	font-size: 110%;
 	margin-bottom:3px;
 }
-input, textarea, pre.submission, .level_description, .comment {
+input, textarea, pre.submission, .level_description, #content > .comment {
   background: $grey1;
   color: $greyD;
   clear: both;
@@ -895,6 +895,22 @@ pre.submission {
   white-space: pre-line;
 }
 
+.submission-wrapper {
+  text-align: right;
+}
+
+.submission {
+  text-align: left;
+}
+
+.buttonDiv {
+  position: relative;
+  height: 0;
+  top: 7.5px;
+  right: 30px;
+  display: block;
+}
+
 .codeButton {
   display: block;
 }
@@ -1194,7 +1210,7 @@ li.tag:hover, .tags .checkbox:hover {
   color: $greyE;
 }
 
-.comment {
+#content > .comment {
   font-family: sans-serif;
   margin-bottom: 1em;
   padding: .5em;
