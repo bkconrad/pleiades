@@ -54,7 +54,7 @@ $headerHeight: 40px;
 }
 
 @mixin raised-box($highalpha: 0.3, $lowalpha: 0.3) {
-  box-shadow: 0 -1px 0px rgba(0, 0, 0, $lowalpha) inset, 0 1px 0px rgba(255, 255, 255, $highalpha) inset, 1px 1px 1px rgba(0,0,0, $lowalpha);
+  box-shadow: 0 -1px 0px rgba(0, 0, 0, $lowalpha) inset, 0 1px 0px rgba(255, 255, 255, $highalpha) inset, 0px 1px 2px rgba(0,0,0, $lowalpha);
 }
 
 @mixin inset-text($color, $highalpha: 0.3, $lowalpha: 0.3) {
@@ -133,12 +133,15 @@ h1, h2, h3, h4 {
 	margin-bottom:0.5em;
 }
 h1 {
-  color: $grey1;
+  @include rounded();
+  color: $black;
   text-shadow: 0px 1px 0px $title_shadow;
-  border-bottom: 1px solid $grey2;
-  font-size: 2em;
-  margin-top:1em;
-  padding: .25em;
+  box-shadow: 0px 1px 1px $title_shadow inset;
+  background: $grey4;
+  border-bottom: 1px solid $grey3;
+  font-size: 2.5em;
+  margin: 15px auto;
+  padding: 7.5px;
   font-family: "Checkbook";
 }
 h2 {
@@ -171,6 +174,9 @@ p {
   background: $grey2;
   border-bottom: 3px solid $grey3;
   height: $headerHeight;
+  box-shadow: 0 2px 2px $grey1;
+  position: relative;
+  z-index: 1;
 }
 
 #header {
@@ -221,7 +227,7 @@ p {
 
 #content{
   background: $grey4;
-  @include background-image(linear-gradient(top, rgba($greyA, .3), $grey4 600px));
+  background-image: url(../img/mooning.png);
   clear: both;
   text-align: left;
   max-width: 90%;
@@ -1034,7 +1040,7 @@ li.tag:hover, .tags .checkbox:hover {
   width: 15%;
   padding: 0 .25em;
   float: right;
-  background: $grey2;
+  background: $grey1;
   text-align: right;
   font-weight: bold;
 }
@@ -1059,7 +1065,7 @@ li.tag:hover, .tags .checkbox:hover {
 .level_info {
   @include rounded;
   @include inset-box(.1, .1, .5);
-  background: $grey4;
+  background: $grey1;
   padding: 0 .25em;
   margin-bottom: .5em;
   display: inline-block;
