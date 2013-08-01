@@ -31,7 +31,7 @@ $greyE: #EEF0F2;
 $white: #FEFEFE;
 $red: #D21;
 $blue: #57D;
-$green: #5D7;
+$green: #394;
 $yellow: #EE7;
 
 $fullgreen: #00FF00;
@@ -235,7 +235,7 @@ p {
   padding: 1em;
   border-left: 1px solid $grey2;
   border-right: 1px solid $grey2;
-  color: $black;
+  color: $greyD;
 }
 #base_footer {
 	clear: both;
@@ -252,8 +252,16 @@ div.view {
 	padding:10px 2%;
 }
 div.actions {
-	padding:10px 0px;
+  @include rounded();
+  @include raised-box(.2, .5);
+  @include rounded-face($grey4);
+  color: $black;
+  text-shadow: 0px 1px 0px $title_shadow;
+  margin: 15px auto;
+  padding: 7.5px;
+  clear: both;
 }
+
 div.actions h3 {
 	padding-top:0;
 	color:#777;
@@ -439,7 +447,7 @@ form div.submit {
   padding: 0;
 }
 label {
-	color: $black;
+	color: $greyD;
   font-weight: bold;
 	display: block;
 	font-size: 110%;
@@ -450,7 +458,8 @@ input, textarea, pre.submission, .level_description, .comment {
   color: $greyD;
   clear: both;
   font-family: monospace;
-  padding: 1%;
+  width: 100%;
+  padding: .5em;
   border: 0;
   @include rounded;
 }
@@ -638,7 +647,7 @@ p.error em {
 }
 
 input[type=submit] {
-  @include button(darken($green, 30%));
+  @include button($green);
   font-family: inherit;
 }
 
@@ -1066,7 +1075,13 @@ li.tag:hover, .tags .checkbox:hover {
   background: $grey1;
   padding: 0 .25em;
   margin-bottom: .5em;
-  display: inline-block;
+  display: block;
+  clear: both;
+}
+
+.download-count {
+  float: left;
+  clear: left;
 }
 
 .level .level_info {
@@ -1111,6 +1126,7 @@ li.tag:hover, .tags .checkbox:hover {
 
 .rating .rating {
   display: inline-block;
+  float: right;
 }
 
 .rating a, .rating a:hover {

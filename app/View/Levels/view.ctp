@@ -1,19 +1,12 @@
 <?php
 echo $this->Html->tag('h2', $level['Level']['name']  . " by " . $level['User']['username'], array('escape' => true));
-echo '<span class="level_info">';
-echo '<span class="team_count">' . $level['Level']['team_count'] . '&nbsp;Team&nbsp;</span>';
-echo '<span class="game_type">' . $level['Level']['game_type'] . '</span>';
-echo '</span>';
-?>
-
-<?php
 $downloads = 'Downloaded ' . $level['Level']['downloads'] . ' times&nbsp;';
 if ($level['Level']['downloads'] == 1) {
   $downloads = 'Downloaded once';
 } else if ($level['Level']['downloads'] == 0) {
   $downloads = 'No downloads yet';
 }
-echo $this->Html->tag('div', $downloads);
+echo $this->Html->tag('div', $downloads, array('class' => 'download-count'));
 ?>
 
 <?php
@@ -24,6 +17,13 @@ echo $this->element('rating', array(
   'is_owner' => $is_owner,
   'logged_in' => $logged_in
 ));
+?>
+
+<?php
+echo '<span class="level_info">';
+echo '<span class="team_count">' . $level['Level']['team_count'] . '&nbsp;Team&nbsp;</span>';
+echo '<span class="game_type">' . $level['Level']['game_type'] . '</span>';
+echo '</span>';
 ?>
 
 <div class="actions">
