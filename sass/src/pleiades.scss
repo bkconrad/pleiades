@@ -136,12 +136,13 @@ h1 {
   @include rounded();
   @include raised-box(.2, .5);
   @include rounded-face($grey4);
-  color: $black;
+  color: $grey1;
   text-shadow: 0px 1px 0px $title_shadow;
   font-size: 2.5em;
   margin: 15px auto;
   padding: 7.5px;
   font-family: "Checkbook";
+  text-decoration: underline;
 }
 h2 {
   clear: both;
@@ -218,6 +219,7 @@ p {
 	font-weight: normal;
 	text-decoration: none;
 }
+
 #header h1 a:hover {
 	color: #fff;
 	background: #003d4c;
@@ -873,6 +875,21 @@ pre.submission {
   overflow-y: scroll;
 }
 
+.byline {
+  text-shadow: 0 1px 1px $grey1;
+  font-size: 18px;
+  font-family: sans-serif;
+  color: $grey9;
+
+  .name {
+    font-size: 35px;
+    color: $white;
+  }
+
+  .author {
+  }
+}
+
 .level_description {
   padding: 1em;
   white-space: pre-line;
@@ -885,11 +902,10 @@ pre.submission {
 .tags, .small-tags {
   padding: 0;
   list-style: none;
-  -webkit-padding-start: 0;
 }
 
-.small-tags {
-  min-height: 3em;
+ul.tags {
+  padding: 0;
 }
 
 .tags {
@@ -905,10 +921,10 @@ li.tag, .tags .checkbox {
   clear: none;
   display: inline-block;
   box-shadow: 0 1px $grey4, 0 2px 3px $black;
+  margin: 7px 14px 0 0;
 }
 
 li.tag {
-  margin: .5em;
   list-style: none;
 }
 
@@ -948,7 +964,7 @@ li.tag:hover, .tags .checkbox:hover {
 }
 
 .small-tags {
-  height: 2.5em;
+  height: 3em;
   text-align: left;
   overflow: hidden;
 }
@@ -1127,6 +1143,7 @@ li.tag:hover, .tags .checkbox:hover {
 .rating .rating {
   display: inline-block;
   float: right;
+  margin-bottom: 14px;
 }
 
 .rating a, .rating a:hover {
@@ -1173,6 +1190,7 @@ li.tag:hover, .tags .checkbox:hover {
   display: inline-block;
   min-width: 100px;
   text-align: right;
+  text-shadow: 0 2px 2px $grey1;
   color: $greyE;
 }
 

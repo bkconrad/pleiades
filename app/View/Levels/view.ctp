@@ -1,5 +1,12 @@
 <?php
-echo $this->Html->tag('h2', $level['Level']['name']  . " by " . $level['User']['username'], array('escape' => true));
+$byline =
+    $this->Html->tag('span', $level['Level']['name'], array('class' => 'name', 'escape' => true))
+  . '&nbsp;by&nbsp;'
+  . $this->Html->tag('span', $level['User']['username'], array('class' => 'author', 'escape' => true))
+;
+
+echo $this->Html->tag('h2', $byline, array('class' => 'byline'));
+
 $downloads = 'Downloaded ' . $level['Level']['downloads'] . ' times&nbsp;';
 if ($level['Level']['downloads'] == 1) {
   $downloads = 'Downloaded once';
