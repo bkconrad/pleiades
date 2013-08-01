@@ -268,7 +268,6 @@ class LevelsController extends AppController {
     $this->Level->saveField('downloads', $level['Level']['downloads'] + 1);
 
     $levelName = $level['Level']['level_filename'];
-    $levelName = preg_replace('/\.level$/i', '', $levelName);
 
     $tmp = tempnam('/tmp', 'levelzip_');
     $zip = new ZipArchive();
