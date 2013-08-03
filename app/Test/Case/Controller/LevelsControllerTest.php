@@ -1,7 +1,7 @@
 <?php
 App::uses('Level', 'Model');
 class LevelsControllerTest extends ControllerTestCase {
-  public $fixtures = array('app.level', 'app.user', 'app.rating', 'app.tag');
+  public $fixtures = array('app.level', 'app.user', 'app.rating', 'app.tag', 'app.comment');
 
   // configures a mock as fixture user 'bob'
   function mockAsBob($mockLevel = false) {
