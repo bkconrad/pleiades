@@ -1,4 +1,8 @@
 <?php
+$this->Js->get('.submission-link')
+  ->event('click', 'submissionClickHandler(this)')
+;
+
 $byline =
     $this->Html->tag('span', $level['Level']['name'], array('class' => 'name', 'escape' => true))
   . '&nbsp;by&nbsp;'
@@ -85,15 +89,19 @@ if (!empty($level['Tag'])) {
   echo '</ul>';
 }
 
-echo $this->Html->tag('h1', $level['Level']['level_filename'], array('escape' => true));
 echo '<div class="submission-wrapper">';
-echo $this->Html->tag('pre', $level['Level']['content'], array('escape' => true, 'class' => 'submission levelcode'));
+echo '<h1>';
+echo $this->Html->link($level['Level']['level_filename'], array('action' => 'raw', $level['Level']['id']), array('class' => 'submission-link'));
+echo '</h1>';
+echo $this->Html->tag('pre', '',  array('escape' => true, 'id' => 'level-code', 'class' => 'submission levelcode'));
 echo '</div>';
 
 if (!empty($level['Level']['levelgen'])) {
-  echo $this->Html->tag('h1', $level['Level']['levelgen_filename'], array('escape' => true));
   echo '<div class="submission-wrapper">';
-  echo $this->Html->tag('pre', $level['Level']['levelgen'], array('escape' => true, 'class' => 'submission levelgen', 'data-language' => 'lua'));
+  echo '<h1>';
+  echo $this->Html->link($level['Level']['levelgen_filename'], array('action' => 'raw', $level['Level']['id'], 'levelgen'), array('class' => 'submission-link'));
+  echo '</h1>';
+  echo $this->Html->tag('pre', '', array('escape' => true, 'class' => 'submission levelgen', 'data-language' => 'lua'));
   echo '</div>';
 }
 

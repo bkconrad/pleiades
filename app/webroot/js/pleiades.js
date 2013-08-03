@@ -1,6 +1,6 @@
 $(function() {
-    $('pre.submission').each(addCodeButtons);
-    $('.submission.levelcode').each(colorTeamNames);
+//    $('pre.submission').each(addCodeButtons);
+ //   $('.submission.levelcode').each(colorTeamNames);
 });
 
 function getColoredSpan(name, r, g, b) {
@@ -21,8 +21,9 @@ function getColoredSpan(name, r, g, b) {
 }
 
 function colorTeamNames() {
+    var $el = $('#level-code');
     var teamPattern = /Team\s+(\w+)\s+([0-9.]+)\s+([0-9.]+)\s+([0-9.]+)/;
-    var text = $(this).text();
+    var text = $el.text();
     var newText;
     var teamMatch = teamPattern.exec(text);
     var replacement;
@@ -48,11 +49,11 @@ function colorTeamNames() {
         teamMatch = teamPattern.exec(text);
     }
 
-    newText = $(this).text();
+    newText = $el.text();
     for (k in map) {
         newText = newText.replace(map[k][0], map[k][1]);
     }
-    $(this).html(newText);
+    $el.html(newText);
 }
 
 function addCodeButtons() {
@@ -126,4 +127,31 @@ function select_text(e)
 		r.moveToElementText(e);
 		r.select();
 	}
+}
+
+/**
+ * Fetches the raw content of the submission then inserts it into the
+ * submission's pre tag and fires any formatting/highlighting functions.
+ *
+ * Afterwards it simply toggles the code's visibility
+ */
+function submissionClickHandler(el) {
+    var $that = $(el);
+    var $pre = $that.parents('.submission-wrapper').find('.submission');
+
+    if($pre.hasClass('loaded')) {
+        $pre.toggle();
+        return;
+    } else {
+        var url = $that.attr('href');
+        $.get(url).done(function(data) {
+            console.log(data);
+            $pre.html(data);
+            $pre.removeClass('rainbow');
+            colorTeamNames();
+            Rainbow.color();
+            $pre.addClass('loaded');
+            $pre.show();
+        });
+    }
 }
