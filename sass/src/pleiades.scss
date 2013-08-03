@@ -881,6 +881,7 @@ pre.submission {
   font-size: 18px;
   font-family: sans-serif;
   color: $grey9;
+  float: left;
 
   .name {
     font-size: 35px;
@@ -897,6 +898,10 @@ pre.submission {
 }
 
 .submission-wrapper {
+  .submission-link {
+    font-family: monospace;
+    color: white;
+  }
 }
 
 .submission {

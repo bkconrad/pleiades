@@ -11,14 +11,6 @@ $byline =
 
 echo $this->Html->tag('h2', $byline, array('class' => 'byline'));
 
-$downloads = 'Downloaded ' . $level['Level']['downloads'] . ' times&nbsp;';
-if ($level['Level']['downloads'] == 1) {
-  $downloads = 'Downloaded once';
-} else if ($level['Level']['downloads'] == 0) {
-  $downloads = 'No downloads yet';
-}
-echo $this->Html->tag('div', $downloads, array('class' => 'download-count'));
-
 echo $this->element('rating', array(
   'id' => $level['Level']['id'],
   'rating' => $level['Level']['rating'],
@@ -26,6 +18,14 @@ echo $this->element('rating', array(
   'is_owner' => $is_owner,
   'logged_in' => $logged_in
 ));
+
+$downloads = 'Downloaded ' . $level['Level']['downloads'] . ' times&nbsp;';
+if ($level['Level']['downloads'] == 1) {
+  $downloads = 'Downloaded once';
+} else if ($level['Level']['downloads'] == 0) {
+  $downloads = 'No downloads yet';
+}
+echo $this->Html->tag('div', $downloads, array('class' => 'download-count'));
 
 echo '<span class="level_info">';
 echo '<span class="team_count">' . $level['Level']['team_count'] . '&nbsp;Team&nbsp;</span>';
@@ -89,18 +89,20 @@ if (!empty($level['Tag'])) {
   echo '</ul>';
 }
 
+echo '<h1>Code</h1>';
+
 echo '<div class="submission-wrapper">';
-echo '<h1>';
+echo '<h2>';
 echo $this->Html->link($level['Level']['level_filename'], array('action' => 'raw', $level['Level']['id']), array('class' => 'submission-link'));
-echo '</h1>';
+echo '</h2>';
 echo $this->Html->tag('pre', '',  array('escape' => true, 'id' => 'level-code', 'class' => 'submission levelcode'));
 echo '</div>';
 
 if (!empty($level['Level']['levelgen'])) {
   echo '<div class="submission-wrapper">';
-  echo '<h1>';
+  echo '<h2>';
   echo $this->Html->link($level['Level']['levelgen_filename'], array('action' => 'raw', $level['Level']['id'], 'levelgen'), array('class' => 'submission-link'));
-  echo '</h1>';
+  echo '</h2>';
   echo $this->Html->tag('pre', '', array('escape' => true, 'class' => 'submission levelgen', 'data-language' => 'lua'));
   echo '</div>';
 }
