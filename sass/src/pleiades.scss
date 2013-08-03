@@ -1128,8 +1128,11 @@ li.tag:hover, .tags .checkbox:hover {
   color: $blue;
 }
 
-.team-name {
-  padding: 0 .25em;
+.team-color {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin: 0;
   border-radius: .25em;
 }
 

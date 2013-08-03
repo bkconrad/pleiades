@@ -17,7 +17,7 @@ function getColoredSpan(name, r, g, b) {
         ('00' + Math.floor(b * 255).toString(16)).slice(-2);
     var color = average > .5 ? '#000000' : '#FFFFFF';
 
-    return '<span class="team-name" style="background: ' + background + '; color: ' + color + ';">' + name + '</span>';
+    return '<span class="team-color" style="background: ' + background + '; border: 1px solid ' + color + ';">&nbsp;</span> ' + name;
 }
 
 function colorTeamNames() {
