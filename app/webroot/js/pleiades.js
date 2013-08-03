@@ -10,12 +10,17 @@ function getColoredSpan(name, r, g, b) {
     g = parseFloat(g);
     b = parseFloat(b);
 
-    var average = (r + g + b) / 3;
+
     var background = "#" +
         ('00' + Math.floor(r * 255).toString(16)).slice(-2) +
         ('00' + Math.floor(g * 255).toString(16)).slice(-2) + 
         ('00' + Math.floor(b * 255).toString(16)).slice(-2);
-    var color = average > .5 ? '#000000' : '#FFFFFF';
+
+    // Choose either a light or dark border depending on the color's "luma",
+    // calculated using Rec. 601 NTSC primaries. This is a weighted average
+    // adjusted for the human perception of a color's lightness
+    var luma =  0.30 * r + 0.59 * g + 0.11 * b;
+    var color = luma > .5 ? '#222222' : '#DDDDDD';
 
     return '<span class="team-color" style="background: ' + background + '; border: 1px solid ' + color + ';">&nbsp;</span> ' + name;
 }
