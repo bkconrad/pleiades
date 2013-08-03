@@ -87,13 +87,13 @@ if (!empty($level['Tag'])) {
 
 echo $this->Html->tag('h1', $level['Level']['level_filename'], array('escape' => true));
 echo '<div class="submission-wrapper">';
-echo $this->Html->tag('pre', $level['Level']['content'], array('escape' => true, 'class' => 'submission'));
+echo $this->Html->tag('pre', $level['Level']['content'], array('escape' => true, 'class' => 'submission levelcode'));
 echo '</div>';
 
 if (!empty($level['Level']['levelgen'])) {
   echo $this->Html->tag('h1', $level['Level']['levelgen_filename'], array('escape' => true));
   echo '<div class="submission-wrapper">';
-  echo $this->Html->tag('pre', $level['Level']['levelgen'], array('escape' => true, 'class' => 'submission', 'data-language' => 'lua'));
+  echo $this->Html->tag('pre', $level['Level']['levelgen'], array('escape' => true, 'class' => 'submission levelgen', 'data-language' => 'lua'));
   echo '</div>';
 }
 

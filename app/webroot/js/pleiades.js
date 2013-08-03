@@ -1,6 +1,59 @@
 $(function() {
     $('pre.submission').each(addCodeButtons);
+    $('.submission.levelcode').each(colorTeamNames);
 });
+
+function getColoredSpan(name, r, g, b) {
+    console.log(arguments);
+
+    r = parseFloat(r);
+    g = parseFloat(g);
+    b = parseFloat(b);
+
+    var average = (r + g + b) / 3;
+    var background = "#" +
+        ('00' + Math.floor(r * 255).toString(16)).slice(-2) +
+        ('00' + Math.floor(g * 255).toString(16)).slice(-2) + 
+        ('00' + Math.floor(b * 255).toString(16)).slice(-2);
+    var color = average > .5 ? '#000000' : '#FFFFFF';
+
+    return '<span class="team-name" style="background: ' + background + '; color: ' + color + ';">' + name + '</span>';
+}
+
+function colorTeamNames() {
+    var teamPattern = /Team\s+(\w+)\s+([0-9.]+)\s+([0-9.]+)\s+([0-9.]+)/;
+    var text = $(this).text();
+    var newText;
+    var teamMatch = teamPattern.exec(text);
+    var replacement;
+    var teamName;
+    var parts;
+    var map = [];
+    var k;
+    var r, g, b;
+    var colorCode;
+    while(teamMatch) {
+        console.log(teamMatch);
+
+        teamName = teamMatch[1];
+        r = teamMatch[2];
+        g = teamMatch[3];
+        b = teamMatch[4];
+        span = getColoredSpan(teamName, r, g, b);
+
+        replacement = ['Team',span, r, g, b].join(' ');
+        map.push([teamMatch[0], replacement]);
+
+        text = text.replace(teamMatch[0], '', 1);
+        teamMatch = teamPattern.exec(text);
+    }
+
+    newText = $(this).text();
+    for (k in map) {
+        newText = newText.replace(map[k][0], map[k][1]);
+    }
+    $(this).html(newText);
+}
 
 function addCodeButtons() {
     var $selectAll = $('<a href="javascript:return false;" class="codeButton">').text('Select All');
