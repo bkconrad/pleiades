@@ -50,7 +50,7 @@ function colorTeamNames() {
         replacement = ['Team',span, r, g, b].join(' ');
         map.push([teamMatch[0], replacement]);
 
-        text = text.replace(teamMatch[0], '', 1);
+        text = text.replace(teamMatch[0], '');
         teamMatch = teamPattern.exec(text);
     }
 
