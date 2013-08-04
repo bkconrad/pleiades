@@ -874,6 +874,8 @@ pre.submission {
   max-height: none;
   overflow-y: scroll;
   display: none;
+  word-wrap: normal;
+  white-space: pre;
 }
 
 .byline {
