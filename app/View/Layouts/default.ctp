@@ -45,6 +45,7 @@
 	?>
 </head>
 <body>
+<div id="spinner" style="display: none;"><?php echo $this->Html->image('spinner.gif') ?></div>
 	<div id="container">
       <div id="header_wrapper">
 		<div id="header">

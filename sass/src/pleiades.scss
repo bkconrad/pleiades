@@ -834,6 +834,18 @@ pre {
 	display:none;
 }
 
+#spinner {
+  @include rounded;
+  position: fixed;
+  display: inline-block;
+  top: 0;
+  right: 0;
+  padding: .5em;
+  margin: 1em;
+  background: black;
+  border: 1px solid $grey6;
+}
+
 #menu {
   float: right;
 }
@@ -1005,6 +1017,7 @@ li.tag:hover, .tags .checkbox:hover {
 }
 
 .screenshot-wrapper {
+  @include rounded;
   display: inline-block;
   width: 100%;
   height: 600px;

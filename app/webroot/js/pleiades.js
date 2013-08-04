@@ -1,6 +1,13 @@
 $(function() {
 //    $('pre.submission').each(addCodeButtons);
  //   $('.submission.levelcode').each(colorTeamNames);
+ $(document).ajaxStart(function() {
+    $('#spinner').fadeIn(100);
+ });
+
+ $(document).ajaxComplete(function() {
+    $('#spinner').fadeOut(300);
+ });
 });
 
 function getColoredSpan(name, r, g, b) {
