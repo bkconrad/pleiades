@@ -456,12 +456,12 @@ label {
 }
 input, textarea, pre.submission, .level_description, #content > .comment {
   background: $grey1;
+  border: 1px solid $grey6;
   color: $greyD;
   clear: both;
   font-family: monospace;
   width: 100%;
   padding: .5em;
-  border: 0;
   @include rounded;
 }
 
