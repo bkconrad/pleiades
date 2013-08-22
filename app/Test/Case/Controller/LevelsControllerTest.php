@@ -7,6 +7,7 @@ class LevelsControllerTest extends ControllerTestCase {
   function mockAsBob($mockLevel = false) {
     // mock Auth component
     $options = array(
+        'methods' => array('getUploadFilename'),
         'components' => array('Auth' => array('user', 'loggedIn', 'login'))
     );
 
@@ -424,5 +425,46 @@ class LevelsControllerTest extends ControllerTestCase {
     ));
     // no matches
     $this->assertEqual(0, count($result['levels']));
+  }
+
+  public function testMassUpload() {
+    $Levels = $this->mockAsBob();
+
+    // build a temporary zip file
+    $files = array(
+        'one.level' => 'LevelName mass_one',
+        'two.levelgen' => 'junk',
+        'two.level' => "LevelName mass_two\nScript two",
+        'thr.level' => 'LevelName mass_three'
+      );
+    $zipName = tempnam(sys_get_temp_dir(), '') . '.zip';
+    $zip = new ZipArchive();
+    $zip->open($zipName, ZipArchive::CREATE);
+    foreach ($files as $filename => $contents) {
+      $zip->addFromString($filename, $contents);
+    }
+    $zip->close();
+
+    // mock our upload check method
+    $Levels
+      ->expects($this->any())
+      ->method('getUploadFilename')
+      ->will($this->returnValue($zipName));
+
+    // set up the request data
+    $data = array(
+      'Level' => array(
+        'zipFile' => array(
+          'type' => 'application/zip',
+          'tmp_name' => $zipName,
+          'error' => 0,
+          )
+        )
+      );
+
+    $oldcount = $this->Level->find('count');
+    $this->testAction('/levels/massupload', array('data' => $data));
+    $newcount = $this->Level->find('count');
+    $this->assertEquals($oldcount + 3, $newcount);
   }
 }

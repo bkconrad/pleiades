@@ -105,6 +105,19 @@ class LevelsController extends AppController {
     return false;
   }
 
+  public function getUploadFilename($field) {
+    $arr = $this->request->data['Level'][$field];
+    if (
+      is_array($arr)
+      && (empty($arr['error']) || $arr['error'] == 0)
+      && (!empty($arr['tmp_name']) && $arr['tmp_name'] != 'none')
+      && is_uploaded_file($arr['tmp_name'])
+    ) {
+      return $arr['tmp_name'];
+    }
+    return false;
+  }
+
   public function beforeFilter() {
     parent::beforeFilter();
     $this->Auth->deny();
@@ -279,14 +292,14 @@ class LevelsController extends AppController {
     }
 
     $zip->close();
+    unlink($tmp);
 
-    $this->response->file($tmp);
-    $this->response->download(preg_replace('/\.level$/', '', $levelName) . '.zip');
+    $filename = preg_replace('/\.level$/', '', $levelName) . '.zip';
+    $this->response->file($tmp, array('download' => true, 'name' => $filename));
     return $this->response;
   }
 
-  // client unified write interface: updates or creates as needed
-  public function upload() {
+  function performUpload() {
     if(!$this->Auth->loggedIn()) {
       if(!$this->Auth->login()) {
         throw new ForbiddenException('You must be logged in');
@@ -322,11 +335,17 @@ class LevelsController extends AppController {
         throw new ForbiddenException('You can only update a level you uploaded');
       }
       $this->request->data['Level']['id'] = $level['Level']['id'];
+    } else {
+      $this->Level->create();
     }
 
     $this->request->data['Level']['user_id'] = $this->Auth->user('user_id');
+    return $this->Level->save($this->request->data);
+  }
 
-    if(!$this->Level->save($this->request->data)) {
+  // client unified write interface: updates or creates as needed
+  public function upload() {
+    if(!performUpload()) {
       $this->response->statusCode(403);
       $this->response->body(array_shift($this->Level->validationErrors));
       return $this->response;
@@ -353,6 +372,59 @@ class LevelsController extends AppController {
     $this->set('levels', $this->paginate());
     $tags = $this->Level->Tag->find('list');
     $this->set(compact('tags'));
+  }
+
+  public function massupload() {
+    if($this->request->is('post')) {
+      $filename = $this->getUploadFilename('zipFile');
+
+      if(!$filename) {
+        throw new BadRequestException('You must upload a .zip file');
+      }
+
+      $zip = new ZipArchive();
+      if(!$zip->open($filename)) {
+        throw new BadRequestException('Invalid .zip file');
+      }
+
+      $result = array();
+
+      $this->request->data = array();
+      for($i = 0; $i < $zip->numFiles; $i++) {
+        $entry = $zip->statIndex($i);
+        $entryFilename = $entry['name'];
+        $entryContents = $zip->getFromIndex($i);
+
+        if(preg_match('/\.level$/', $entryFilename)) {
+          $this->request->data['Level'] = array();
+          $this->request->data['Level']['content'] = $entryContents;
+
+          // find levelgen if needed
+          $matches = array();
+          if(preg_match('/Script\s+([^ ]+)/', $entryContents, $matches)) {
+            $levelgenFilename = preg_replace('/\.levelgen$/', '', $matches[1]) . '.levelgen';
+            $levelgenContents = $zip->getFromName($levelgenFilename);
+            if($levelgenContents !== FALSE) {
+              $this->request->data['Level']['levelgen'] = $levelgenContents;
+            } else {
+              // TODO: unable to find specified levelgen
+            }
+          }
+
+          $result = $this->performUpload();
+          if(!$result) {
+            throw new BadRequestException('unable to upload ' . $entryFilename);
+          }
+
+          // set entry vars for view
+          array_push($result, $entryFilename);
+        }
+      }
+
+      $zip->close();
+
+      $this->set('uploads', $result);
+    }
   }
 }
 ?>
