@@ -55,6 +55,9 @@ class LevelsController extends AppController {
       $newThumbnailPath = APP . 'webroot' . DS . 'img' . DS . 't' .  $newFileName;
 
       $source = imagecreatefrompng($arr['tmp_name']);
+      if(!$source) {
+        return false;
+      }
       $sourceWidth = imagesx($source);
       $sourceHeight = imagesy($source);
 
@@ -195,7 +198,9 @@ class LevelsController extends AppController {
       $this->checkFile('levelgen');
 
       if(isset($this->request->data['Level']['screenshot'])) {
-        $this->getScreenshot($this->request->data['Level']['screenshot']);
+        if(!$this->getScreenshot($this->request->data['Level']['screenshot'])) {
+          throw new BadRequestException('Unable to read screenshot file. You must upload a .png image');
+        }
       }
 
       if($this->Level->save($this->request->data)) {
