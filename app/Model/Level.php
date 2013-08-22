@@ -85,7 +85,11 @@ class Level extends AppModel {
       $match[1] = "Nexus";
     }
     $prettyNames = Configure::read('App.gametype_prefix_to_pretty_name_map');
-    $this->set('game_type', $prettyNames[$match[1]]);
+    if(isset($prettyNames[$match[1]])) {
+      $this->set('game_type', $prettyNames[$match[1]]);
+    } else {
+      $this->set('game_type', 'Bit Match');
+    }
 
     // setting the author will affect the filename
     $prefix = '';

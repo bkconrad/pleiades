@@ -1,5 +1,17 @@
 <?php
 App::uses('AppController', 'Controller');
+
+function array_flatten($arr) {
+  $arr = array_values($arr);
+  while (list($k,$v)=each($arr)) {
+    if (is_array($v)) {
+      array_splice($arr,$k,1,$v);
+      next($arr);
+    }
+  }
+  return $arr;
+}
+
 class LevelsController extends AppController {
   public $components = array('Search.Prg');
   public $presetVars = true;
@@ -395,29 +407,39 @@ class LevelsController extends AppController {
         $entryFilename = $entry['name'];
         $entryContents = $zip->getFromIndex($i);
 
+        // information about the upload
+        $info = array(
+            'errors' => array(),
+            'name' => null,
+            'filename' => $entryFilename
+          );
+
         if(preg_match('/\.level$/', $entryFilename)) {
           $this->request->data['Level'] = array();
           $this->request->data['Level']['content'] = $entryContents;
 
           // find levelgen if needed
           $matches = array();
-          if(preg_match('/Script\s+([^ ]+)/', $entryContents, $matches)) {
-            $levelgenFilename = preg_replace('/\.levelgen$/', '', $matches[1]) . '.levelgen';
-            $levelgenContents = $zip->getFromName($levelgenFilename);
-            if($levelgenContents !== FALSE) {
-              $this->request->data['Level']['levelgen'] = $levelgenContents;
-            } else {
-              // TODO: unable to find specified levelgen
+          if(preg_match('/Script +([^ \n]+)/', $entryContents, $matches) && sizeof($matches) > 1 && !empty($matches[1])) {
+            $levelgenFilename = trim(preg_replace('/\.levelgen$/', '', $matches[1]));
+            $levelgenContents = $zip->getFromName($levelgenFilename . '.levelgen');
+            $levelgenContents = $levelgenContents !== false ? $levelgenContents : $zip->getFromName($levelgenFilename);
+            $this->request->data['Level']['levelgen'] = $levelgenContents;
+            if($levelgenContents === false) {
+              array_push($info['errors'], "Could not find specified levelgen file '$levelgenFilename' in archive");
             }
           }
 
-          $result = $this->performUpload();
-          if(!$result) {
-            throw new BadRequestException('unable to upload ' . $entryFilename);
+          $this->Level->validationErrors = array();
+          $level = $this->performUpload();
+          if(!$level) {
+            $info['errors'] = array_merge($info['errors'], array_flatten($this->Level->validationErrors));
+            array_push($result, $info);
+            continue;
           }
 
-          // set entry vars for view
-          array_push($result, $entryFilename);
+          $info['name'] = $level['Level']['name'];
+          array_push($result, $info);
         }
       }
 

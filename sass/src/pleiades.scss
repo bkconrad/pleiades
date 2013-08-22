@@ -1251,3 +1251,15 @@ li.tag:hover, .tags .checkbox:hover {
 .comment-text {
   white-space: pre;
 }
+
+.mass-upload-info {
+	td {
+		border-bottom: 1px solid $grey2;
+		background: $green;
+	}
+
+	.error td {
+		background: $red;
+	}
+
+}
