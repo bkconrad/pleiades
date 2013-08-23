@@ -2,11 +2,11 @@ $(function() {
 //    $('pre.submission').each(addCodeButtons);
  //   $('.submission.levelcode').each(colorTeamNames);
  $(document).ajaxStart(function() {
-    $('#spinner').fadeIn(100);
+    $('#spinner').fadeIn(50);
  });
 
  $(document).ajaxComplete(function() {
-    $('#spinner').fadeOut(300);
+    $('#spinner').fadeOut(2000);
  });
 });
 

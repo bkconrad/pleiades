@@ -54,7 +54,6 @@ class LevelsController extends AppController {
       $newPath = APP . 'webroot' . DS . 'img' . DS . $newFileName;
       $newThumbnailPath = APP . 'webroot' . DS . 'img' . DS . 't' .  $newFileName;
 
-      debug($arr);
       $source = imagecreatefrompng($arr['tmp_name']);
       if(!is_resource($source)) {
         return false;
