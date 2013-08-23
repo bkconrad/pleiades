@@ -9,7 +9,11 @@
 /dist
 /tags
 /sass/.sass-cache
-
+/app/webroot/img/t1*.png
+/app/webroot/img/1*.png
+.idea
+.project
+.settings
 
 # OS generated files #
 ######################
