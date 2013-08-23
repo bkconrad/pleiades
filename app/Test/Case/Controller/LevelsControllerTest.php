@@ -1,5 +1,38 @@
 <?php
 App::uses('Level', 'Model');
+
+/**
+ * Create .zip file from an array of the form
+ * @code
+ * array(
+ *   'file1.txt' => 'contents of file one',
+ *   'file2.txt' => 'contents of file two',
+ *   'dir1' => array(
+ *     'file3.txt' => 'contents of file three'
+ *     )
+ *   )
+ * @endcode
+ */
+function buildZip($files, $zip = null, $base = '') {
+  if($zip === null) {
+    $zipName = tempnam(sys_get_temp_dir(), '') . '.zip';
+    $zip = new ZipArchive();
+    $zip->open($zipName, ZipArchive::CREATE);
+    buildZip($files, $zip);
+    $zip->close();
+    return $zipName;
+  } else {
+    foreach ($files as $filename => $contents) {
+      if(is_array($contents)) {
+        $zip->addEmptyDir($base . $filename);
+        buildZip($contents, $zip, $base . $filename . '/');
+      } else {
+        $zip->addFromString($filename, $contents);
+      }
+    }
+  }
+}
+
 class LevelsControllerTest extends ControllerTestCase {
   public $fixtures = array('app.level', 'app.user', 'app.user_group', 'app.rating', 'app.tag', 'app.comment', 'app.levels_tag');
 
@@ -498,18 +531,20 @@ class LevelsControllerTest extends ControllerTestCase {
 
     // build a temporary zip file
     $files = array(
+        '__MACOSX' => array(
+            'redherring.level' => 'ignore me'
+          ),
         'one.level' => 'LevelName mass_one',
-        'two.levelgen' => 'junk',
-        'two.level' => "LevelName mass_two\nScript two",
-        'thr.level' => 'LevelName mass_three'
+        'dir' => array(
+          'two.levelgen' => 'junk',
+          'two.level' => "LevelName mass_two\nScript two",
+          'dir' => array(
+              'thr.level' => 'LevelName mass_three'
+            )
+          )
       );
-    $zipName = tempnam(sys_get_temp_dir(), '') . '.zip';
-    $zip = new ZipArchive();
-    $zip->open($zipName, ZipArchive::CREATE);
-    foreach ($files as $filename => $contents) {
-      $zip->addFromString($filename, $contents);
-    }
-    $zip->close();
+
+    $zipName = buildZip($files);
 
     // mock our upload check method
     $Levels
@@ -529,7 +564,11 @@ class LevelsControllerTest extends ControllerTestCase {
       );
 
     $oldcount = $this->Level->find('count');
-    $this->testAction('/levels/massupload', array('data' => $data));
+    $results = $this->testAction('/levels/massupload', array('data' => $data, 'return' => 'vars'));
+    $this->assertEquals(3, sizeof($results['uploads']));
+    foreach($results['uploads'] as $i => $result) {
+      $this->assertEmpty($result['errors']);
+    }
     $newcount = $this->Level->find('count');
     $this->assertEquals($oldcount + 3, $newcount);
   }
