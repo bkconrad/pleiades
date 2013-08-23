@@ -26,4 +26,8 @@ class AppController extends Controller{
     $this->set('currentUserName', $this->Auth->user('username'));
     $this->set('isAdmin', $this->Session->read('isAdmin'));
   }
+
+  public function isAdmin() {
+    return $this->Session->read('isAdmin');
+  }
 }

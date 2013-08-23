@@ -39,7 +39,7 @@ echo $this->Html->link('Download', array(
   'action' => 'download',
   $level['Level']['id']
 ));
-if($is_owner) {
+if($is_owner || $isAdmin) {
   echo '&nbsp;';
   echo $this->Html->link('Edit', array(
     'action' => 'edit',

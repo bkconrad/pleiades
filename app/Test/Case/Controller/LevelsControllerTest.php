@@ -1,13 +1,13 @@
 <?php
 App::uses('Level', 'Model');
 class LevelsControllerTest extends ControllerTestCase {
-  public $fixtures = array('app.level', 'app.user', 'app.rating', 'app.tag', 'app.comment', 'app.levels_tag');
+  public $fixtures = array('app.level', 'app.user', 'app.user_group', 'app.rating', 'app.tag', 'app.comment', 'app.levels_tag');
 
   // configures a mock as fixture user 'bob'
   function mockAsBob($mockLevel = false) {
     // mock Auth component
     $options = array(
-        'methods' => array('getUploadFilename'),
+        'methods' => array('getUploadFilename', 'isAdmin'),
         'components' => array('Auth' => array('user', 'loggedIn', 'login'))
     );
 
@@ -22,6 +22,39 @@ class LevelsControllerTest extends ControllerTestCase {
       ->staticExpects($this->any())
       ->method('user')
       ->will($this->returnValue(2));
+
+    $Levels->Auth
+      ->expects($this->any())
+      ->method('loggedIn')
+      ->will($this->returnValue(true));
+
+    $Levels->Auth
+      ->expects($this->any())
+      ->method('login')
+      ->will($this->returnValue(true));
+
+    $Levels
+      ->expects($this->any())
+      ->method('isAdmin')
+      ->will($this->returnValue(true));
+
+    return $Levels;
+  }
+
+  // configures a mock as fixture user 'alice'
+  function mockAsAlice() {
+    // mock Auth component
+    $options = array(
+        'methods' => array('getUploadFilename'),
+        'components' => array('Auth' => array('user', 'loggedIn', 'login'))
+    );
+
+    $Levels = $this->generate('Levels', $options);
+
+    $Levels->Auth
+      ->staticExpects($this->any())
+      ->method('user')
+      ->will($this->returnValue(1));
 
     $Levels->Auth
       ->expects($this->any())
@@ -80,11 +113,32 @@ class LevelsControllerTest extends ControllerTestCase {
   }
 
   public function testEditLevelOwnedByOtherUser() {
-    $this->mockAsBob();
+    $this->mockAsAlice();
 
-    $level = $this->Level->findByUserId(1);
+    $level = $this->Level->findByUserId(2);
     $this->setExpectedException('ForbiddenException');
     $this->testAction('/levels/edit/' . $level['Level']['id']);
+  }
+
+  public function testAdminEdit() {
+    $this->mockAsBob();
+
+    // alice's level
+    $level = $this->Level->findById(1);
+
+    $data = array(
+      'Level' => array(
+        'content' => $level['Level']['content'] . "\nBlah blah",
+        'levelgen' => $level['Level']['levelgen'] . "\nLevelgen Addendum"
+        )
+      );
+
+    $this->assertNotContains('Blah blah', $level['Level']['content']);
+    $this->assertNotContains('Levelgen Addendum', $level['Level']['levelgen']);
+    $result = $this->testAction('/levels/edit/' . $level['Level']['id'], array('data' => $data, 'return' => 'vars'));
+    $level = $this->Level->findById(1);
+    $this->assertContains('Blah blah', $level['Level']['content']);
+    $this->assertContains('Levelgen Addendum', $level['Level']['levelgen']);
   }
 
   public function testEditSuccess() {
@@ -215,7 +269,7 @@ class LevelsControllerTest extends ControllerTestCase {
     $this->assertEquals($level, $updatedLevel);
   }
 
-  /**
+  /*
    * flakes because Session doesn't work
    *
   public function testRateWithAuthData() {

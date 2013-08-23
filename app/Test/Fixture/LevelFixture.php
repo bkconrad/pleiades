@@ -4,7 +4,7 @@ class LevelFixture extends CakeTestFixture {
   public $records = array(
     array(
       'name' => 'level',
-      'content' => 'Script test.levelgen',
+      'content' => "LevelName level\nScript test.levelgen",
       'level_filename' => 'alice_level.level',
       'levelgen' => 'some levelgen code',
       'levelgen_filename' => 'test.levelgen',

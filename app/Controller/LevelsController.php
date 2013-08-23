@@ -177,15 +177,12 @@ class LevelsController extends AppController {
       throw new ForbiddenException('You must be logged in to edit a level');
     }
 
-    if($level['User']['user_id'] != $this->Auth->user('user_id')) {
+    if(!$this->isAdmin() && $level['User']['user_id'] != $this->Auth->user('user_id')) {
       throw new ForbiddenException('You can only edit a level you uploaded');
     }
     
-    if(
-      empty($this->data['Level']['author']) ||
-      !in_array(Configure::read('Phpbb.admin_group'), $this->Level->User->getGroups())
-    ) {
-      $userid = $this->Auth->user('user_id');
+    if(empty($this->data['Level']['author']) || !$this->isAdmin()) {
+      $userid = $level['Level']['user_id'];
       $user = $this->Level->User->findByUserId($userid);
       $this->Level->set('author', $user['User']['username']);
     }
@@ -203,7 +200,8 @@ class LevelsController extends AppController {
         }
       }
 
-      if($this->Level->save($this->request->data)) {
+      $result = $this->Level->save($this->request->data);
+      if($result) {
         $this->Session->setFlash('Level updated');
         return $this->redirect(array('action' => 'view', $id));
       } else {
@@ -362,7 +360,7 @@ class LevelsController extends AppController {
 
   // client unified write interface: updates or creates as needed
   public function upload() {
-    if(!performUpload()) {
+    if(!$this->performUpload()) {
       $this->response->statusCode(403);
       $this->response->body(array_shift($this->Level->validationErrors));
       return $this->response;
