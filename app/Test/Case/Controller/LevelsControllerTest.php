@@ -139,6 +139,8 @@ class LevelsControllerTest extends ControllerTestCase {
     $level = $this->Level->findById(1);
     $this->assertContains('Blah blah', $level['Level']['content']);
     $this->assertContains('Levelgen Addendum', $level['Level']['levelgen']);
+    $this->assertEquals(1, $level['Level']['user_id']);
+    $this->assertEquals('alice', $level['Level']['author']);
   }
 
   public function testEditSuccess() {
@@ -421,6 +423,16 @@ class LevelsControllerTest extends ControllerTestCase {
     $newCount = $this->Level->find('count');
 
     $this->assertEquals($oldCount, $newCount);
+  }
+
+  public function testAdminDelete() {
+    $this->mockAsBob();
+
+    $oldCount = $this->Level->find('count');
+    $this->testAction('/levels/delete/1');
+    $newCount = $this->Level->find('count');
+
+    $this->assertEquals($oldCount - 1, $newCount);
   }
 
   /*

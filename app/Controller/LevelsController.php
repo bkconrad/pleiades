@@ -177,24 +177,27 @@ class LevelsController extends AppController {
       throw new ForbiddenException('You must be logged in to edit a level');
     }
 
-    if(!$this->isAdmin() && $level['User']['user_id'] != $this->Auth->user('user_id')) {
+    if(!$this->isAdmin() && $level['Level']['user_id'] != $this->Auth->user('user_id')) {
       throw new ForbiddenException('You can only edit a level you uploaded');
-    }
-    
-    if(empty($this->data['Level']['author']) || !$this->isAdmin()) {
-      $userid = $level['Level']['user_id'];
-      $user = $this->Level->User->findByUserId($userid);
-      $this->Level->set('author', $user['User']['username']);
     }
 
     if($this->request->is('post') || $this->request->is('put')) {
+
       $this->Level->id = $level['Level']['id'];
       $this->Level->set('user_id', $this->Auth->user('user_id'));
+      $this->Level->set('author', $this->Auth->user('username'));
+
+      if(empty($this->data['Level']['author']) || !$this->isAdmin()) {
+        $userid = $level['Level']['user_id'];
+        $user = $this->Level->User->findByUserId($userid);
+        $this->Level->set('author', $user['User']['username']);
+        $this->Level->set('user_id', $userid);
+      }
 
       $this->checkFile('content');
       $this->checkFile('levelgen');
 
-      if(isset($this->request->data['Level']['screenshot'])) {
+      if(!empty($this->request->data['Level']['screenshot']['tmp_name'])) {
         if(!$this->getScreenshot($this->request->data['Level']['screenshot'])) {
           throw new BadRequestException('Unable to read screenshot file. You must upload a .png image');
         }
@@ -373,7 +376,7 @@ class LevelsController extends AppController {
   public function delete($id) {
     $level = $this->getLevel($id);
 
-    if(!$this->Auth->loggedIn() || intval($level['Level']['user_id']) != intval($this->Auth->user('user_id'))) {
+    if(!$this->Auth->loggedIn() || intval($level['Level']['user_id']) != intval($this->Auth->user('user_id')) && !$this->isAdmin()) {
       throw new ForbiddenException('You can only delete a level you uploaded');
     }
 
