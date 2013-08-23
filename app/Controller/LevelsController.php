@@ -47,15 +47,16 @@ class LevelsController extends AppController {
 
   function getScreenshot($arr) {
     if ((isset($arr['error']) && $arr['error'] == 0) ||
-      (!empty( $arr['tmp_name']) && $arr['tmp_name'] != 'none')
+      (!empty($arr['tmp_name']) && $arr['tmp_name'] != 'none')
     ) {
       $parts = pathinfo($arr['name']);
       $newFileName = time() . '.' . $parts['extension'];
       $newPath = APP . 'webroot' . DS . 'img' . DS . $newFileName;
       $newThumbnailPath = APP . 'webroot' . DS . 'img' . DS . 't' .  $newFileName;
 
+      debug($arr);
       $source = imagecreatefrompng($arr['tmp_name']);
-      if(!$source) {
+      if(!is_resource($source)) {
         return false;
       }
       $sourceWidth = imagesx($source);
@@ -96,6 +97,7 @@ class LevelsController extends AppController {
       imagedestroy($thumb);
       imagedestroy($source);
       $this->request->data['Level']['screenshot_filename'] = $newFileName;
+      return $newFileName;
     }
   }
 
