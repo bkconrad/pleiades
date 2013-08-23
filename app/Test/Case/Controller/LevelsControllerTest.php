@@ -531,9 +531,6 @@ class LevelsControllerTest extends ControllerTestCase {
 
     // build a temporary zip file
     $files = array(
-        '__MACOSX' => array(
-            'redherring.level' => 'ignore me'
-          ),
         'one.level' => 'LevelName mass_one',
         'dir' => array(
           'two.levelgen' => 'junk',
