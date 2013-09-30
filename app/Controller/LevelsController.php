@@ -311,7 +311,6 @@ class LevelsController extends AppController {
     }
 
     $zip->close();
-    unlink($tmp);
 
     $filename = preg_replace('/\.level$/', '', $levelName) . '.zip';
     $this->response->file($tmp, array('download' => true, 'name' => $filename));
@@ -414,10 +413,16 @@ class LevelsController extends AppController {
         $entryFilename = $entry['name'];
         $entryContents = $zip->getFromIndex($i);
 
+        if(strstr($entryFilename, '__MACOSX')) {
+        	continue;
+        }
+
         // information about the upload
         $info = array(
             'errors' => array(),
+            'warnings' => array(),
             'name' => null,
+            'id' => null,
             'filename' => $entryFilename
           );
 
@@ -428,9 +433,10 @@ class LevelsController extends AppController {
           // find levelgen if needed
           $matches = array();
           if(preg_match('/Script +([^ \n]+)/', $entryContents, $matches) && sizeof($matches) > 1 && !empty($matches[1])) {
+          	$dir = dirname($entry['name']);
             $levelgenFilename = trim(preg_replace('/\.levelgen$/', '', $matches[1]));
-            $levelgenContents = $zip->getFromName($levelgenFilename . '.levelgen');
-            $levelgenContents = $levelgenContents !== false ? $levelgenContents : $zip->getFromName($levelgenFilename);
+            $levelgenContents = $zip->getFromName($dir . DS . $levelgenFilename . '.levelgen');
+            $levelgenContents = $levelgenContents !== false ? $levelgenContents : $zip->getFromName($dir . $levelgenFilename);
             $this->request->data['Level']['levelgen'] = $levelgenContents;
             if($levelgenContents === false) {
               array_push($info['errors'], "Could not find specified levelgen file '$levelgenFilename' in archive");
@@ -446,6 +452,7 @@ class LevelsController extends AppController {
           }
 
           $info['name'] = $level['Level']['name'];
+          $info['id'] = $level['Level']['id'];
           array_push($result, $info);
         }
       }

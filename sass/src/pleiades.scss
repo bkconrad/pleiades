@@ -299,9 +299,6 @@ table tr td {
 	text-align: left;
 	vertical-align: top;
 }
-table tr:nth-child(even) {
-	background: $grey4;
-}
 td.actions {
 	text-align: center;
 	white-space: nowrap;
@@ -1254,13 +1251,19 @@ li.tag:hover, .tags .checkbox:hover {
 }
 
 .mass-upload-info {
-	td {
+	tr, tr.success {
+		background: none;
+		border: none;
 		border-bottom: 1px solid $grey2;
-		background: $green;
 	}
 
-	.error td {
-		background: $red;
+	tr.success {
 	}
 
+	tr.failure {
+	}
+
+	td.message {
+		font-size: .7em;
+	}
 }
