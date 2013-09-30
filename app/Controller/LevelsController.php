@@ -145,26 +145,65 @@ class LevelsController extends AppController {
   }
 
   public function index() {
-    $levelLists = array(
-      'Recently Updated' => $this->Level->find('all', array(
-        'order' => 'Level.last_updated DESC',
-        'limit' => 8
-      )),
-      'Highest Rated' => $this->Level->find('all', array(
-        'order' => 'Level.rating DESC',
-        'limit' => 8
-      )),
-      'Most Downloaded' => $this->Level->find('all', array(
-        'order' => 'Level.downloads DESC',
-        'limit' => 8
-      )),
-      'Random' => $this->Level->find('all', array(
-        'order' => 'RAND()',
-        'limit' => 8
-      )),
-    );
+  	$data = Cache::read('index_lists');
+  	if(!$data)
+  	{
+  		$fields = array(
+  			'Level.id',
+  			'Level.name',
+  			'Level.rating',
+  			'Level.game_type',
+  			'Level.screenshot_filename',
+  			'User.username',
+  			'Level.team_count'
+		);
 
-    $this->set('levelLists', $levelLists);
+		$joins = array(
+		    array(
+		      'alias' => 'User',
+		      'table' => 'phpbb.phpbb_users',
+		      'type' => 'LEFT',
+		      'conditions' => '`Level`.`user_id` = `User`.`user_id`'
+		    )
+		);
+
+	    $data = array(
+	      'Recently Updated' => $this->Level->find('all', array(
+	      	'fields' => $fields,
+	      	'joins' => $joins,
+	        'order' => 'Level.last_updated DESC',
+	        'recursive' => 1,
+	        'limit' => 8
+	      )),
+	      'Highest Rated' => $this->Level->find('all', array(
+	      	'fields' => $fields,
+	      	'joins' => $joins,
+	        'order' => 'Level.last_updated DESC',
+	        'order' => 'Level.rating DESC',
+	        'recursive' => 1,
+	        'limit' => 8
+	      )),
+	      'Most Downloaded' => $this->Level->find('all', array(
+	      	'fields' => $fields,
+	      	'joins' => $joins,
+	        'order' => 'Level.last_updated DESC',
+	        'order' => 'Level.downloads DESC',
+	        'recursive' => 1,
+	        'limit' => 8
+	      )),
+	      'Random' => $this->Level->find('all', array(
+	      	'fields' => $fields,
+	      	'joins' => $joins,
+	        'order' => 'Level.last_updated DESC',
+	        'order' => 'RAND()',
+	        'recursive' => 1,
+	        'limit' => 8
+	      )),
+	    );
+	    Cache::write('index_lists', $data);
+  	}
+
+    $this->set('levelLists', $data);
   }
 
   public function all() {
@@ -221,12 +260,19 @@ class LevelsController extends AppController {
   }
 
   public function view($id) {
-    $level = $this->Level->findById($id);
+  	$data = Cache::read("level_view_$id");
+  	if(!$data)
+  	{
+	    $level = $this->Level->findById($id);
+	    $current_user_rating = $this->Rating->findByUserIdAndLevelId($this->Auth->user('user_id'), $id);
+	    $comments = $this->Comment->findAllByLevelId($id);
+	    $data = compact('level', 'current_user_rating', 'comments');
+	    Cache::write("level_view_$id", $data);
+  	}
+
     $this->set('logged_in', $this->Auth->loggedIn());
-    $this->set('is_owner', intval($level['Level']['user_id']) == intval($this->Auth->user('user_id')));
-    $this->set('current_rating', $this->Rating->findByUserIdAndLevelId($this->Auth->user('user_id'), $id));
-    $this->set('level', $level);
-    $this->set('comments', $this->Comment->findAllByLevelId($id));
+    $this->set('is_owner', intval($data['level']['Level']['user_id']) == intval($this->Auth->user('user_id')));
+    $this->set($data);
   }
 
   public function rate($id, $value) {
@@ -272,7 +318,7 @@ class LevelsController extends AppController {
     }
   }
 
-  public function raw($id = null, $type = 'content') {
+  public function raw($id = null, $type = 'content', $uncounted = false) {
     $level = $this->getLevel($id);
 
     if($type !== 'content' && $type !== 'levelgen') {
@@ -284,7 +330,7 @@ class LevelsController extends AppController {
       $responseBody = "-- " . $level['Level']['levelgen_filename'] . "\r\n" . $responseBody;
     }
 
-    if($type != 'levelgen') {
+    if($type != 'levelgen' && !$uncounted) {
       $this->Level->id = $level['Level']['id'];
       $this->Level->saveField('downloads', $level['Level']['downloads'] + 1);
     }

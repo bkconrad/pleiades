@@ -1,6 +1,7 @@
 <?php
 class AppController extends Controller{
 	var $components = array(
+    'DebugKit.Toolbar',
 		'Auth'=> array(
 			'authenticate' => array(
 				'Phpbb3' => array(

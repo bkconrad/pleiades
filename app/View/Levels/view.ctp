@@ -14,7 +14,7 @@ echo $this->Html->tag('h2', $byline, array('class' => 'byline'));
 echo $this->element('rating', array(
   'id' => $level['Level']['id'],
   'rating' => $level['Level']['rating'],
-  'current_rating' => $current_rating,
+  'current_user_rating' => $current_user_rating,
   'is_owner' => $is_owner,
   'logged_in' => $logged_in
 ));
@@ -93,7 +93,7 @@ echo '<h1>Code</h1>';
 
 echo '<div class="submission-wrapper">';
 echo '<h2>';
-echo $this->Html->link($level['Level']['level_filename'], array('action' => 'raw', $level['Level']['id']), array('class' => 'submission-link'));
+echo $this->Html->link($level['Level']['level_filename'], array('action' => 'raw', $level['Level']['id'], 'content', true), array('class' => 'submission-link'));
 echo '</h2>';
 echo $this->Html->tag('pre', '',  array('escape' => true, 'id' => 'level-code', 'class' => 'submission levelcode'));
 echo '</div>';

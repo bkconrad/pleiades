@@ -133,6 +133,14 @@ class Level extends AppModel {
     }
   }
 
+  public function afterSave($created, $options = array()) {
+    // Anything which could index this level
+    Cache::delete('index_lists');
+
+    // Anything related specifically to this level
+    Cache::delete('level_view_' . $this->id);
+  }
+
   public function afterFind($results, $primary = false) {
     parent::afterFind($results, $primary);
     foreach($results as $k => $result) {
