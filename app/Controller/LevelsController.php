@@ -154,30 +154,19 @@ class LevelsController extends AppController {
   			'Level.rating',
   			'Level.game_type',
   			'Level.screenshot_filename',
-  			'User.username',
+  			'Level.user_id',
   			'Level.team_count'
-		);
-
-		$joins = array(
-		    array(
-		      'alias' => 'User',
-		      'table' => 'phpbb.phpbb_users',
-		      'type' => 'LEFT',
-		      'conditions' => '`Level`.`user_id` = `User`.`user_id`'
-		    )
 		);
 
 	    $data = array(
 	      'Recently Updated' => $this->Level->find('all', array(
 	      	'fields' => $fields,
-	      	'joins' => $joins,
 	        'order' => 'Level.last_updated DESC',
 	        'recursive' => 1,
 	        'limit' => 8
 	      )),
 	      'Highest Rated' => $this->Level->find('all', array(
 	      	'fields' => $fields,
-	      	'joins' => $joins,
 	        'order' => 'Level.last_updated DESC',
 	        'order' => 'Level.rating DESC',
 	        'recursive' => 1,
@@ -185,7 +174,6 @@ class LevelsController extends AppController {
 	      )),
 	      'Most Downloaded' => $this->Level->find('all', array(
 	      	'fields' => $fields,
-	      	'joins' => $joins,
 	        'order' => 'Level.last_updated DESC',
 	        'order' => 'Level.downloads DESC',
 	        'recursive' => 1,
@@ -193,7 +181,6 @@ class LevelsController extends AppController {
 	      )),
 	      'Random' => $this->Level->find('all', array(
 	      	'fields' => $fields,
-	      	'joins' => $joins,
 	        'order' => 'Level.last_updated DESC',
 	        'order' => 'RAND()',
 	        'recursive' => 1,
