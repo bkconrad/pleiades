@@ -89,8 +89,8 @@ Cache::config('default', array('engine' => 'File'));
  * ));
  */
 Configure::write('Dispatcher.filters', array(
-	'AssetDispatcher',
-	'CacheDispatcher'
+'AssetDispatcher',
+'CacheDispatcher'
 ));
 
 /**
@@ -98,26 +98,26 @@ Configure::write('Dispatcher.filters', array(
  */
 App::uses('CakeLog', 'Log');
 CakeLog::config('debug', array(
-	'engine' => 'FileLog',
-	'types' => array('notice', 'info', 'debug'),
-	'file' => 'debug',
+		'engine' => 'FileLog',
+		'types' => array('notice', 'info', 'debug'),
+		'file' => 'debug',
 ));
 CakeLog::config('error', array(
-	'engine' => 'FileLog',
-	'types' => array('warning', 'error', 'critical', 'alert', 'emergency'),
-	'file' => 'error',
+		'engine' => 'FileLog',
+		'types' => array('warning', 'error', 'critical', 'alert', 'emergency'),
+		'file' => 'error',
 ));
 
 Configure::write('App.gametype_prefix_to_pretty_name_map', array(
-	'' => 'Bit Match',
-	'Nexus' => 'Nexus',
-	'HTF' => 'Hold The Flag',
-	'CTF' => 'Capture The Flag',
-	'Core' => 'Core',
-	'Rabbit' => 'Rabbit',
-	'Retrieve' => 'Retrieve',
-	'Soccer' => 'Soccer',
-	'ZoneControl' => 'Zone Control'
+		'' => 'Bit Match',
+		'Nexus' => 'Nexus',
+		'HTF' => 'Hold The Flag',
+		'CTF' => 'Capture The Flag',
+		'Core' => 'Core',
+		'Rabbit' => 'Rabbit',
+		'Retrieve' => 'Retrieve',
+		'Soccer' => 'Soccer',
+		'ZoneControl' => 'Zone Control'
 ));
 
 Configure::write('App.gametype_pretty_name_to_abbreviation_map', array(

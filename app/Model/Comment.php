@@ -8,68 +8,68 @@ App::uses('AppModel', 'Model');
  */
 class Comment extends AppModel {
 
-/**
- * Display field
- *
- * @var string
- */
+	/**
+	 * Display field
+	 *
+	 * @var string
+	 */
 	public $displayField = 'text';
 
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
-/**
- * belongsTo associations
- *
- * @var array
- */
+	/**
+	 * belongsTo associations
+	 *
+	 * @var array
+	 */
 	public $belongsTo = array(
-		'User' => array(
-			'className' => 'User',
-			'foreignKey' => 'user_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
-		),
-		'Level' => array(
-			'className' => 'Level',
-			'foreignKey' => 'level_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
-		)
+			'User' => array(
+					'className' => 'User',
+					'foreignKey' => 'user_id',
+					'conditions' => '',
+					'fields' => '',
+					'order' => ''
+			),
+			'Level' => array(
+					'className' => 'Level',
+					'foreignKey' => 'level_id',
+					'conditions' => '',
+					'fields' => '',
+					'order' => ''
+			)
 	);
 
-    public $validate = array(
-        'level_id' => array(
-            'rule' => 'levelExists',
-            'message' => 'The specified level does not exist',
-            'required' => true
-        ),
-        'user_id' => array(
-            'rule' => 'userExists',
-            'message' => 'The specified user does not exist',
-            'required' => true
-        )
-    );
+	public $validate = array(
+			'level_id' => array(
+					'rule' => 'levelExists',
+					'message' => 'The specified level does not exist',
+					'required' => true
+			),
+			'user_id' => array(
+					'rule' => 'userExists',
+					'message' => 'The specified user does not exist',
+					'required' => true
+			)
+	);
 
-    public function levelExists() {
-        if (!isset($this->data['Comment']) || !isset($this->data['Comment']['level_id'])) {
-            return false;
-        }
+	public function levelExists() {
+		if (!isset($this->data['Comment']) || !isset($this->data['Comment']['level_id'])) {
+			return false;
+		}
 
-        $id = $this->data['Comment']['level_id'];
-        $result = $this->Level->findById($id);
-        return !empty($result['Level']);
-    }
+		$id = $this->data['Comment']['level_id'];
+		$result = $this->Level->findById($id);
+		return !empty($result['Level']);
+	}
 
-    public function userExists() {
-        if (!isset($this->data['Comment']) || !isset($this->data['Comment']['user_id'])) {
-            return false;
-        }
+	public function userExists() {
+		if (!isset($this->data['Comment']) || !isset($this->data['Comment']['user_id'])) {
+			return false;
+		}
 
-        $id = $this->data['Comment']['user_id'];
-        $result = $this->User->findByUserId($id);
-        return !empty($result['User']);
-    }
+		$id = $this->data['Comment']['user_id'];
+		$result = $this->User->findByUserId($id);
+		return !empty($result['User']);
+	}
 }

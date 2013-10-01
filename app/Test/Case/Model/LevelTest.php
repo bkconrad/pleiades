@@ -3,282 +3,282 @@ App::import('Model', 'Level');
 App::import('Model', 'Rating');
 App::uses('AuthComponent', 'Controller/Component');
 class LevelTest extends CakeTestCase {
-  public $fixtures = array('app.level', 'app.user', 'app.rating', 'app.user_group');
+	public $fixtures = array('app.level', 'app.user', 'app.rating', 'app.user_group');
 
-  public function setUp() {
-    parent::setUp();
-    $this->Rating = ClassRegistry::init('Rating');
+	public function setUp() {
+		parent::setUp();
+		$this->Rating = ClassRegistry::init('Rating');
 
-    // need to change the db config for User (since it is manually set to 
-    // 'forum' in the model definition)
-    $this->Level = ClassRegistry::init('Level');
-    $this->Level->User->useDbConfig = 'test';
+		// need to change the db config for User (since it is manually set to
+		// 'forum' in the model definition)
+		$this->Level = ClassRegistry::init('Level');
+		$this->Level->User->useDbConfig = 'test';
 
-    // then we need to set the "admin" group number for phpbb
-    Configure::write('Phpbb.admin_group', 2);
-  }
+		// then we need to set the "admin" group number for phpbb
+		Configure::write('Phpbb.admin_group', 2);
+	}
 
-  public function testRating() {
-    $this->Level->id = 2;
+	public function testRating() {
+		$this->Level->id = 2;
 
-    // can be negative
-    $this->assertTrue($this->Level->rate(1, -1));
-    $this->assertEquals(-1, $this->Level->field('rating'));
+		// can be negative
+		$this->assertTrue($this->Level->rate(1, -1));
+		$this->assertEquals(-1, $this->Level->field('rating'));
 
-    // replaces old ratings
-    $this->assertTrue($this->Level->rate(1, 1));
-    $this->assertEquals(1, $this->Level->field('rating'));
+		// replaces old ratings
+		$this->assertTrue($this->Level->rate(1, 1));
+		$this->assertEquals(1, $this->Level->field('rating'));
 
-    // accumlates for each level
-    $this->assertTrue($this->Level->rate(3, 1));
-    $this->assertEquals(2, $this->Level->field('rating'));
-  }
+		// accumlates for each level
+		$this->assertTrue($this->Level->rate(3, 1));
+		$this->assertEquals(2, $this->Level->field('rating'));
+	}
 
-  public function testRatingOwnLevel() {
-    // alice's level
-    $this->Level->id = 1;
-    $this->assertFalse($this->Level->rate(1, 1));
-  }
+	public function testRatingOwnLevel() {
+		// alice's level
+		$this->Level->id = 1;
+		$this->assertFalse($this->Level->rate(1, 1));
+	}
 
-  public function testLevelgenRequirement() {
-    $this->Level->create();
-    $this->Level->set('user_id', 2);
+	public function testLevelgenRequirement() {
+		$this->Level->create();
+		$this->Level->set('user_id', 2);
 
-    $noLineNoLevelgen = array(
-      'name' => 'level',
-      'content' => 'LevelName foo',
-      'levelgen' => '',
-      'description' => 'descriptive',
-      'user_id' => 2
-    );
+		$noLineNoLevelgen = array(
+				'name' => 'level',
+				'content' => 'LevelName foo',
+				'levelgen' => '',
+				'description' => 'descriptive',
+				'user_id' => 2
+		);
 
-    $noLineYesLevelgen = array(
-      'name' => 'level',
-      'content' => 'LevelName foo',
-      'levelgen' => 'test',
-      'description' => 'descriptive',
-      'user_id' => 2
-    );
+		$noLineYesLevelgen = array(
+				'name' => 'level',
+				'content' => 'LevelName foo',
+				'levelgen' => 'test',
+				'description' => 'descriptive',
+				'user_id' => 2
+		);
 
-    $yesLineNoLevelgen = array(
-      'name' => 'level',
-      'content' => "LevelName foo\r\nScript test.levelgen",
-      'levelgen' => '',
-      'description' => 'descriptive',
-      'user_id' => 2
-    );
+		$yesLineNoLevelgen = array(
+				'name' => 'level',
+				'content' => "LevelName foo\r\nScript test.levelgen",
+				'levelgen' => '',
+				'description' => 'descriptive',
+				'user_id' => 2
+		);
 
-    $yesLineYesLevelgen = array(
-      'name' => 'level',
-      'content' => "LevelName foo\nScript test.levelgen",
-      'levelgen' => 'foo',
-      'description' => 'descriptive',
-      'user_id' => 2
-    );
+		$yesLineYesLevelgen = array(
+				'name' => 'level',
+				'content' => "LevelName foo\nScript test.levelgen",
+				'levelgen' => 'foo',
+				'description' => 'descriptive',
+				'user_id' => 2
+		);
 
-    $this->assertFalse($this->Level->save($noLineYesLevelgen));
-    $this->assertTrue(!!$this->Level->save($noLineNoLevelgen));
-    $this->assertFalse($this->Level->save($yesLineNoLevelgen));
-    $this->assertTrue(!!$this->Level->save($yesLineYesLevelgen));
-  }
+		$this->assertFalse($this->Level->save($noLineYesLevelgen));
+		$this->assertTrue(!!$this->Level->save($noLineNoLevelgen));
+		$this->assertFalse($this->Level->save($yesLineNoLevelgen));
+		$this->assertTrue(!!$this->Level->save($yesLineYesLevelgen));
+	}
 
-  function testTrim() {
-    $data = array(
-      'content' => '  LevelName test   ',
-      'description' => " \ntest\n ",
-      'levelgen' => " \n\n ",
-      'id' => 1
-    );
+	function testTrim() {
+		$data = array(
+				'content' => '  LevelName test   ',
+				'description' => " \ntest\n ",
+				'levelgen' => " \n\n ",
+				'id' => 1
+		);
 
-    $expected = array(
-      'name' => "test",
-      'content' => "LevelName test",
-      'description' => "test",
-      'levelgen' => "",
-      'id' => 1
-    );
-    
-    $this->Level->create();
-    $result = $this->Level->save($data);
+		$expected = array(
+				'name' => "test",
+				'content' => "LevelName test",
+				'description' => "test",
+				'levelgen' => "",
+				'id' => 1
+		);
 
-    $this->assertTrue(!!$result);
-    $this->assertEquals($expected, array_intersect($result['Level'], $expected));
-  }
+		$this->Level->create();
+		$result = $this->Level->save($data);
 
-  public function testLineBreak() {
-    $data = array(
-      "content" => "  LevelName test\r\nScript foo\nblah\nunix",
-      "levelgen" => "test\nsome\nstuff",
-    );
+		$this->assertTrue(!!$result);
+		$this->assertEquals($expected, array_intersect($result['Level'], $expected));
+	}
 
-    $expected = array(
-      "content" => "LevelName test\r\nScript foo\r\nblah\r\nunix",
-      "levelgen" => "test\r\nsome\r\nstuff",
-    );
+	public function testLineBreak() {
+		$data = array(
+				"content" => "  LevelName test\r\nScript foo\nblah\nunix",
+				"levelgen" => "test\nsome\nstuff",
+		);
 
-    $result = $this->Level->save($data);
-    $result = array_intersect_key($result['Level'], $expected);
-    $this->assertEquals($expected, $result);
-  }
+		$expected = array(
+				"content" => "LevelName test\r\nScript foo\r\nblah\r\nunix",
+				"levelgen" => "test\r\nsome\r\nstuff",
+		);
 
-  public function testConsecutiveLineBreak() {
-    $data = array(
-      "content" => "  LevelName test again\r\n\r\nScript foo\nblah\nunix",
-      "levelgen" => "test\r\n\nsome\nstuff",
-    );
+		$result = $this->Level->save($data);
+		$result = array_intersect_key($result['Level'], $expected);
+		$this->assertEquals($expected, $result);
+	}
 
-    $expected = array(
-      "content" => "LevelName test again\r\n\r\nScript foo\r\nblah\r\nunix",
-      "levelgen" => "test\r\n\r\nsome\r\nstuff",
-    );
+	public function testConsecutiveLineBreak() {
+		$data = array(
+				"content" => "  LevelName test again\r\n\r\nScript foo\nblah\nunix",
+				"levelgen" => "test\r\n\nsome\nstuff",
+		);
 
-    $result = $this->Level->save($data);
-    $result = array_intersect_key($result['Level'], $expected);
-    $this->assertEquals($expected, $result);
-  }
+		$expected = array(
+				"content" => "LevelName test again\r\n\r\nScript foo\r\nblah\r\nunix",
+				"levelgen" => "test\r\n\r\nsome\r\nstuff",
+		);
 
-  public function testName() {
-    $result = $this->Level->save(array(
-      'content' => "LevelName Bob's level",
-    ));
-    $this->assertEquals('Bob\'s level', $result['Level']['name']);
-  }
+		$result = $this->Level->save($data);
+		$result = array_intersect_key($result['Level'], $expected);
+		$this->assertEquals($expected, $result);
+	}
 
-  public function testLevelFileName() {
-    $result = $this->Level->save(array(
-      'content' => "LevelName Bob's level",
-    ));
-    $this->assertEqual($result['Level']['level_filename'], 'bobs_level.level');
-  }
+	public function testName() {
+		$result = $this->Level->save(array(
+				'content' => "LevelName Bob's level",
+		));
+		$this->assertEquals('Bob\'s level', $result['Level']['name']);
+	}
 
-  public function testLevelgenFileNameWithoutSuffix() {
-    $result = $this->Level->save(array(
-      'content' => "LevelName levelgen level\nScript test",
-      'levelgen' => "blah"
-    ));
-    $this->assertEqual($result['Level']['levelgen_filename'], 'test.levelgen');
-  }
+	public function testLevelFileName() {
+		$result = $this->Level->save(array(
+				'content' => "LevelName Bob's level",
+		));
+		$this->assertEqual($result['Level']['level_filename'], 'bobs_level.level');
+	}
 
-  public function testLevelgenFileNameWithSuffix() {
-    $result = $this->Level->save(array(
-      'content' => "LevelName levelgen level II\nScript test.levelgen",
-      'levelgen' => "blah"
-    ));
-    $this->assertEqual($result['Level']['levelgen_filename'], 'test.levelgen');
-  }
+	public function testLevelgenFileNameWithoutSuffix() {
+		$result = $this->Level->save(array(
+				'content' => "LevelName levelgen level\nScript test",
+				'levelgen' => "blah"
+		));
+		$this->assertEqual($result['Level']['levelgen_filename'], 'test.levelgen');
+	}
 
-  public function testMinimumLevelData() {
-    /*
-     * Only the "content" field is necessary. It is not validated as "required" 
-     * in order to prevent client-side javaScript enforcement when submitting a 
-     * level file directly.
-     */
-    $result = $this->Level->save(array(
-      'content' => 'LevelName Minimal Level'
-    ));
+	public function testLevelgenFileNameWithSuffix() {
+		$result = $this->Level->save(array(
+				'content' => "LevelName levelgen level II\nScript test.levelgen",
+				'levelgen' => "blah"
+		));
+		$this->assertEqual($result['Level']['levelgen_filename'], 'test.levelgen');
+	}
 
-    $this->assertTrue(!!$result);
-  }
+	public function testMinimumLevelData() {
+		/*
+		 * Only the "content" field is necessary. It is not validated as "required"
+		* in order to prevent client-side javaScript enforcement when submitting a
+		* level file directly.
+		*/
+		$result = $this->Level->save(array(
+				'content' => 'LevelName Minimal Level'
+		));
 
-  public function testLevelDatabaseId() {
-    $result = $this->Level->save(array(
-      "content" => "LevelName DBID Test Level\nLevelDatabaseId 1"
-    ));
+		$this->assertTrue(!!$result);
+	}
 
-    // do a query to trigger afterFind
-    $result = $this->Level->findById($result['Level']['id']);
+	public function testLevelDatabaseId() {
+		$result = $this->Level->save(array(
+				"content" => "LevelName DBID Test Level\nLevelDatabaseId 1"
+		));
 
-    // the supplied id should be ignored and removed 
-    // then the new id line should be appended
-    $this->assertNotRegExp('/LevelDatabaseId\s+1/', $result['Level']['content']);
-    $this->assertRegExp('/LevelDatabaseId\s+' . $result['Level']['id'] . '/', $result['Level']['content']);
-  }
+		// do a query to trigger afterFind
+		$result = $this->Level->findById($result['Level']['id']);
 
-  public function testUpdated() {
-    $result = $this->Level->findById(3);
-    $oldTime = $result['Level']['last_updated'];
-    $result = $this->Level->save(array(
-      "content" => "LevelName The Newly Updated Time Test Level",
-      "id" => $result['Level']['id']
-    ));
+		// the supplied id should be ignored and removed
+		// then the new id line should be appended
+		$this->assertNotRegExp('/LevelDatabaseId\s+1/', $result['Level']['content']);
+		$this->assertRegExp('/LevelDatabaseId\s+' . $result['Level']['id'] . '/', $result['Level']['content']);
+	}
 
-    sleep(1);
+	public function testUpdated() {
+		$result = $this->Level->findById(3);
+		$oldTime = $result['Level']['last_updated'];
+		$result = $this->Level->save(array(
+				"content" => "LevelName The Newly Updated Time Test Level",
+				"id" => $result['Level']['id']
+		));
 
-    // editing contents or levelgens should update
-    $result = $this->Level->findById(3);
-    $newTime = $result['Level']['last_updated'];
-    $this->assertNotEquals($oldTime, $newTime);
+		sleep(1);
+
+		// editing contents or levelgens should update
+		$result = $this->Level->findById(3);
+		$newTime = $result['Level']['last_updated'];
+		$this->assertNotEquals($oldTime, $newTime);
 
 
-    // but ratings etc. should not
-    $this->Level->rate(1, 1);
-    $result = $this->Level->findById($result['Level']['id']);
-    $ratingTime = $result['Level']['last_updated'];
-    $this->assertEquals($newTime, $ratingTime);
-  }
+		// but ratings etc. should not
+		$this->Level->rate(1, 1);
+		$result = $this->Level->findById($result['Level']['id']);
+		$ratingTime = $result['Level']['last_updated'];
+		$this->assertEquals($newTime, $ratingTime);
+	}
 
-  public function testSetAuthor() {
-    $result = $this->Level->save(array(
-      "content" => "LevelName Author Test",
-      "author" => "nobody",
-      'user_id' => 2
-    ));
+	public function testSetAuthor() {
+		$result = $this->Level->save(array(
+				"content" => "LevelName Author Test",
+				"author" => "nobody",
+				'user_id' => 2
+		));
 
-    $this->assertEquals('nobody_author_test.level', $result['Level']['level_filename']);
-    $this->assertEquals('nobody', $result['Level']['author']);
-  }
+		$this->assertEquals('nobody_author_test.level', $result['Level']['level_filename']);
+		$this->assertEquals('nobody', $result['Level']['author']);
+	}
 
-  public function testAuthorAsUsername() {
-    $Auth = $this->getMock('Auth');
-    $Auth
-      ->staticExpects($this->any())
-      ->method('user')
-      ->with('user_id')
-      ->will($this->returnValue(2));
+	public function testAuthorAsUsername() {
+		$Auth = $this->getMock('Auth');
+		$Auth
+		->staticExpects($this->any())
+		->method('user')
+		->with('user_id')
+		->will($this->returnValue(2));
 
-    $result = $this->Level->save(array('Level' => array(
-      "content" => "LevelName Author As Username Test",
-      "author" => "nobody",
-      "user_id" => "2"
-    )));
+		$result = $this->Level->save(array('Level' => array(
+				"content" => "LevelName Author As Username Test",
+				"author" => "nobody",
+				"user_id" => "2"
+		)));
 
-    $found = $this->Level->findById($result['Level']['id']);
-    $this->assertEquals('nobody', $found['User']['username']);
-  }
+		$found = $this->Level->findById($result['Level']['id']);
+		$this->assertEquals('nobody', $found['User']['username']);
+	}
 
-  public function testGameType() {
-    $this->Level->create();
-    $this->Level->set('user_id', 2);
-    $this->Level->save(array(
-      'content' => "LevelName ctf level\nCTFGameType"
-    ));
-    $this->assertEquals('Capture The Flag', $this->Level->field('game_type'));
+	public function testGameType() {
+		$this->Level->create();
+		$this->Level->set('user_id', 2);
+		$this->Level->save(array(
+				'content' => "LevelName ctf level\nCTFGameType"
+		));
+		$this->assertEquals('Capture The Flag', $this->Level->field('game_type'));
 
-    $result = $this->Level->save(array(
-      'content' => "LevelName bitmatch level\nGameType"
-    ));
-    $this->assertEquals('Bit Match', $this->Level->field('game_type'));
+		$result = $this->Level->save(array(
+				'content' => "LevelName bitmatch level\nGameType"
+		));
+		$this->assertEquals('Bit Match', $this->Level->field('game_type'));
 
-    $this->Level->save(array(
-      'content' => "LevelName hunters level\nHuntersGameType"
-    ));
-    $this->assertEquals('Nexus', $this->Level->field('game_type'));
-  }
+		$this->Level->save(array(
+				'content' => "LevelName hunters level\nHuntersGameType"
+		));
+		$this->assertEquals('Nexus', $this->Level->field('game_type'));
+	}
 
-  public function testTeamCount() {
-    $this->Level->create();
-    $this->Level->save(array(
-      'content' => "LevelName ctf level\nTeam\nTeam"
-    ));
-    $this->assertEquals(2, $this->Level->field('team_count'));
-  }
-  
-  public function testEmptyName() {
-  	$this->Level->create();
-  	$this->Level->save(array(
-  			'content' => "LevelName \"\"\nGameType"
-  	));
-  	$this->assertEquals($this->Level->field('name'), "Untitled");
-  }
+	public function testTeamCount() {
+		$this->Level->create();
+		$this->Level->save(array(
+				'content' => "LevelName ctf level\nTeam\nTeam"
+		));
+		$this->assertEquals(2, $this->Level->field('team_count'));
+	}
+
+	public function testEmptyName() {
+		$this->Level->create();
+		$this->Level->save(array(
+				'content' => "LevelName \"\"\nGameType"
+		));
+		$this->assertEquals($this->Level->field('name'), "Untitled");
+	}
 }
 ?>

@@ -5,5 +5,5 @@ App::uses('AppModel', 'Model');
  *
  */
 class Tag extends AppModel {
-  public $hasAndBelongsToMany = array('Level');
+	public $hasAndBelongsToMany = array('Level');
 }
