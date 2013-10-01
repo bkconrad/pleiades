@@ -6,15 +6,15 @@ App::uses('AppController', 'Controller');
  */
 class CommentsController extends AppController {
 
-	public function add() {
-		$this->Comment->set($this->request->data['Comment']);
-		$this->Comment->set('user_id', $this->Auth->user('user_id'));
+    public function add() {
+        $this->Comment->set($this->request->data['Comment']);
+        $this->Comment->set('user_id', $this->Auth->user('user_id'));
 
-		if(!$this->Comment->save()) {
-			throw new BadRequestException("Unable to save comment.");
-		}
+        if(!$this->Comment->save()) {
+            throw new BadRequestException("Unable to save comment.");
+        }
 
-		$this->Session->setFlash('Comment added successfully');
-		return $this->redirect($this->referer());
-	}
+        $this->Session->setFlash('Comment added successfully');
+        return $this->redirect($this->referer());
+    }
 }

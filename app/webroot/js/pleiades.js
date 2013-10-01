@@ -1,4 +1,6 @@
 $(function() {
+//    $('pre.submission').each(addCodeButtons);
+ //   $('.submission.levelcode').each(colorTeamNames);
  $(document).ajaxStart(function() {
     $('#spinner').fadeIn(50);
  });
@@ -38,9 +40,11 @@ function colorTeamNames() {
     var teamMatch = teamPattern.exec(text);
     var replacement;
     var teamName;
+    var parts;
     var map = [];
-    var k = undefined;
+    var k;
     var r, g, b;
+    var colorCode;
     while(teamMatch) {
         console.log(teamMatch);
 
