@@ -25,61 +25,61 @@ App::uses('CakeResponse', 'Network');
 
 class ControllerAuthorizeTest extends CakeTestCase {
 
-/**
- * setup
- *
- * @return void
- */
-	public function setUp() {
-		parent::setUp();
-		$this->controller = $this->getMock('Controller', array('isAuthorized'), array(), '', false);
-		$this->components = $this->getMock('ComponentCollection');
-		$this->components->expects($this->any())
-			->method('getController')
-			->will($this->returnValue($this->controller));
+    /**
+     * setup
+     *
+     * @return void
+     */
+    public function setUp() {
+        parent::setUp();
+        $this->controller = $this->getMock('Controller', array('isAuthorized'), array(), '', false);
+        $this->components = $this->getMock('ComponentCollection');
+        $this->components->expects($this->any())
+        ->method('getController')
+        ->will($this->returnValue($this->controller));
 
-		$this->auth = new ControllerAuthorize($this->components);
-	}
+        $this->auth = new ControllerAuthorize($this->components);
+    }
 
-/**
- * @expectedException PHPUnit_Framework_Error
- */
-	public function testControllerTypeError() {
-		$this->auth->controller(new StdClass());
-	}
+    /**
+     * @expectedException PHPUnit_Framework_Error
+     */
+    public function testControllerTypeError() {
+        $this->auth->controller(new StdClass());
+    }
 
-/**
- * @expectedException CakeException
- */
-	public function testControllerErrorOnMissingMethod() {
-		$this->auth->controller(new Controller());
-	}
+    /**
+     * @expectedException CakeException
+     */
+    public function testControllerErrorOnMissingMethod() {
+        $this->auth->controller(new Controller());
+    }
 
-/**
- * test failure
- *
- * @return void
- */
-	public function testAuthorizeFailure() {
-		$user = array();
-		$request = new CakeRequest('/posts/index', false);
-		$this->assertFalse($this->auth->authorize($user, $request));
-	}
+    /**
+     * test failure
+     *
+     * @return void
+     */
+    public function testAuthorizeFailure() {
+        $user = array();
+        $request = new CakeRequest('/posts/index', false);
+        $this->assertFalse($this->auth->authorize($user, $request));
+    }
 
-/**
- * test isAuthorized working.
- *
- * @return void
- */
-	public function testAuthorizeSuccess() {
-		$user = array('User' => array('username' => 'mark'));
-		$request = new CakeRequest('/posts/index', false);
+    /**
+     * test isAuthorized working.
+     *
+     * @return void
+     */
+    public function testAuthorizeSuccess() {
+        $user = array('User' => array('username' => 'mark'));
+        $request = new CakeRequest('/posts/index', false);
 
-		$this->controller->expects($this->once())
-			->method('isAuthorized')
-			->with($user)
-			->will($this->returnValue(true));
+        $this->controller->expects($this->once())
+        ->method('isAuthorized')
+        ->with($user)
+        ->will($this->returnValue(true));
 
-		$this->assertTrue($this->auth->authorize($user, $request));
-	}
+        $this->assertTrue($this->auth->authorize($user, $request));
+    }
 }

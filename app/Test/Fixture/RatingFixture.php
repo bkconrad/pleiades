@@ -1,4 +1,4 @@
 <?php
 class RatingFixture extends CakeTestFixture {
-	public $import = array('model' => 'Rating');
+    public $import = array('model' => 'Rating');
 }

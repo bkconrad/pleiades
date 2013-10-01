@@ -23,13 +23,13 @@
  */
 class TestPanel extends DebugPanel {
 
-/**
- * Startup
- *
- * @param Controller $controller
- */
-	public function startup(Controller $controller) {
-		$controller->testPanel = true;
-	}
+    /**
+     * Startup
+     *
+     * @param Controller $controller
+     */
+    public function startup(Controller $controller) {
+        $controller->testPanel = true;
+    }
 
 }

@@ -25,14 +25,14 @@ App::uses('DebugPanel', 'DebugKit.Lib');
  */
 class SessionPanel extends DebugPanel {
 
-/**
- * beforeRender callback
- *
- * @param \Controller|object $controller
- * @return array
- */
-	public function beforeRender(Controller $controller) {
-		$sessions = $controller->Toolbar->Session->read();
-		return $sessions;
-	}
+    /**
+     * beforeRender callback
+     *
+     * @param \Controller|object $controller
+     * @return array
+     */
+    public function beforeRender(Controller $controller) {
+        $sessions = $controller->Toolbar->Session->read();
+        return $sessions;
+    }
 }

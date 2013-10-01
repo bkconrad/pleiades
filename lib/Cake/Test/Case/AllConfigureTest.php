@@ -27,15 +27,15 @@
  */
 class AllConfigureTest extends PHPUnit_Framework_TestSuite {
 
-/**
- * suite method, defines tests for this suite.
- *
- * @return void
- */
-	public static function suite() {
-		$suite = new CakeTestSuite('All Configure related tests');
+    /**
+     * suite method, defines tests for this suite.
+     *
+     * @return void
+     */
+    public static function suite() {
+        $suite = new CakeTestSuite('All Configure related tests');
 
-		$suite->addTestDirectory(CORE_TEST_CASES . DS . 'Configure');
-		return $suite;
-	}
+        $suite->addTestDirectory(CORE_TEST_CASES . DS . 'Configure');
+        return $suite;
+    }
 }

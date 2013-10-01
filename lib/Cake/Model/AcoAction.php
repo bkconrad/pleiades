@@ -26,17 +26,17 @@ App::uses('AppModel', 'Model');
  */
 class AcoAction extends AppModel {
 
-/**
- * Model name
- *
- * @var string
- */
-	public $name = 'AcoAction';
+    /**
+     * Model name
+     *
+     * @var string
+     */
+    public $name = 'AcoAction';
 
-/**
- * ACO Actions belong to ACOs
- *
- * @var array
- */
-	public $belongsTo = array('Aco');
+    /**
+     * ACO Actions belong to ACOs
+     *
+     * @var array
+     */
+    public $belongsTo = array('Aco');
 }

@@ -2,10 +2,10 @@
 <?php
 $up_value = 1;
 $down_value = -1;
-if(!empty($current_rating)) { 
-  if($current_rating['Rating']['value'] > 0) {
+if(!empty($current_user_rating)) { 
+  if($current_user_rating['Rating']['value'] > 0) {
     $up_value = 0;
-  } else if($current_rating['Rating']['value'] < 0) {
+  } else if($current_user_rating['Rating']['value'] < 0) {
     $down_value = 0;
   }
 }

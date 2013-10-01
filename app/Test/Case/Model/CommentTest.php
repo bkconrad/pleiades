@@ -7,38 +7,38 @@ App::uses('Comment', 'Model');
  */
 class CommentTest extends CakeTestCase {
 
-/**
- * Fixtures
- *
- * @var array
- */
-	public $fixtures = array(
-		'app.comment',
-		'app.user',
-		'app.level',
-		'app.tag',
-	);
+    /**
+     * Fixtures
+     *
+     * @var array
+     */
+    public $fixtures = array(
+            'app.comment',
+            'app.user',
+            'app.level',
+            'app.tag',
+    );
 
-/**
- * setUp method
- *
- * @return void
- */
-	public function setUp() {
-		parent::setUp();
-		$this->Comment = ClassRegistry::init('Comment');
-	}
+    /**
+     * setUp method
+     *
+     * @return void
+     */
+    public function setUp() {
+        parent::setUp();
+        $this->Comment = ClassRegistry::init('Comment');
+    }
 
-/**
- * tearDown method
- *
- * @return void
- */
-	public function tearDown() {
-		unset($this->Comment);
+    /**
+     * tearDown method
+     *
+     * @return void
+     */
+    public function tearDown() {
+        unset($this->Comment);
 
-		parent::tearDown();
-	}
+        parent::tearDown();
+    }
 
     function createValidComment() {
         $this->Comment->create();
@@ -46,12 +46,12 @@ class CommentTest extends CakeTestCase {
         $this->Comment->set('level_id', 1);
     }
 
-/**
- * testLevelExists method
- *
- * @return void
- */
-	public function testLevelExists() {
+    /**
+     * testLevelExists method
+     *
+     * @return void
+     */
+    public function testLevelExists() {
         $this->Comment->create();
         $this->assertFalse($this->Comment->levelExists());
         $this->assertFalse($this->Comment->save());
@@ -63,7 +63,7 @@ class CommentTest extends CakeTestCase {
         $this->Comment->set('level_id', '');
         $this->assertFalse($this->Comment->levelExists());
         $this->assertFalse($this->Comment->save());
-	}
+    }
 
     public function testLevelRequired() {
         $this->createValidComment();

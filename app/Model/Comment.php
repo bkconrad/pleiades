@@ -8,49 +8,49 @@ App::uses('AppModel', 'Model');
  */
 class Comment extends AppModel {
 
-/**
- * Display field
- *
- * @var string
- */
-	public $displayField = 'text';
+    /**
+     * Display field
+     *
+     * @var string
+     */
+    public $displayField = 'text';
 
 
-	//The Associations below have been created with all possible keys, those that are not needed can be removed
+    //The Associations below have been created with all possible keys, those that are not needed can be removed
 
-/**
- * belongsTo associations
- *
- * @var array
- */
-	public $belongsTo = array(
-		'User' => array(
-			'className' => 'User',
-			'foreignKey' => 'user_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
-		),
-		'Level' => array(
-			'className' => 'Level',
-			'foreignKey' => 'level_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
-		)
-	);
+    /**
+     * belongsTo associations
+     *
+     * @var array
+     */
+    public $belongsTo = array(
+            'User' => array(
+                    'className' => 'User',
+                    'foreignKey' => 'user_id',
+                    'conditions' => '',
+                    'fields' => '',
+                    'order' => ''
+            ),
+            'Level' => array(
+                    'className' => 'Level',
+                    'foreignKey' => 'level_id',
+                    'conditions' => '',
+                    'fields' => '',
+                    'order' => ''
+            )
+    );
 
     public $validate = array(
-        'level_id' => array(
-            'rule' => 'levelExists',
-            'message' => 'The specified level does not exist',
-            'required' => true
-        ),
-        'user_id' => array(
-            'rule' => 'userExists',
-            'message' => 'The specified user does not exist',
-            'required' => true
-        )
+            'level_id' => array(
+                    'rule' => 'levelExists',
+                    'message' => 'The specified level does not exist',
+                    'required' => true
+            ),
+            'user_id' => array(
+                    'rule' => 'userExists',
+                    'message' => 'The specified user does not exist',
+                    'required' => true
+            )
     );
 
     public function levelExists() {

@@ -40,40 +40,40 @@ App::uses('FormAuthenticate', 'Controller/Component/Auth');
  */
 class BlowfishAuthenticate extends FormAuthenticate {
 
-/**
- * Authenticates the identity contained in a request. Will use the `settings.userModel`, and `settings.fields`
- * to find POST data that is used to find a matching record in the`settings.userModel`. Will return false if
- * there is no post data, either username or password is missing, or if the scope conditions have not been met.
- *
- * @param CakeRequest $request The request that contains login information.
- * @param CakeResponse $response Unused response object.
- * @return mixed False on login failure. An array of User data on success.
- */
-	public function authenticate(CakeRequest $request, CakeResponse $response) {
-		$userModel = $this->settings['userModel'];
-		list(, $model) = pluginSplit($userModel);
+    /**
+     * Authenticates the identity contained in a request. Will use the `settings.userModel`, and `settings.fields`
+     * to find POST data that is used to find a matching record in the`settings.userModel`. Will return false if
+     * there is no post data, either username or password is missing, or if the scope conditions have not been met.
+     *
+     * @param CakeRequest $request The request that contains login information.
+     * @param CakeResponse $response Unused response object.
+     * @return mixed False on login failure. An array of User data on success.
+     */
+    public function authenticate(CakeRequest $request, CakeResponse $response) {
+        $userModel = $this->settings['userModel'];
+        list(, $model) = pluginSplit($userModel);
 
-		$fields = $this->settings['fields'];
-		if (!$this->_checkFields($request, $model, $fields)) {
-			return false;
-		}
-		$user = $this->_findUser(
-			array(
-				$model . '.' . $fields['username'] => $request->data[$model][$fields['username']],
-			)
-		);
-		if (!$user) {
-			return false;
-		}
-		$password = Security::hash(
-			$request->data[$model][$fields['password']],
-			'blowfish',
-			$user[$fields['password']]
-		);
-		if ($password === $user[$fields['password']]) {
-			unset($user[$fields['password']]);
-			return $user;
-		}
-		return false;
-	}
+        $fields = $this->settings['fields'];
+        if (!$this->_checkFields($request, $model, $fields)) {
+            return false;
+        }
+        $user = $this->_findUser(
+                array(
+                        $model . '.' . $fields['username'] => $request->data[$model][$fields['username']],
+                )
+        );
+        if (!$user) {
+            return false;
+        }
+        $password = Security::hash(
+                $request->data[$model][$fields['password']],
+                'blowfish',
+                $user[$fields['password']]
+        );
+        if ($password === $user[$fields['password']]) {
+            unset($user[$fields['password']]);
+            return $user;
+        }
+        return false;
+    }
 }

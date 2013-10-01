@@ -7,41 +7,41 @@ App::uses('CommentsController', 'Controller');
  */
 class CommentsControllerTest extends ControllerTestCase {
 
-/**
- * Fixtures
- *
- * @var array
- */
-	public $fixtures = array(
-		'app.comment',
-		'app.user',
-		'app.level',
-		'app.tag',
-	);
+    /**
+     * Fixtures
+     *
+     * @var array
+     */
+    public $fixtures = array(
+            'app.comment',
+            'app.user',
+            'app.level',
+            'app.tag',
+    );
 
     // configures a mock as fixture user 'bob'
     function mockAsBob() {
         // mock Auth component
         $options = array(
-            'components' => array('Auth' => array('user', 'loggedIn', 'login'))
+                'components' => array('Auth' => array('user', 'loggedIn', 'login'))
         );
 
         $Comments = $this->generate('Comments', $options);
 
         $Comments->Auth
-            ->staticExpects($this->any())
-            ->method('user')
-            ->will($this->returnValue(2));
+        ->staticExpects($this->any())
+        ->method('user')
+        ->will($this->returnValue(2));
 
         $Comments->Auth
-            ->expects($this->any())
-            ->method('loggedIn')
-            ->will($this->returnValue(true));
+        ->expects($this->any())
+        ->method('loggedIn')
+        ->will($this->returnValue(true));
 
         $Comments->Auth
-            ->expects($this->any())
-            ->method('login')
-            ->will($this->returnValue(true));
+        ->expects($this->any())
+        ->method('login')
+        ->will($this->returnValue(true));
 
         return $Comments;
     }
@@ -49,17 +49,17 @@ class CommentsControllerTest extends ControllerTestCase {
     // configures a mock as an unauthenticated user
     function mockAsUnauthenticated() {
         $Comments = $this->generate('Comments', array(
-            'components' => array(
-                'Auth' => array(
-                    'loggedIn'
+                'components' => array(
+                        'Auth' => array(
+                                'loggedIn'
+                        )
                 )
-            )
         ));
 
         $Comments->Auth
-            ->expects($this->any())
-            ->method('loggedIn')
-            ->will($this->returnValue(false));
+        ->expects($this->any())
+        ->method('loggedIn')
+        ->will($this->returnValue(false));
 
         return $Comments;
     }
@@ -68,9 +68,9 @@ class CommentsControllerTest extends ControllerTestCase {
         $this->mockAsBob();
 
         $comment = array(
-            'Comment' => array(
-                'level_id' => 1
-            )
+                'Comment' => array(
+                        'level_id' => 1
+                )
         );
 
         $this->testAction('/comments/add', array('data' => $comment));
@@ -80,8 +80,8 @@ class CommentsControllerTest extends ControllerTestCase {
         $this->mockAsUnauthenticated();
 
         $comment = array(
-            'Comment' => array(
-            )
+                'Comment' => array(
+                )
         );
 
         $this->setExpectedException('BadRequestException');

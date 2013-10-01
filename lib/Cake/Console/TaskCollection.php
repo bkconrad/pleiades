@@ -26,59 +26,59 @@ App::uses('ObjectCollection', 'Utility');
  */
 class TaskCollection extends ObjectCollection {
 
-/**
- * Shell to use to set params to tasks.
- *
- * @var Shell
- */
-	protected $_Shell;
+    /**
+     * Shell to use to set params to tasks.
+     *
+     * @var Shell
+     */
+    protected $_Shell;
 
-/**
- * The directory inside each shell path that contains tasks.
- *
- * @var string
- */
-	public $taskPathPrefix = 'tasks/';
+    /**
+     * The directory inside each shell path that contains tasks.
+     *
+     * @var string
+     */
+    public $taskPathPrefix = 'tasks/';
 
-/**
- * Constructor
- *
- * @param Shell $Shell
- */
-	public function __construct(Shell $Shell) {
-		$this->_Shell = $Shell;
-	}
+    /**
+     * Constructor
+     *
+     * @param Shell $Shell
+     */
+    public function __construct(Shell $Shell) {
+        $this->_Shell = $Shell;
+    }
 
-/**
- * Loads/constructs a task. Will return the instance in the collection
- * if it already exists.
- *
- * @param string $task Task name to load
- * @param array $settings Settings for the task.
- * @return Task A task object, Either the existing loaded task or a new one.
- * @throws MissingTaskException when the task could not be found
- */
-	public function load($task, $settings = array()) {
-		list($plugin, $name) = pluginSplit($task, true);
+    /**
+     * Loads/constructs a task. Will return the instance in the collection
+     * if it already exists.
+     *
+     * @param string $task Task name to load
+     * @param array $settings Settings for the task.
+     * @return Task A task object, Either the existing loaded task or a new one.
+     * @throws MissingTaskException when the task could not be found
+     */
+    public function load($task, $settings = array()) {
+        list($plugin, $name) = pluginSplit($task, true);
 
-		if (isset($this->_loaded[$name])) {
-			return $this->_loaded[$name];
-		}
+        if (isset($this->_loaded[$name])) {
+            return $this->_loaded[$name];
+        }
 
-		$taskClass = $name . 'Task';
-		App::uses($taskClass, $plugin . 'Console/Command/Task');
+        $taskClass = $name . 'Task';
+        App::uses($taskClass, $plugin . 'Console/Command/Task');
 
-		$exists = class_exists($taskClass);
-		if (!$exists) {
-			throw new MissingTaskException(array(
-				'class' => $taskClass
-			));
-		}
+        $exists = class_exists($taskClass);
+        if (!$exists) {
+            throw new MissingTaskException(array(
+                    'class' => $taskClass
+            ));
+        }
 
-		$this->_loaded[$name] = new $taskClass(
-			$this->_Shell->stdout, $this->_Shell->stderr, $this->_Shell->stdin
-		);
-		return $this->_loaded[$name];
-	}
+        $this->_loaded[$name] = new $taskClass(
+                $this->_Shell->stdout, $this->_Shell->stderr, $this->_Shell->stdin
+        );
+        return $this->_loaded[$name];
+    }
 
 }

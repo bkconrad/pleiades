@@ -27,23 +27,23 @@
  */
 class AllConsoleLibsTest extends PHPUnit_Framework_TestSuite {
 
-/**
- * suite method, defines tests for this suite.
- *
- * @return void
- */
-	public static function suite() {
-		$suite = new CakeTestSuite('All console lib classes');
+    /**
+     * suite method, defines tests for this suite.
+     *
+     * @return void
+     */
+    public static function suite() {
+        $suite = new CakeTestSuite('All console lib classes');
 
-		foreach (new DirectoryIterator(dirname(__FILE__)) as $file) {
-			if (!$file->isFile() || strpos($file, 'All') === 0) {
-				continue;
-			}
-			$fileName = $file->getRealPath();
-			if (substr($fileName, -4) === '.php') {
-				$suite->addTestFile($file->getRealPath());
-			}
-		}
-		return $suite;
-	}
+        foreach (new DirectoryIterator(dirname(__FILE__)) as $file) {
+            if (!$file->isFile() || strpos($file, 'All') === 0) {
+                continue;
+            }
+            $fileName = $file->getRealPath();
+            if (substr($fileName, -4) === '.php') {
+                $suite->addTestFile($file->getRealPath());
+            }
+        }
+        return $suite;
+    }
 }

@@ -12,7 +12,7 @@
   src: url('../font/tenbyfive.ttf');
 }
 
-// base colors
+/* base colors */
 $black: #010101;
 $grey1: #111315;
 $grey2: #222426;
@@ -133,15 +133,14 @@ h1, h2, h3, h4 {
 	margin-bottom:0.5em;
 }
 h1 {
-  @include rounded();
-  @include raised-box(.2, .5);
-  @include rounded-face($grey4);
-  color: $grey1;
+  color: $greyA;
+  border-bottom: 1px solid $greyA;
   text-shadow: 0px 1px 0px $title_shadow;
   font-size: 2.5em;
-  margin: 15px auto;
   padding: 7.5px;
-  font-weight: bold;
+  font-weight: normal;
+  margin-top: .5em;
+  margin-bottom: 1.5em;
 }
 h2 {
   clear: both;
@@ -226,16 +225,13 @@ p {
 }
 
 #content{
-  background: $grey4;
-  background-image: url(../img/mooning.png);
+  background: black;
   clear: both;
   text-align: left;
   max-width: 90%;
   min-height: 800px;
   margin: 0 auto;
   padding: 1em;
-  border-left: 1px solid $grey2;
-  border-right: 1px solid $grey2;
   color: $greyD;
 }
 #base_footer {
@@ -948,11 +944,10 @@ ul.tags {
 
 li.tag, .tags .checkbox {
   @include rounded;
-  background: $grey2;
-  border: 1px solid $grey8;
+  background: $grey1;
+  border: 1px solid $grey4;
   clear: none;
   display: inline-block;
-  box-shadow: 0 1px $grey4, 0 2px 3px $black;
   margin: 7px 14px 0 0;
 }
 
@@ -976,7 +971,6 @@ li.tag {
 }
 
 li.tag a, .tags .checkbox label {
-  @include inset-text($greyE);
   text-decoration: none;
   font-weight: normal;
   font-size: 1em;
@@ -985,9 +979,10 @@ li.tag a, .tags .checkbox label {
   padding: 0 .5em;
   margin: 0;
   display: inline-block;
+  color: $grey8;
 }
 
-li.tag:hover, .tags .checkbox:hover {
+li.tag:hover, .checkbox:hover {
   background: $grey4;
   border-color: $greyD;
   a, label {
@@ -1031,12 +1026,13 @@ li.tag:hover, .tags .checkbox:hover {
 }
 
 .level {
-  @include rounded;
-  @include raised-box(.2, .5);
-  @include rounded-face($grey2);
   vertical-align: top;
-  margin-bottom: 30px;
-  color: $grey9;
+  margin-bottom: 3em;
+  color: $grey4;
+
+  a {
+	color: $grey4;
+  }
 }
 
 .level > * {
@@ -1044,19 +1040,16 @@ li.tag:hover, .tags .checkbox:hover {
 }
 
 .level a.name {
-  @include raised-text($greyD);
   display: block;
+  color: $greyD;
   overflow: hidden;
   white-space: nowrap;
   text-decoration: none;
   font-weight: normal;
-  font-size: 2em;
-  width: 100%;
-  border-bottom: 1px solid $grey2;
-  box-shadow: 0px 1px 0px $grey4;
+  font-size: 1.5em;
+  width: 80%;
   text-shadow: 0px 1px 0px $black;
-  padding-bottom: .1em;
-  margin-bottom: .25em;
+  float: left;
 }
 
 .level a.name:hover {
@@ -1069,13 +1062,15 @@ li.tag:hover, .tags .checkbox:hover {
 }
 
 .level {
-  padding: 0 .5em;
+  padding: 0 1em;
 
   .thumbnail-wrapper {
     width: 100%;
     background: black;
-    border: 1px solid $grey4;
+    border: 1px solid $grey2;
     display: block;
+    clear: both;
+    margin-top: 1.5em;
   }
 
   .thumbnail {
@@ -1089,27 +1084,31 @@ li.tag:hover, .tags .checkbox:hover {
 }
 
 .level .rating {
-  @include rounded;
-  @include inset-box(.1, .1);
   display: block;
-  height: 1.418em;
-  width: 15%;
+  font-size: 1.418em;
+  max-width: 15%;
   padding: 0 .25em;
   float: right;
-  background: $grey1;
-  text-align: right;
+  text-align: center;
   font-weight: bold;
+  background: $grey4;
+  color: black;
+  border-radius: 3px;
 }
 
 .level .author {
   display: block;
+  clear: both;
   white-space: nowrap;
-  max-width: 80%;
+  max-width: 50%;
   overflow: hidden;
+  float: right;
+  line-height: 1em;
+  padding-bottom: 1em;
 }
 
 .level .author a {
-  color: $greyC;
+  color: $greyA;
   text-decoration: none;
 }
 
@@ -1119,11 +1118,6 @@ li.tag:hover, .tags .checkbox:hover {
 }
 
 .level_info {
-  @include rounded;
-  @include inset-box(.1, .1, .5);
-  background: $grey1;
-  padding: 0 .25em;
-  margin-bottom: .5em;
   display: block;
   clear: both;
 }
@@ -1135,6 +1129,10 @@ li.tag:hover, .tags .checkbox:hover {
 
 .level .level_info {
   display: block;
+  text-align: right;
+  font-size: .8em;
+  float: left;
+  clear: none;
 }
 
 .level .levelgen, .team_count, .game_type {
@@ -1154,12 +1152,11 @@ li.tag:hover, .tags .checkbox:hover {
 }
 
 .team_count {
-  color: $greyA;
+  line-height: 100%;
 }
 
 .game_type {
-  color: $greyA;
-  float: right;
+  line-height: 100%;
 }
 
 .download-instructions-container {
