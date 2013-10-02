@@ -2,14 +2,14 @@
 @import "bourbon/bourbon";
 
 @font-face {
-  font-family: Checkbook;
-  src: url('../font/Checkbook.ttf');
+	font-family: Checkbook;
+	src: url('../font/Checkbook.ttf');
 }
 
 @font-face {
-  font-family: TenbyFive;
-  font-weight: bold;
-  src: url('../font/tenbyfive.ttf');
+	font-family: TenbyFive;
+	font-weight: bold;
+	src: url('../font/tenbyfive.ttf');
 }
 
 /* base colors */
@@ -45,63 +45,63 @@ $contentWidth: 960px;
 $headerHeight: 40px;
 
 @mixin rounded {
-  border-radius: 4px 4px;
+	border-radius: 4px 4px;
 }
 
 @mixin rounded-face($color, $mag: 0.1, $offset: 50%) {
-  background: $color;
-  @include background-image(linear-gradient(top, rgba(white, $mag), rgba(white, 0.0) $offset, rgba(black, 0.0) (100% - $offset), rgba(black, $mag)));
+	background: $color;
+	@include background-image(linear-gradient(top, rgba(white, $mag), rgba(white, 0.0) $offset, rgba(black, 0.0) (100% - $offset), rgba(black, $mag)));
 }
 
 @mixin raised-box($highalpha: 0.3, $lowalpha: 0.3) {
-  box-shadow: 0 -1px 0px rgba(0, 0, 0, $lowalpha) inset, 0 1px 0px rgba(255, 255, 255, $highalpha) inset, 0px 1px 3px rgba(0,0,0, $lowalpha);
+	box-shadow: 0 -1px 0px rgba(0, 0, 0, $lowalpha) inset, 0 1px 0px rgba(255, 255, 255, $highalpha) inset, 0px 1px 3px rgba(0,0,0, $lowalpha);
 }
 
 @mixin inset-text($color, $highalpha: 0.3, $lowalpha: 0.3) {
-  text-shadow: 0 -1px 0px rgba(0,0,0, $lowalpha), 0 1px 0px rgba(white, $highalpha);
-  color: $color;
+	text-shadow: 0 -1px 0px rgba(0,0,0, $lowalpha), 0 1px 0px rgba(white, $highalpha);
+	color: $color;
 }
 
 @mixin raised-text($color) {
-  $alpha: 0.6;
-  $factor: 100%;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, $alpha);
-  color: $color;
+	$alpha: 0.6;
+	$factor: 100%;
+	text-shadow: 0 1px 1px rgba(0, 0, 0, $alpha);
+	color: $color;
 }
 
 @mixin inset-box($highalpha: 0.3, $lowalpha: 0.3, $borderalpha: 0.3) {
-  box-shadow: 0 -1px 0px rgba(0, 0, 0, $lowalpha), 0 1px 0px rgba(255, 255, 255, $highalpha);
-  // border: 1px solid rgba(0,0,0,$borderalpha);
-  border-top: 1px solid rgba(0, 0, 0, 0.6);
+	box-shadow: 0 -1px 0px rgba(0, 0, 0, $lowalpha), 0 1px 0px rgba(255, 255, 255, $highalpha);
+	// border: 1px solid rgba(0,0,0,$borderalpha);
+	border-top: 1px solid rgba(0, 0, 0, 0.6);
 }
 
 @mixin simple_base($base-color, $grayscale: false) {
-  $color:         hsl(0, 0, 100%);
-  $border:        adjust-color($base-color, $saturation:  9%,  $lightness: -14%);
-  $inset-shadow:  adjust-color($base-color, $saturation: -8%,  $lightness:  15%);
-  $stop-gradient: adjust-color($base-color, $saturation:  9%,  $lightness: -11%);
-  $text-shadow:   adjust-color($base-color, $saturation:  15%, $lightness: -18%);
+	$color:         hsl(0, 0, 100%);
+	$border:        adjust-color($base-color, $saturation:  9%,  $lightness: -14%);
+	$inset-shadow:  adjust-color($base-color, $saturation: -8%,  $lightness:  15%);
+	$stop-gradient: adjust-color($base-color, $saturation:  9%,  $lightness: -11%);
+	$text-shadow:   adjust-color($base-color, $saturation:  15%, $lightness: -18%);
 
-  @if lightness($base-color) > 70% {
-    $color:       hsl(0, 0, 20%);
-    $text-shadow: adjust-color($base-color, $saturation: 10%, $lightness: 4%);
-  }
+	@if lightness($base-color) > 70% {
+		$color:       hsl(0, 0, 20%);
+		$text-shadow: adjust-color($base-color, $saturation: 10%, $lightness: 4%);
+	}
 
-  @if $grayscale == true {
-    $border:        grayscale($border);
-    $inset-shadow:  grayscale($inset-shadow);
-    $stop-gradient: grayscale($stop-gradient);
-    $text-shadow:   grayscale($text-shadow);
-  }
+	@if $grayscale == true {
+		$border:        grayscale($border);
+		$inset-shadow:  grayscale($inset-shadow);
+		$stop-gradient: grayscale($stop-gradient);
+		$text-shadow:   grayscale($text-shadow);
+	}
 
-  border: 1px solid $border;
-  border-radius: 3px;
-  box-shadow: inset 0 1px 0 0 $inset-shadow;
-  color: $color;
-  display: inline-block;
-  @include linear-gradient ($base-color, $stop-gradient);
-  padding: 7px 18px;
-  background-clip: padding-box;
+	border: 1px solid $border;
+	border-radius: 3px;
+	box-shadow: inset 0 1px 0 0 $inset-shadow;
+	color: $color;
+	display: inline-block;
+	@include linear-gradient ($base-color, $stop-gradient);
+	padding: 7px 18px;
+	background-clip: padding-box;
 }
 
 * {
@@ -111,11 +111,11 @@ $headerHeight: 40px;
 
 /** General Style Info **/
 body {
-  background: black;
-  background-image: url(../img/stars.gif);
-  margin: 0;
-  overflow-y: scroll;
-  color: #F00;
+	background: black;
+	background-image: url(../img/stars.gif);
+	margin: 0;
+	overflow-y: scroll;
+	color: #F00;
 }
 a {
 	color: $blue;
@@ -133,17 +133,17 @@ h1, h2, h3, h4 {
 	margin-bottom:0.5em;
 }
 h1 {
-  color: $greyA;
-  border-bottom: 1px solid $greyA;
-  text-shadow: 0px 1px 0px $title_shadow;
-  font-size: 2.5em;
-  padding: 7.5px;
-  font-weight: normal;
-  margin-top: .5em;
-  margin-bottom: 1.5em;
+	color: $greyA;
+	border-bottom: 1px solid $greyA;
+	text-shadow: 0px 1px 0px $title_shadow;
+	font-size: 2.5em;
+	padding: 7.5px;
+	font-weight: normal;
+	margin-top: .5em;
+	margin-bottom: 1.5em;
 }
 h2 {
-  clear: both;
+	clear: both;
 	color: $white;
 	font-size: 190%;
 }
@@ -164,45 +164,45 @@ p {
 
 /** Layout **/
 #container {
-  text-align: left;
-  margin: 0 auto;
+	text-align: left;
+	margin: 0 auto;
 }
 
 #header_wrapper {
-  background: $grey2;
-  border-bottom: 3px solid $grey3;
-  height: $headerHeight;
-  box-shadow: 0 2px 2px $grey1;
-  position: relative;
-  z-index: 1;
+	background: $grey2;
+	border-bottom: 3px solid $grey3;
+	height: $headerHeight;
+	box-shadow: 0 2px 2px $grey1;
+	position: relative;
+	z-index: 1;
 }
 
 #header {
-  padding: 0 .5em;
-  max-width: 90%;
-  margin: 0 auto;
+	padding: 0 .5em;
+	max-width: 90%;
+	margin: 0 auto;
 
-  a.logo {
-    color: $white;
-    font-size: 2em;
-    font-family: "Checkbook";
-    text-decoration: none;
-    text-shadow: 0 2px 0 black;
-  }
+	a.logo {
+		color: $white;
+		font-size: 2em;
+		font-family: "Checkbook";
+		text-decoration: none;
+		text-shadow: 0 2px 0 black;
+	}
 
-  a.logo:hover {
-    color: $fullgreen;
-  }
+	a.logo:hover {
+		color: $fullgreen;
+	}
 }
 
 #header a {
-  display: inline-block;
-  height: $headerHeight;
+	display: inline-block;
+	height: $headerHeight;
 }
 
 #header img {
-  height: 2em;
-  margin: .5em 0;
+	height: 2em;
+	margin: .5em 0;
 }
 
 #header h1 {
@@ -225,14 +225,14 @@ p {
 }
 
 #content{
-  background: black;
-  clear: both;
-  text-align: left;
-  max-width: 90%;
-  min-height: 800px;
-  margin: 0 auto;
-  padding: 1em;
-  color: $greyD;
+	background: black;
+	clear: both;
+	text-align: left;
+	max-width: 90%;
+	min-height: 800px;
+	margin: 0 auto;
+	padding: 1em;
+	color: $greyD;
 }
 #base_footer {
 	clear: both;
@@ -249,14 +249,14 @@ div.view {
 	padding:10px 2%;
 }
 div.actions {
-  @include rounded();
-  @include raised-box(.2, .5);
-  @include rounded-face($grey4);
-  color: $black;
-  text-shadow: 0px 1px 0px $title_shadow;
-  margin: 15px auto;
-  padding: 7.5px;
-  clear: both;
+	@include rounded();
+	@include raised-box(.2, .5);
+	@include rounded-face($grey4);
+	color: $black;
+	text-shadow: 0px 1px 0px $title_shadow;
+	margin: 15px auto;
+	padding: 7.5px;
+	clear: both;
 }
 
 div.actions h3 {
@@ -273,7 +273,7 @@ table {
 	width: 100%;
 }
 th {
-  color: $red;
+	color: $red;
 	border:0;
 	border-bottom:2px solid #555;
 	text-align: left;
@@ -423,7 +423,7 @@ form .input {
 }
 
 div .input {
-  padding: 0;
+	padding: 0;
 }
 
 form .required {
@@ -438,32 +438,32 @@ form div.submit {
 	border: 0;
 	clear: both;
 	margin-top: 10px;
-  padding: 0;
+	padding: 0;
 }
 label {
 	color: $greyD;
-  font-weight: bold;
+	font-weight: bold;
 	display: block;
 	font-size: 110%;
 	margin-bottom:3px;
 }
 input, textarea, pre.submission, .level_description, #content > .comment {
-  background: $grey1;
-  border: 1px solid $grey6;
-  color: $greyD;
-  clear: both;
-  font-family: monospace;
-  width: 100%;
-  padding: .5em;
-  @include rounded;
+	background: $grey1;
+	border: 1px solid $grey6;
+	color: $greyD;
+	clear: both;
+	font-family: monospace;
+	width: 100%;
+	padding: .5em;
+	@include rounded;
 }
 
 input[type=submit] {
-  width: auto;
+	width: auto;
 }
 
 textarea {
-  min-height: 20em;
+	min-height: 20em;
 }
 select {
 	clear: both;
@@ -499,7 +499,7 @@ input[type=radio] {
 }
 
 input[type=file] {
-  padding: 0;
+	padding: 0;
 }
 
 /* Form errors */
@@ -637,12 +637,12 @@ p.error em {
 /* Buttons and button links */
 .actions ul li a,
 .actions a {
-  @include button($grey4);
+	@include button($grey4);
 }
 
 input[type=submit] {
-  @include button($green);
-  font-family: inherit;
+	@include button($green);
+	font-family: inherit;
 }
 
 /** Related **/
@@ -653,9 +653,9 @@ input[type=submit] {
 
 /** Debugging **/
 pre {
-  padding: 1em;
-  border: 1px solid $grey4;
-  overflow-x: auto;
+	padding: 1em;
+	border: 1px solid $grey4;
+	overflow-x: auto;
 }
 
 .cake-debug-output {
@@ -828,199 +828,200 @@ pre {
 }
 
 #spinner {
-  @include rounded;
-  position: fixed;
-  display: inline-block;
-  top: 0;
-  right: 0;
-  padding: .5em;
-  margin: 1em;
-  background: black;
-  border: 1px solid $grey6;
-  color: $greyC;
+	@include rounded;
+	position: fixed;
+	display: inline-block;
+	top: 0;
+	right: 0;
+	padding: .5em;
+	margin: 1em;
+	background: black;
+	border: 1px solid $grey6;
+	color: $greyC;
 }
 
 #menu {
-  float: right;
+	float: right;
 }
 
 #navmenu {
-  display: inline-block;
-  text-align: right;
-  font-size: 1em;
-  font-weight: bold;
-  height: $headerHeight;
-  line-height: $headerHeight;
+	display: inline-block;
+	text-align: right;
+	font-size: 1em;
+	font-weight: bold;
+	height: $headerHeight;
+	line-height: $headerHeight;
 }
 
 #navmenu a {
-  text-decoration: none;
-  text-shadow: 0 2px 0 $grey4;
-  color: $greyE;
-  margin-left: .5em;
-  @include transition (top 0.1s ease-in-out, text-shadow 0.1s);
+	text-decoration: none;
+	text-shadow: 0 2px 0 $grey4;
+	color: $greyE;
+	margin-left: .5em;
+	@include transition (top 0.1s ease-in-out, text-shadow 0.1s);
 }
 
 #navmenu a:hover {
-  color: $white;
+	color: $white;
 }
 
 #navmenu a:active {
-  position: relative;
-  top: 2px;
-  text-shadow: none;
+	position: relative;
+	top: 2px;
+	text-shadow: none;
 }
 
 div.rating {
-  float: right;
+	float: right;
 }
 
 pre.submission {
-  max-height: none;
-  overflow-y: scroll;
-  display: none;
-  word-wrap: normal;
-  white-space: pre;
+	max-height: none;
+	overflow-y: scroll;
+	display: none;
+	word-wrap: normal;
+	white-space: pre;
 }
 
 .byline {
-  text-shadow: 0 1px 1px $grey1;
-  font-size: 18px;
-  font-family: sans-serif;
-  color: $grey9;
-  float: left;
+	text-shadow: 0 1px 1px $grey1;
+	font-size: 18px;
+	font-family: sans-serif;
+	color: $grey9;
+	float: left;
 
-  .name {
-    font-size: 35px;
-    color: $white;
-  }
+	.name {
+		font-size: 35px;
+		color: $white;
+	}
 
-  .author {
-  }
+	.author {
+	}
 }
 
 .level_description {
-  padding: 1em;
-  white-space: pre-line;
+	padding: 1em;
+	white-space: pre-line;
 }
 
 .submission-wrapper {
-  .submission-link {
-    font-family: monospace;
-    color: white;
-  }
+	.submission-link {
+		font-family: monospace;
+		color: white;
+	}
 }
 
 .submission {
-  text-align: left;
+	text-align: left;
 }
 
 .buttonDiv {
-  position: relative;
-  height: 0;
-  top: 7.5px;
-  right: 30px;
-  display: block;
+	position: relative;
+	height: 0;
+	top: 7.5px;
+	right: 30px;
+	display: block;
 }
 
 .codeButton {
-  display: block;
+	display: block;
 }
 
 .tags, .small-tags {
-  padding: 0;
-  list-style: none;
+	padding: 0;
+	list-style: none;
 }
 
 ul.tags {
-  padding: 0;
+	padding: 0;
 }
 
 .tags {
-  input, .input {
-    margin-bottom: 0;
-  }
+	input, .input {
+		margin-bottom: 0;
+	}
 }
 
 li.tag, .tags .checkbox {
-  @include rounded;
-  background: $grey1;
-  clear: none;
-  display: inline-block;
-  margin: .5em .5em 0 0;
+	@include rounded;
+	background: $grey1;
+	clear: none;
+	display: inline-block;
+	margin: .5em .5em 0 0;
 }
 
 li.tag {
-  list-style: none;
+	list-style: none;
 }
 
 .tags .checkbox {
-  padding: 0;
-  vertical-align: middle;
-  height: 2em;
-  margin-bottom: 0;
-  margin-top: 0;
+	padding: 0;
+	vertical-align: middle;
+	height: 2em;
+	margin-bottom: 0;
+	margin-top: 0;
 }
 
 .tags .checkbox input {
-  padding: 0 0 0 .5em;
-  margin: 0 0 0 .5em;
-  line-height: 100%;
-  height: 100%;
+	padding: 0 0 0 .5em;
+	margin: 0 0 0 .5em;
+	line-height: 100%;
+	height: 100%;
 }
 
 li.tag a, .tags .checkbox label {
-  text-decoration: none;
-  font-weight: normal;
-  font-size: 1em;
-  line-height: 2em;
-  height: 2em;
-  padding: 0 .5em;
-  margin: 0;
-  display: inline-block;
-  color: $grey8;
+	text-decoration: none;
+	font-weight: normal;
+	font-size: 1em;
+	line-height: 2em;
+	height: 2em;
+	padding: 0 .5em;
+	margin: 0;
+	display: inline-block;
+	color: $grey8;
 }
 
 li.tag:hover, .checkbox:hover {
-  background: $grey4;
-  border-color: $greyD;
-  a, label {
-    @include inset-text($greyD);
-  }
+	background: $grey4;
+	border-color: $greyD;
+	a, label {
+		@include inset-text($greyD);
+	}
 }
 
 .small-tags {
-  text-align: left;
-  overflow: hidden;
+	height: 3em;
+	text-align: left;
+	overflow: hidden;
 }
 
 .small-tags li.tag {
-  margin-left: 0em;
+	margin-left: 0em;
 }
 
 .checkbox>input {
-  margin: .25em .5em .25em 0;
+	margin: .25em .5em .25em 0;
 }
 
 .upload {
-  display: inline-block;
-  margin-bottom: .5em;
+	display: inline-block;
+	margin-bottom: .5em;
 }
 
 .screenshot-wrapper {
-  @include rounded;
-  display: inline-block;
-  width: 100%;
-  height: 600px;
-  line-height: 600px;
-  vertical-align: middle;
-  text-align: center;
-  background: black;
+	@include rounded;
+	display: inline-block;
+	width: 100%;
+	height: 600px;
+	line-height: 600px;
+	vertical-align: middle;
+	text-align: center;
+	background: black;
 }
 
 .screenshot {
-  margin: auto;
-  max-height: 100%;
+	margin: auto;
+	max-height: 100%;
 }
 
 .level {
@@ -1107,126 +1108,126 @@ li.tag:hover, .checkbox:hover {
 	}
 
 	.level_info {
-	  display: block;
-	  text-align: right;
-	  font-size: .8em;
-	  float: left;
-	  clear: none;
+		display: block;
+		text-align: right;
+		font-size: .8em;
+		float: left;
+		clear: none;
 	}
 }
 
 .level_info {
-  display: block;
-  clear: both;
+	display: block;
+	clear: both;
 }
 
 .download-count {
-  float: left;
-  clear: left;
+	float: left;
+	clear: left;
 }
 
 .team-color {
-  display: inline-block;
-  width: 1em;
-  height: 1em;
-  margin: 0;
-  border-radius: .25em;
+	display: inline-block;
+	width: 1em;
+	height: 1em;
+	margin: 0;
+	border-radius: .25em;
 }
 
 .team_count {
-  line-height: 100%;
+	line-height: 100%;
 }
 
 .game_type {
-  line-height: 100%;
+	line-height: 100%;
 }
 
 .download-instructions-container {
-  margin-top: 1em;
-  text-align: center;
-  overflow: hidden;
-  width: 100%;
+	margin-top: 1em;
+	text-align: center;
+	overflow: hidden;
+	width: 100%;
 }
 
 .download-instructions {
-  @include rounded();
-  margin: .5em auto;
-  font-size: 2em;
-  font-family: monospace;
-  color: $greyD;
-  padding: .25em;
-  background: $grey1;
-  display: block;
-  overflow: hidden;
+	@include rounded();
+	margin: .5em auto;
+	font-size: 2em;
+	font-family: monospace;
+	color: $greyD;
+	padding: .25em;
+	background: $grey1;
+	display: block;
+	overflow: hidden;
 }
 
 .rating .rating {
-  display: inline-block;
-  float: right;
-  margin-bottom: 14px;
+	display: inline-block;
+	float: right;
+	margin-bottom: 14px;
 }
 
 .rating a, .rating a:hover {
-  background: none;
-  background-repeat: no-repeat;
-  border: none;
-  overflow: visible;
-  height: 50px;
-  width: 30px;
-  display: inline-block;
-  padding: 0;
-  margin-left: 1em;
-  text-decoration: none;
+	background: none;
+	background-repeat: no-repeat;
+	border: none;
+	overflow: visible;
+	height: 50px;
+	width: 30px;
+	display: inline-block;
+	padding: 0;
+	margin-left: 1em;
+	text-decoration: none;
 }
 
 .rating .upvote, .rating .downvote {
-  float: right;
-  clear: right;
+	float: right;
+	clear: right;
 }
 
 .rating .upvote a {
-  background-image: url("../img/up_inactive.png");
+	background-image: url("../img/up_inactive.png");
 }
 
 .rating .downvote a {
-  background-image: url("../img/down_inactive.png");
-  background-position: left bottom;
-  margin-bottom: -100px;
+	background-image: url("../img/down_inactive.png");
+	background-position: left bottom;
+	margin-bottom: -100px;
 }
 
 .rating .upvote .active {
-  background-image: url("../img/up_active.png");
+	background-image: url("../img/up_active.png");
 }
 
 .rating .downvote .active {
-  background-image: url("../img/down_active.png");
+	background-image: url("../img/down_active.png");
 }
 
 .rating .total {
-  font-size: 5em;
-  font-weight: bold;
-  float: left;
-  line-height: 100px;
-  display: inline-block;
-  min-width: 100px;
-  text-align: right;
-  text-shadow: 0 2px 2px $grey1;
-  color: $greyE;
+	font-size: 5em;
+	font-weight: bold;
+	float: left;
+	line-height: 100px;
+	display: inline-block;
+	min-width: 100px;
+	text-align: right;
+	text-shadow: 0 2px 2px $grey1;
+	color: $greyE;
 }
 
 #content > .comment {
-  font-family: sans-serif;
-  margin-bottom: 1em;
-  padding: .5em;
+	font-family: sans-serif;
+	margin-bottom: 1em;
+	padding: .5em;
 }
 
 .comment-author {
-  font-weight: bold;
-  margin-bottom: .5em;
+	font-weight: bold;
+	margin-bottom: .5em;
 }
 
 .comment-text {
-  white-space: pre;
+	white-space: pre;
 }
 
 .mass-upload-info {
