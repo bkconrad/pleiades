@@ -945,10 +945,9 @@ ul.tags {
 li.tag, .tags .checkbox {
   @include rounded;
   background: $grey1;
-  border: 1px solid $grey4;
   clear: none;
   display: inline-block;
-  margin: 7px 14px 0 0;
+  margin: .5em .5em 0 0;
 }
 
 li.tag {
@@ -991,7 +990,6 @@ li.tag:hover, .checkbox:hover {
 }
 
 .small-tags {
-  height: 3em;
   text-align: left;
   overflow: hidden;
 }
@@ -1026,95 +1024,95 @@ li.tag:hover, .checkbox:hover {
 }
 
 .level {
-  vertical-align: top;
-  margin-bottom: 3em;
-  color: $grey4;
+	@include raised-text($grey8);
+	padding: 0 1em;
+	margin-bottom: 2em;
+	color: $grey8;
 
-  a {
-	color: $grey4;
-  }
-}
+	a {
+		color: $grey8;
+	}
 
-.level > * {
-  vertical-align: top;
-}
+	a.name {
+		display: block;
+		color: $greyD;
+		overflow: hidden;
+		white-space: nowrap;
+		text-decoration: none;
+		font-weight: normal;
+		width: 80%;
+		text-shadow: 0px 1px 0px $black;
+		float: left;
+	}
 
-.level a.name {
-  display: block;
-  color: $greyD;
-  overflow: hidden;
-  white-space: nowrap;
-  text-decoration: none;
-  font-weight: normal;
-  font-size: 1.5em;
-  width: 80%;
-  text-shadow: 0px 1px 0px $black;
-  float: left;
-}
+	a.name:hover {
+		text-decoration: underline;
+	}
 
-.level a.name:hover {
-  @include raised-text($link_hover);
-  text-decoration: underline;
-}
+	.level_header {
+		background: $grey2;
+		height: 3.75em;
+		padding: .5em;
+	}
 
-.rating {
-  font-family: monospace;
-}
+	.thumbnail-wrapper {
+		width: 100%;
+		background: black;
+		border: 1px solid $grey2;
+		display: block;
+		clear: both;
+		margin-top: .5em;
+	}
 
-.level {
-  padding: 0 1em;
+	.thumbnail {
+		border: 0px;
+		border-radius: 0;
+		padding: 0;
+		margin: 0 auto;
+		vertical-align: middle;
+		max-width: 100%;
+	}
 
-  .thumbnail-wrapper {
-    width: 100%;
-    background: black;
-    border: 1px solid $grey2;
-    display: block;
-    clear: both;
-    margin-top: 1.5em;
-  }
+	.rating {
+		display: block;
+		max-width: 15%;
+		padding: 0 .25em;
+		margin-bottom: .25em;
+		float: right;
+		text-align: center;
+		background: $grey4;
+		color: $greyC;
+		border-radius: 3px;
+	}
 
-  .thumbnail {
-    border: 0px;
-    border-radius: 0;
-    padding: 0;
-    margin: 0 auto;
-    vertical-align: middle;
-    max-width: 100%;
-  }
-}
+	.author {
+		display: block;
+		clear: both;
+		white-space: nowrap;
+		max-width: 50%;
+		overflow: hidden;
+		float: right;
+		line-height: 1em;
+		padding-bottom: 1em;
+	}
 
-.level .rating {
-  display: block;
-  font-size: 1.418em;
-  max-width: 15%;
-  padding: 0 .25em;
-  float: right;
-  text-align: center;
-  font-weight: bold;
-  background: $grey4;
-  color: black;
-  border-radius: 3px;
-}
+	.author a {
+		color: $greyA;
+		text-decoration: none;
+	}
 
-.level .author {
-  display: block;
-  clear: both;
-  white-space: nowrap;
-  max-width: 50%;
-  overflow: hidden;
-  float: right;
-  line-height: 1em;
-  padding-bottom: 1em;
-}
+	.author a:hover {
+		color: $link_hover;
+		text-decoration: underline;
+	}
 
-.level .author a {
-  color: $greyA;
-  text-decoration: none;
-}
-
-.level .author a:hover {
-  color: $link_hover;
-  text-decoration: underline;
+	.level_info {
+	  display: block;
+	  text-align: right;
+	  font-size: .8em;
+	  float: left;
+	  clear: none;
+	}
 }
 
 .level_info {
@@ -1125,22 +1123,6 @@ li.tag:hover, .checkbox:hover {
 .download-count {
   float: left;
   clear: left;
-}
-
-.level .level_info {
-  display: block;
-  text-align: right;
-  font-size: .8em;
-  float: left;
-  clear: none;
-}
-
-.level .levelgen, .team_count, .game_type {
-  text-shadow: 1px 1px 0px $grey1;
-}
-
-.level .levelgen {
-  color: $blue;
 }
 
 .team-color {
