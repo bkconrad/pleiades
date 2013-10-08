@@ -19,5 +19,9 @@ echo
   . '</div>'
   . $this->Html->link($this->Html->image('t' . $level['Level']['screenshot_filename'], array('class' => 'thumbnail')), '/levels/view/' . $level['Level']['id'], array('class' => 'thumbnail-wrapper', 'escape' => false))
   . $this->Html->tag('ul', $tagList, array('class' => 'small-tags'))
+  . '<div class="level-stats">'
+  . '<div class="level-stats-comments">0' . $this->Html->image('comments.png') . '</div>'
+  . '<div class="level-stats-downloads">' . $level['Level']['downloads'] . $this->Html->image('downloads.png') . '</div>'
+  . '</div>'
   . '</div>'
 ;

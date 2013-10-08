@@ -140,7 +140,7 @@ h1 {
 	padding: 7.5px;
 	font-weight: normal;
 	margin-top: .5em;
-	margin-bottom: 1.5em;
+	margin-bottom: .5em;
 }
 h2 {
 	clear: both;
@@ -990,9 +990,11 @@ li.tag:hover, .checkbox:hover {
 }
 
 .small-tags {
-	height: 3em;
+	width: 75%;
+	height: 2.5em;
 	text-align: left;
 	overflow: hidden;
+	float: left;
 }
 
 .small-tags li.tag {
@@ -1114,6 +1116,31 @@ li.tag:hover, .checkbox:hover {
 		float: left;
 		clear: none;
 	}
+
+	.level-stats {
+		float: right;
+		text-align: right;
+		height: 2.5em;
+		width: 20%;
+
+		img {
+			height: 1em;
+			width: 1em;
+			margin-left: .5em;
+		}
+
+		div {
+			height: 50%;
+		}
+
+		.level-stats-comments {
+
+		}
+
+		.level-stats-downloads {
+			
+		}
+	}
 }
 
 .level_info {
@@ -1227,7 +1254,8 @@ li.tag:hover, .checkbox:hover {
 }
 
 .comment-text {
-	white-space: pre;
+	white-space: pre-line;
+	width: 100%;
 }
 
 .mass-upload-info {

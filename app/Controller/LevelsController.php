@@ -202,6 +202,7 @@ class LevelsController extends AppController {
                     'Level.game_type',
                     'Level.screenshot_filename',
                     'Level.user_id',
+                    'Level.downloads',
                     'Level.team_count'
             );
 
