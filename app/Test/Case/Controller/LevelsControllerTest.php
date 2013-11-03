@@ -1,5 +1,6 @@
 <?php
 App::uses('Level', 'Model');
+App::uses('User', 'Model');
 
 /**
  * Create .zip file from an array of the form
@@ -121,7 +122,6 @@ class LevelsControllerTest extends ControllerTestCase {
     public function setUp() {
         parent::setUp();
         $this->Level = ClassRegistry::init('Level');
-        Configure::write('App.user_db_config', 'test_forum');
     }
 
     public function testIndex() {
@@ -468,27 +468,27 @@ class LevelsControllerTest extends ControllerTestCase {
         $this->assertEquals($oldCount - 1, $newCount);
     }
 
-    /*
-     public function testDownload() {
-    $this->mockAsUnauthenticated();
-    $level = $this->Level->findById(1);
-    $result = $this->testAction('/levels/download/' . $level['Level']['id'], array('return' => 'contents'));
+    public function testDownload() {
+        $this->mockAsUnauthenticated();
+        $level = $this->Level->findById(1);
+        ob_start();
+        $result = $this->testAction('/levels/download/' . $level['Level']['id'], array('return' => 'contents'));
     }
 
     public function testDownloadCount() {
-    $this->mockAsUnauthenticated();
+        $this->mockAsUnauthenticated();
 
-    $level = $this->Level->findById(1);
-    $oldCount = $level['Level']['downloads'];
+        $level = $this->Level->findById(1);
+        $oldCount = $level['Level']['downloads'];
 
-    $this->testAction('/levels/download/' . $level['Level']['id']);
+        ob_start();
+        $this->testAction('/levels/download/' . $level['Level']['id']);
 
-    $level = $this->Level->findById(1);
-    $newCount = $level['Level']['downloads'];
+        $level = $this->Level->findById(1);
+        $newCount = $level['Level']['downloads'];
 
-    $this->assertGreaterThan($oldCount, $newCount);
+        $this->assertGreaterThan($oldCount, $newCount);
     }
-    */
 
     public function testRawIncrementsDownloadCount() {
         $this->mockAsUnauthenticated();
@@ -546,7 +546,13 @@ class LevelsControllerTest extends ControllerTestCase {
         // mock our upload check method
         $Levels
         ->expects($this->any())
-        ->method('getUploadFilename')
+        ->method('_isValidUpload')
+        ->will($this->returnValue(true));
+
+        // mock our upload filename getter
+        $Levels
+        ->expects($this->any())
+        ->method('_getUploadFilename')
         ->will($this->returnValue($zipName));
 
         // set up the request data

@@ -17,6 +17,7 @@ class CommentTest extends CakeTestCase {
             'app.user',
             'app.level',
             'app.tag',
+            'app.levels_tag'
     );
 
     /**

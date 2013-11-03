@@ -133,8 +133,8 @@ class LevelsController extends AppController {
         return is_array($arr)
                && !$arr['error']
                && !empty($arr['tmp_name'])
-               && $arr['tmp_name'] != 'none'
-               && is_uploaded_file($arr['tmp_name']);
+               && $arr['tmp_name'] != 'none';
+               // && is_uploaded_file($arr['tmp_name']);
     }
 
     function _performUpload() {
@@ -203,7 +203,8 @@ class LevelsController extends AppController {
                     'Level.screenshot_filename',
                     'Level.user_id',
                     'Level.downloads',
-                    'Level.team_count'
+                    'Level.team_count',
+                    'User.username'
             );
 
             $data = array(
@@ -472,8 +473,8 @@ class LevelsController extends AppController {
                     if(preg_match('/Script +([^ \n]+)/', $entryContents, $matches) && sizeof($matches) > 1 && !empty($matches[1])) {
                         $dir = dirname($entry['name']);
                         $levelgenFilename = trim(preg_replace('/\.levelgen$/', '', $matches[1]));
-                        $levelgenContents = $zip->getFromName($dir . DS . $levelgenFilename . '.levelgen');
-                        $levelgenContents = $levelgenContents !== false ? $levelgenContents : $zip->getFromName($dir . $levelgenFilename);
+                        $levelgenContents = $zip->getFromName($levelgenFilename . '.levelgen');
+                        $levelgenContents = $levelgenContents !== false ? $levelgenContents : $zip->getFromName($levelgenFilename);
                         $this->request->data['Level']['levelgen'] = $levelgenContents;
                         if($levelgenContents === false) {
                             array_push($info['errors'], "Could not find specified levelgen file '$levelgenFilename' in archive");

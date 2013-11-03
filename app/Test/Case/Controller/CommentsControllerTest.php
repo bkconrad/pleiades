@@ -19,6 +19,11 @@ class CommentsControllerTest extends ControllerTestCase {
             'app.tag',
     );
 
+    public function setUp() {
+        parent::setUp();
+        Configure::write('App.user_db_config', 'test_forum');
+    }
+
     // configures a mock as fixture user 'bob'
     function mockAsBob() {
         // mock Auth component

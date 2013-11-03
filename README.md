@@ -1,39 +1,46 @@
-CakePHP
-=======
+# Pleiades - The Bitfighter Level Database
 
-[![CakePHP](http://cakephp.org/img/cake-logo.png)](http://www.cakephp.org)
+*Find your place among the stars*
 
-CakePHP is a rapid development framework for PHP which uses commonly known design patterns like Active Record, Association Data Mapping, Front Controller and MVC.
-Our primary goal is to provide a structured framework that enables PHP users at all levels to rapidly develop robust web applications, without any loss to flexibility.
+## Installing
 
-Some Handy Links
-----------------
+### Dependencies
 
-[CakePHP](http://www.cakephp.org) - The rapid development PHP framework
+ * PHP, MySQL, Apache, all properly configured
+ * Apache mod_rewrite enabled
+ * `Override` enabled so that the root `.htaccess` takes effect
+ * PHP GD module
+ * Functional PhpBB3 instance
+ * Git (for retrieving dependencies as submodules)
+ * A database for Pleiades (you should probably call it `pleiades`)
 
-[Cookbook](http://book.cakephp.org) - THE Cake user documentation; start learning here!
+### Development Dependencies
 
-[Plugins](http://plugins.cakephp.org/) - A repository of extensions to the framework
+ * PHPUnit from phpunit.de
+ * XDebug (available as `php-xdebug` in Debian)
+ * A test database (you should probably call it `pleiades_test`)
+ * The `compass` gem from rubygems.org
 
-[The Bakery](http://bakery.cakephp.org) - Tips, tutorials and articles
+### Instructions
 
-[API](http://api.cakephp.org) - A reference to Cake's classes
+ 1. Checkout the repo into a suitable directory (you **need** to actually check it out via `git`).
+ 2. `cd` in to the repo.
+ 3. `git submodule init` and then `git submodule update`.
+ 4. `cd app/Config` and `cp database.php.default database.php`.
+ 5. Edit database.php as needed with MySQL or other database info.
+ 6. If this is a production server, edit core.php and change `Configure::write('debug', 2);` to `Configure::write('debug', 0);`
+ 7. Load the schema into the DB: `mysql -uroot -proot pleiades < schema.sql`
+ 8. It should run now!
 
-[CakePHP TV](http://tv.cakephp.org) - Screen casts from events and video tutorials
+### Development instructions
 
-[The Cake Software Foundation](http://cakefoundation.org/) - promoting development related to CakePHP
+ 8. To run tests, visit `localhost/pleiades/test.php`. If any of them fail, expect trouble.
+ 9. To work on the stylesheets, run `compass watch sass` from the root directory, and edit `sass/src/pleiades.scss`
+ 10. Hackity hack, and send your pull requests to kaen on github :)
+ 11. If you have ssh access with a configured pubkey on bitfighter.org, simply running `./deploy.sh` will update the server from the github repo.
 
-Get Support!
-------------
+## Acknowledgements
 
-[Our Google Group](http://groups.google.com/group/cake-php) - community mailing list and forum
-
-[#cakephp](http://webchat.freenode.net/?channels=#cakephp) on irc.freenode.net - Come chat with us, we have cake.
-
-[Q & A](http://ask.cakephp.org/) - Ask questions here, all questions welcome
-
-[Lighthouse](http://cakephp.lighthouseapp.com/) - Got issues? Please tell us!
-
-[![Bake Status](https://secure.travis-ci.org/cakephp/cakephp.png?branch=master)](http://travis-ci.org/cakephp/cakephp)
-
-![Cake Power](https://raw.github.com/cakephp/cakephp/master/lib/Cake/Console/Templates/skel/webroot/img/cake.power.gif)
+My sincere thanks to Watusimoto and raptor on #bitfighter at irc.freenode.net
+for writing a game that inspired me to create such a preposterous contraption,
+and for their patience during this process.

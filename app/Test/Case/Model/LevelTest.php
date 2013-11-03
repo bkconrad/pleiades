@@ -3,18 +3,14 @@ App::import('Model', 'Level');
 App::import('Model', 'Rating');
 App::uses('AuthComponent', 'Controller/Component');
 class LevelTest extends CakeTestCase {
-    public $fixtures = array('app.level', 'app.user', 'app.rating', 'app.user_group');
+    public $fixtures = array('app.level', 'app.user', 'app.rating', 'app.user_group', 'app.tag', 'app.levels_tag');
 
     public function setUp() {
         parent::setUp();
         $this->Rating = ClassRegistry::init('Rating');
-
-        // need to change the db config for User (since it is manually set to
-        // 'forum' in the model definition)
         $this->Level = ClassRegistry::init('Level');
-        $this->Level->User->useDbConfig = 'test';
 
-        // then we need to set the "admin" group number for phpbb
+        // we need to set the "admin" group number for phpbb
         Configure::write('Phpbb.admin_group', 2);
     }
 
