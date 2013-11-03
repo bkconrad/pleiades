@@ -38,6 +38,8 @@ git push $PUSH_REPOSITORY
 ssh_commands=`cat <<EOF
 cd $REMOTE_DIRECTORY
 git pull
+git submodule init
+git submodule update
 cd app/tmp/cache
 for file in \\\`find .\\\`
 do

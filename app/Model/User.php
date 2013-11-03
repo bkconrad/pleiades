@@ -3,11 +3,7 @@ class User extends AppModel{
     var $name = 'User';
     var $primaryKey = 'user_id';
     var $displayField = 'username';
-
-    public function __construct($id = false, $table = null, $ds = null) {
-        $this->useDbConfig = Configure::read('App.user_db_config');
-        parent::__construct($id, $table, $ds);
-    }
+    var $useDbConfig = 'forum';
 
     /**
      * Return an array of the groups that this user belongs to

@@ -122,6 +122,8 @@ class LevelsControllerTest extends ControllerTestCase {
     public function setUp() {
         parent::setUp();
         $this->Level = ClassRegistry::init('Level');
+        $this->User = ClassRegistry::init('User');
+        debug($this->Level->associations());
     }
 
     public function testIndex() {

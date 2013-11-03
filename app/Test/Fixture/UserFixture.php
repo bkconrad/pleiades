@@ -5,6 +5,7 @@ class UserFixture extends CakeTestFixture {
     public $primaryKey = 'user_id';
     public $name = 'User';
     public $table = 'users';
+    public $useDbConfig = 'test_forum';
     public $fields = array(
             'user_id' => array('type' => 'integer', 'key' => 'primary'),
             'username' => 'string',

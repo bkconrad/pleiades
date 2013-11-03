@@ -17,7 +17,7 @@ class LevelsController extends AppController {
     public $presetVars = true;
 
     public $helpers = array('Html', 'Form');
-    public $uses = array('Level', 'Rating', 'Comment');
+    public $uses = array('Level', 'User', 'Rating', 'Comment');
 
     public $paginate = array(
             'limit' => 25,
@@ -203,15 +203,14 @@ class LevelsController extends AppController {
                     'Level.screenshot_filename',
                     'Level.user_id',
                     'Level.downloads',
-                    'Level.team_count',
-                    'User.username'
+                    'Level.team_count'
             );
 
             $data = array(
                     'Recently Updated' => $this->Level->find('all', array(
+                            'recursive' => 1,
                             'fields' => $fields,
                             'order' => 'Level.last_updated DESC',
-                            'recursive' => 1,
                             'limit' => 8
                     )),
                     'Highest Rated' => $this->Level->find('all', array(

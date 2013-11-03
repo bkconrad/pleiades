@@ -5,6 +5,7 @@ class UserGroupFixture extends CakeTestFixture {
             'user_id' => 'integer',
             'group_id' => 'integer'
     );
+    public $useDbConfig = 'test_forum';
     public $table = 'phpbb_user_group';
     public $records = array(
             array(
