@@ -52,9 +52,15 @@ if(!empty($uploads)) {
 	}
 
 	$output .= $this->Html->tableCells($results['failure'], array('class' => 'failure'), array('class' => 'failure'), false, true);
-	$output .= $this->Html->tableCells($results['warning'], array('class' => 'warning'), array('class' => 'warning'), false, true);
 	$output .= $this->Html->tableCells($results['success'], array('class' => 'success'), array('class' => 'success'), false, true);
+	$output .= $this->Html->tableCells($results['warning'], array('class' => 'warning'), array('class' => 'warning'), false, true);
 
+	$summary = "<div>" . count($results['failure']) . " levels failed with errors</div>"
+	         . "<div>" . count($results['success']) . " levels uploaded successfully</div>"
+	         . "<div>" . count($results['warning']) . " levels ignored</div>"
+	         ;
+
+	echo $this->Html->tag('div', $summary, array('class' => 'mass-upload-summary'));
 	echo $this->Html->tag('table', $output, array('class' => 'mass-upload-info'));
 }
 
