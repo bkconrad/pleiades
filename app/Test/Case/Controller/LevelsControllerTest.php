@@ -173,6 +173,7 @@ class LevelsControllerTest extends ControllerTestCase {
         parent::setUp();
         $this->Level = ClassRegistry::init('Level');
         $this->User = ClassRegistry::init('User');
+        Cache::clear();
     }
 
     public function testIndex() {
@@ -296,6 +297,11 @@ class LevelsControllerTest extends ControllerTestCase {
                 'return' => 'vars'
         ));
         $this->assertEquals($level, $result['level']);
+    }
+
+    public function testViewNonExistantLevel() {
+        $this->setExpectedException('NotFoundException');
+        $result = $this->testAction('/levels/view/1337');
     }
 
     public function testRate() {

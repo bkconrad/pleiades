@@ -299,6 +299,10 @@ class LevelsController extends AppController {
         if(!$data)
         {
             $level = $this->Level->findById($id);
+
+            if(!$level)
+                throw new NotFoundException('The specified level does not exist');
+
             $current_user_rating = $this->Rating->findByUserIdAndLevelId($this->Auth->user('user_id'), $id);
             $comments = $this->Comment->findAllByLevelId($id);
             $data = compact('level', 'current_user_rating', 'comments');

@@ -1,1 +1,1 @@
-<?php echo $this->Session->flash('flash', array('element' => 'client_flash')); ?>
+<?php var_dump($this->fetch('content')); ?>
