@@ -352,3 +352,6 @@ Configure::write('Exception', array(
                 'serialize' => ($engine === 'File'),
                 'duration' => $duration
         ));
+
+App::uses('AppExceptionRenderer', 'Error');
+Configure::write('Exception.renderer', 'AppExceptionRenderer');
