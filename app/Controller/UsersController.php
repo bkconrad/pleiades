@@ -1,5 +1,11 @@
 <?php
 class UsersController extends AppController{
+    public function beforeFilter() {
+        parent::beforeFilter();
+        $this->Auth->deny();
+        $this->Auth->allow('view');
+    }
+
     function login() {
         if($this->Auth->login()) {
             $this->User->id = $this->Auth->user('user_id');
@@ -18,5 +24,10 @@ class UsersController extends AppController{
     function logout(){
         $this->redirect($this->Auth->logout());
         $this->Session->delete('isAdmin');
+    }
+
+    public function view($id) {
+        $result = $this->User->findByUserId($id);
+        $this->set('data', $result);
     }
 }

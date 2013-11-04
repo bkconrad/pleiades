@@ -22,6 +22,14 @@ if($currentUserId) {
 
   echo '&nbsp;';
 
+  echo $this->Html->link('Profile', array(
+    'controller' => 'users',
+    'action' => 'view',
+    $currentUserId
+  ));
+
+  echo '&nbsp;';
+
   echo $this->Html->link("Logout [$currentUserName]", array(
     'controller' => 'users',
     'action' => 'logout'

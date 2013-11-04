@@ -4,6 +4,7 @@ class User extends AppModel{
     var $primaryKey = 'user_id';
     var $displayField = 'username';
     var $useDbConfig = 'forum';
+    var $hasMany = 'Level';
 
     /**
      * Return an array of the groups that this user belongs to
