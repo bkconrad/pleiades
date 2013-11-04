@@ -28,7 +28,7 @@ function buildZip($files, $zip = null, $base = '') {
                 $zip->addEmptyDir($base . $filename);
                 buildZip($contents, $zip, $base . $filename . '/');
             } else {
-                $zip->addFromString($filename, $contents);
+                $zip->addFromString($base . $filename, $contents);
             }
         }
     }
@@ -119,11 +119,60 @@ class LevelsControllerTest extends ControllerTestCase {
         ->will($this->returnValue(false));
     }
 
+    /**
+     * Runs the massupload action, pretending to have uploaded a zip file defined
+     * by `files`, which should be of the form:
+     * @code
+     *  array(
+     *          'one.level' => 'file contents go here',
+     *          'myDirectory' => array(
+     *                  'two.levelgen' => '...',
+     *                  'two.level' => '...',
+     *                  'myInnerDirectory' => array(
+     *                          'three.level' => '...'
+     *                  )
+     *          )
+     *  );
+     * @endcode
+     *
+     * Returns the `vars` of testAction
+     */
+
+    function _testMassUpload($files) {
+        $Levels = $this->mockAsBob();
+
+        $zipName = buildZip($files);
+
+        // mock our upload check method
+        $Levels
+        ->expects($this->any())
+        ->method('_isValidUpload')
+        ->will($this->returnValue(true));
+
+        // mock our upload filename getter
+        $Levels
+        ->expects($this->any())
+        ->method('_getUploadFilename')
+        ->will($this->returnValue($zipName));
+
+        // set up the request data
+        $data = array(
+                'Level' => array(
+                        'zipFile' => array(
+                                'type' => 'application/zip',
+                                'tmp_name' => $zipName,
+                                'error' => 0,
+                        )
+                )
+        );
+
+        return $this->testAction('/levels/massupload', array('data' => $data, 'return' => 'vars'));
+    }
+
     public function setUp() {
         parent::setUp();
         $this->Level = ClassRegistry::init('Level');
         $this->User = ClassRegistry::init('User');
-        debug($this->Level->associations());
     }
 
     public function testIndex() {
@@ -529,52 +578,71 @@ class LevelsControllerTest extends ControllerTestCase {
     }
 
     public function testMassUpload() {
-        $Levels = $this->mockAsBob();
-
         // build a temporary zip file
         $files = array(
                 'one.level' => 'LevelName mass_one',
+                'dir2' => array(
+                        'two.levelgen' => 'wrong'
+                ),
                 'dir' => array(
-                        'two.levelgen' => 'junk',
-                        'two.level' => "LevelName mass_two\nScript two",
+                        'two.levelgen' => 'right',
+                        'two.level' => "LevelName mass_two\nScript two\n",
                         'dir' => array(
                                 'thr.level' => 'LevelName mass_three'
                         )
                 )
         );
 
-        $zipName = buildZip($files);
-
-        // mock our upload check method
-        $Levels
-        ->expects($this->any())
-        ->method('_isValidUpload')
-        ->will($this->returnValue(true));
-
-        // mock our upload filename getter
-        $Levels
-        ->expects($this->any())
-        ->method('_getUploadFilename')
-        ->will($this->returnValue($zipName));
-
-        // set up the request data
-        $data = array(
-                'Level' => array(
-                        'zipFile' => array(
-                                'type' => 'application/zip',
-                                'tmp_name' => $zipName,
-                                'error' => 0,
-                        )
-                )
-        );
-
         $oldcount = $this->Level->find('count');
-        $results = $this->testAction('/levels/massupload', array('data' => $data, 'return' => 'vars'));
+
+        $results = $this->_testMassUpload($files);
+
         $this->assertEquals(3, sizeof($results['uploads']));
         foreach($results['uploads'] as $i => $result) {
             $this->assertEmpty($result['errors']);
         }
         $newcount = $this->Level->find('count');
         $this->assertEquals($oldcount + 3, $newcount);
+
+        $fileWithLevelgen = $this->Level->findByName('mass_two');
+        $this->assertEquals($fileWithLevelgen['Level']['levelgen'], 'right');
+    }
+
+    public function testMassUploadWithMacOsxDirectory() {
+        // build a temporary zip file
+        $files = array(
+                'empty_dir' => array(),
+                '__MACOSX' => array(
+                        'test.level' => "LevelName Test"
+                ),
+                'another_dir' => array(
+                    'notalevel.txt' => 'hi!'
+                )
+        );
+
+        $oldcount = $this->Level->find('count');
+        $results = $this->_testMassUpload($files);
+        $this->assertEquals(1, sizeof($results['uploads']));
+        foreach($results['uploads'] as $i => $result) {
+            $this->assertNotEmpty($result['warnings']);
+        }
+        $newcount = $this->Level->find('count');
+        $this->assertEquals($oldcount, $newcount);
+    }
+
+    public function testMassUploadWithMissingLevelgen() {
+        // build a temporary zip file
+        $files = array(
+                'missing_levelgen.level' => "LevelName needs_a_levelgen\nScript does_not_exist\n"
+        );
+
+        $oldcount = $this->Level->find('count');
+        $results = $this->_testMassUpload($files);
+        $this->assertEquals(1, sizeof($results['uploads']));
+        foreach($results['uploads'] as $i => $result) {
+            $this->assertNotEmpty($result['errors']);
+        }
+        $newcount = $this->Level->find('count');
+        $this->assertEquals($oldcount, $newcount);
     }
 }

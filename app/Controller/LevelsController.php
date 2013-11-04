@@ -448,11 +448,12 @@ class LevelsController extends AppController {
             for($i = 0; $i < $zip->numFiles; $i++) {
                 $entry = $zip->statIndex($i);
                 $entryFilename = $entry['name'];
-                $entryContents = $zip->getFromIndex($i);
 
-                if(strstr($entryFilename, '__MACOSX')) {
+                // skip directories, which have a trailing slash in their names
+                if(substr($entryFilename, strlen($entryFilename) - 1) === '/')
                     continue;
-                }
+
+                $entryContents = $zip->getFromIndex($i);
 
                 // information about the upload
                 $info = array(
@@ -460,38 +461,55 @@ class LevelsController extends AppController {
                         'warnings' => array(),
                         'name' => null,
                         'id' => null,
-                        'filename' => $entryFilename
+                        'filename' => $entryFilename,
+                        'levelgen_filename' => null
                 );
 
-                if(preg_match('/\.level$/', $entryFilename)) {
+                // skip files that don't end in .level
+                if(!preg_match('/\.level$/', $entryFilename))
+                    continue;
+
+                // warn when an otherwise valid file is contained in the __MACOSX directory
+                if(strstr($entryFilename, '__MACOSX') !== false) {
+                    array_push($info['warnings'], "Ignoring file contained in __MACOSX directory: '$entryFilename'");
+                } else {
                     $this->request->data['Level'] = array();
                     $this->request->data['Level']['content'] = $entryContents;
 
                     // find levelgen if needed
                     $matches = array();
                     if(preg_match('/Script +([^ \n]+)/', $entryContents, $matches) && sizeof($matches) > 1 && !empty($matches[1])) {
-                        $dir = dirname($entry['name']);
+                        // we only look in the current directory for levelgen files, so we'll build our search path
+                        $dir_parts = split(DS, $entryFilename);
+                        array_pop($dir_parts);
+                        $dir = implode(DS, $dir_parts);
                         $levelgenFilename = trim(preg_replace('/\.levelgen$/', '', $matches[1]));
-                        $levelgenContents = $zip->getFromName($levelgenFilename . '.levelgen');
-                        $levelgenContents = $levelgenContents !== false ? $levelgenContents : $zip->getFromName($levelgenFilename);
-                        $this->request->data['Level']['levelgen'] = $levelgenContents;
+                        $target = $dir . DS . $levelgenFilename;
+
+                        // the client checks for $file.levelgen and then for $file, so we'll do the same
+                        $levelgenContents = $zip->getFromName($target . '.levelgen');
+                        if($levelgenContents === false)
+                            $levelgenContents = $zip->getFromName($target);
+
+                        // report an error if we can't find the levelgen file
                         if($levelgenContents === false) {
                             array_push($info['errors'], "Could not find specified levelgen file '$levelgenFilename' in archive");
                         }
+
+                        $this->request->data['Level']['levelgen'] = $levelgenContents;
                     }
 
                     $this->Level->validationErrors = array();
                     $level = $this->_performUpload();
                     if(!$level) {
                         $info['errors'] = array_merge($info['errors'], array_flatten($this->Level->validationErrors));
-                        array_push($result, $info);
-                        continue;
+                    } else {
+                        $info['name'] = $level['Level']['name'];
+                        $info['id'] = $level['Level']['id'];
                     }
-
-                    $info['name'] = $level['Level']['name'];
-                    $info['id'] = $level['Level']['id'];
-                    array_push($result, $info);
                 }
+
+                array_push($result, $info);
             }
 
             $zip->close();
