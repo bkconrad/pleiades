@@ -1,6 +1,6 @@
 <?php
 class LevelFixture extends CakeTestFixture {
-    public $import = 'Level';
+    public $import = array('model' => 'Level', 'records' => false);
     public $records = array(
             array(
                     'name' => 'level',
