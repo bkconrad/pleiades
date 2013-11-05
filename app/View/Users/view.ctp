@@ -4,10 +4,14 @@ echo "<h2> {$data['User']['username']}'s Levels</h2>";
 <table>
 
 <?php
-echo "<tr><th>Name<th>Rating</tr>";
+echo $this->Html->tableHeaders(array('Name', 'Game Type', 'Rating', 'Downloads'));
 foreach ($data['Level'] as $level) {
-	$link = $this->Html->link($level['name'], "/levels/view/{$level['id']}");
-	echo "<tr><td>$link<td>{$level['rating']}</tr>";
+	echo $this->Html->tableCells(array(
+		$this->Html->link($level['name'], "/levels/view/{$level['id']}"),
+		$level['game_type'],
+		$level['rating'],
+		$level['downloads']
+		));
 }
 ?>
 

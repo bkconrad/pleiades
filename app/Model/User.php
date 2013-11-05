@@ -4,7 +4,20 @@ class User extends AppModel{
     var $primaryKey = 'user_id';
     var $displayField = 'username';
     var $useDbConfig = 'forum';
-    var $hasMany = 'Level';
+    var $hasMany = array(
+        'Level' => array(
+            'fields' => array(
+                'id',
+                'author',
+                'name',
+                'game_type',
+                'team_count',
+                'screenshot_filename',
+                'rating',
+                'downloads'
+                )
+            )
+        );
 
     /**
      * Return an array of the groups that this user belongs to
