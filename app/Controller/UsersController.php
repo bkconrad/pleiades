@@ -1,4 +1,6 @@
 <?php
+App::uses('AppController', 'Controller');
+
 class UsersController extends AppController{
     public function beforeFilter() {
         parent::beforeFilter();
@@ -28,6 +30,10 @@ class UsersController extends AppController{
 
     public function view($id) {
         $result = $this->User->findByUserId($id);
+
+        if(!$result)
+            throw new NotFoundException('The specified user does not exist');
+
         $this->set('data', $result);
     }
 }

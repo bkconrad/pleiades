@@ -38,5 +38,17 @@ class LevelFixture extends CakeTestFixture {
                     'last_updated' => 0,
                     'id' => 3
             ),
+            array(
+                    'name' => "another level by bob",
+                    'content' => 'content',
+                    'level_filename' => 'bob_another_level_by_bob.level',
+                    'levelgen' => '',
+                    'levelgen_filename' => '',
+                    'description' => 'uploaded by bob',
+                    'user_id' => 2,
+                    'downloads' => 2,
+                    'last_updated' => 0,
+                    'id' => 4
+            ),
     );
 }
