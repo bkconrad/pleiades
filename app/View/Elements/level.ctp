@@ -5,12 +5,14 @@ foreach($level['Tag'] as $k => $tag) {
   $tagList .= $this->Html->tag('li', $link, array('class' => 'tag'));
 }
 
+$author = empty($level['Level']['author']) ? $level['User']['username'] : $level['Level']['author'];
+
 echo
     '<div class="level col-6 col-sm-6 col-lg-3">'
   . '<div class="level_header">'
   . $this->Html->link($level['Level']['name'], array('action' => 'view', $level['Level']['id']), array('class' => 'name', 'title' => $level['Level']['name']))
   . '<span class="rating">' . $level['Level']['rating'] . '</span>'
-  . '<span class="author">by&nbsp;' . $this->Html->link($level['User']['username'], "/users/view/{$level['User']['user_id']}") . '</span>'
+  . '<span class="author">by&nbsp;' . $this->Html->link($author, "/users/view/{$level['User']['user_id']}") . '</span>'
   . '<span class="level_info">'
   . '<span class="team_count">' . $level['Level']['team_count'] . '&nbsp;Team&nbsp;</span>'
   . '<span class="game_type">' . $level['Level']['game_type'] . '</span>'

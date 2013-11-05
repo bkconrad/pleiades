@@ -205,7 +205,8 @@ class LevelsController extends AppController {
                     'Level.screenshot_filename',
                     'Level.user_id',
                     'Level.downloads',
-                    'Level.team_count'
+                    'Level.team_count',
+                    'Level.author'
             );
 
             $data = array(
@@ -260,17 +261,6 @@ class LevelsController extends AppController {
 
         if($this->request->is('post') || $this->request->is('put')) {
 
-            $this->Level->id = $level['Level']['id'];
-            $this->Level->set('user_id', $this->Auth->user('user_id'));
-            $this->Level->set('author', $this->Auth->user('username'));
-
-            if(empty($this->data['Level']['author']) || !$this->isAdmin()) {
-                $userid = $level['Level']['user_id'];
-                $user = $this->Level->User->findByUserId($userid);
-                $this->Level->set('author', $user['User']['username']);
-                $this->Level->set('user_id', $userid);
-            }
-
             $this->_checkFile('content');
             $this->_checkFile('levelgen');
 
@@ -280,6 +270,7 @@ class LevelsController extends AppController {
                 }
             }
 
+            $this->Level->id = $level['Level']['id'];
             $result = $this->Level->save($this->request->data);
             if($result) {
                 $this->Session->setFlash('Level updated');

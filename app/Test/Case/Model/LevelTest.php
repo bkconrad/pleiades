@@ -224,6 +224,7 @@ class LevelTest extends CakeTestCase {
         $this->assertEquals('nobody', $result['Level']['author']);
     }
 
+    /*
     public function testAuthorAsUsername() {
         $Auth = $this->getMock('Auth');
         $Auth
@@ -241,6 +242,7 @@ class LevelTest extends CakeTestCase {
         $found = $this->Level->findById($result['Level']['id']);
         $this->assertEquals('nobody', $found['User']['username']);
     }
+    */
 
     public function testGameType() {
         $this->Level->create();

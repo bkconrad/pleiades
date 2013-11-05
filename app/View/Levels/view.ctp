@@ -3,10 +3,12 @@ $this->Js->get('.submission-link')
   ->event('click', 'submissionClickHandler(this)')
 ;
 
+$author = empty($level['Level']['author']) ? $level['User']['username'] : $level['Level']['author'];
+
 $byline =
     $this->Html->tag('span', $level['Level']['name'], array('class' => 'name', 'escape' => true))
   . '&nbsp;by&nbsp;'
-  . $this->Html->tag('span', $level['User']['username'], array('class' => 'author', 'escape' => true))
+  . $this->Html->tag('span', $author, array('class' => 'author', 'escape' => true))
 ;
 
 echo $this->Html->tag('h2', $byline, array('class' => 'byline'));

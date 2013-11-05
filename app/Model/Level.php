@@ -61,55 +61,57 @@ class Level extends AppModel {
     }
 
     public function beforeValidate($options = array()) {
-        // content must have a LevelName line
-        $match = array();
-        preg_match("/\s*LevelName\s+([^\r\n]*)/", $this->data['Level']['content'], $match);
-        if(count($match) < 2) {
-            array_push($this->validationErrors, 'You must include a LevelName');
-            return false;
-        }
+        if(!empty($this->data['Level']['content'])) {
+            // content must have a LevelName line
+            $match = array();
+            preg_match("/\s*LevelName\s+([^\r\n]*)/", $this->data['Level']['content'], $match);
+            if(count($match) < 2) {
+                array_push($this->validationErrors, 'You must include a LevelName');
+                return false;
+            }
 
-        $name = $match[1];
-        $name = preg_replace('/"/', '', $name);
-        if(empty($name))
-        {
-            $name = "Untitled";
-        }
-        $this->set('name', $name);
+            $name = $match[1];
+            $name = preg_replace('/"/', '', $name);
+            if(empty($name))
+            {
+                $name = "Untitled";
+            }
+            $this->set('name', $name);
 
-        // try to parse the gametype
-        $match = array();
-        preg_match("/\s*(\w*)GameType/", $this->data['Level']['content'], $match);
-        $match[1] = empty($match[1]) ? "" : $match[1];
-        if($match[1] == "Hunters") {
-            $match[1] = "Nexus";
-        }
-        $prettyNames = Configure::read('App.gametype_prefix_to_pretty_name_map');
-        if(isset($prettyNames[$match[1]])) {
-            $this->set('game_type', $prettyNames[$match[1]]);
-        } else {
-            $this->set('game_type', 'Bit Match');
-        }
+            // try to parse the gametype
+            $match = array();
+            preg_match("/\s*(\w*)GameType/", $this->data['Level']['content'], $match);
+            $match[1] = empty($match[1]) ? "" : $match[1];
+            if($match[1] == "Hunters") {
+                $match[1] = "Nexus";
+            }
+            $prettyNames = Configure::read('App.gametype_prefix_to_pretty_name_map');
+            if(isset($prettyNames[$match[1]])) {
+                $this->set('game_type', $prettyNames[$match[1]]);
+            } else {
+                $this->set('game_type', 'Bit Match');
+            }
 
-        // setting the author will affect the filename
-        $prefix = '';
-        if(!empty($this->data['Level']['author'])) {
-            $prefix = Level::stringToFileName($this->data['Level']['author'], '');
-        } else if(isset($this->data['Level']['user_id'])) {
-            $user = $this->User->findByUserId($this->data['Level']['user_id']);
-            $prefix = Level::stringToFileName($user['User']['username'], '');
+            // setting the author will affect the filename
+            $prefix = '';
+            if(!empty($this->data['Level']['author'])) {
+                $prefix = Level::stringToFileName($this->data['Level']['author'], '');
+            } else if(isset($this->data['Level']['user_id'])) {
+                $user = $this->User->findByUserId($this->data['Level']['user_id']);
+                $prefix = Level::stringToFileName($user['User']['username'], '');
+            }
+
+            $levelFilename = $prefix . (!empty($prefix) ? '_' : '') . Level::stringToFileName($name, '.level');
+            $result = $this->findByLevelFilename($levelFilename);
+
+            if($result && (!isset($this->id) || $this->id != $result['Level']['id'])) {
+                array_push($this->validationErrors, 'The name "' . $this->data['Level']['name'] . '" is too similar to "' . $result['Level']['name'] . '" by ' . $result['User']['username'] . '. Please be more creative.');
+                return false;
+            }
+
+            $this->set('level_filename', $levelFilename);
+            $this->data['Level']['content'] = preg_replace("/\r?\n?LevelDatabaseId[^\n]*/", "", $this->data['Level']['content']);
         }
-
-        $levelFilename = $prefix . (!empty($prefix) ? '_' : '') . Level::stringToFileName($name, '.level');
-        $result = $this->findByLevelFilename($levelFilename);
-
-        if($result && (!isset($this->id) || $this->id != $result['Level']['id'])) {
-            array_push($this->validationErrors, 'The name "' . $this->data['Level']['name'] . '" is too similar to "' . $result['Level']['name'] . '" by ' . $result['User']['username'] . '. Please be more creative.');
-            return false;
-        }
-
-        $this->set('level_filename', $levelFilename);
-        $this->data['Level']['content'] = preg_replace("/\r?\n?LevelDatabaseId[^\n]*/", "", $this->data['Level']['content']);
 
         foreach (array('levelgen', 'content', 'name', 'description') as $field) {
             if(isset($this->data['Level'][$field])) {
@@ -142,12 +144,6 @@ class Level extends AppModel {
         foreach($results as $k => $result) {
             if(isset($result['Level']['content'])) {
                 $results[$k]['Level']['content'] .= "\r\nLevelDatabaseId " . $result['Level']['id'];
-            }
-            if(isset($result['Level']['author']) && !empty($result['Level']['author'])) {
-                if(!isset($result['User'])) {
-                    $results[$k]['User'] = array();
-                }
-                $results[$k]['User']['username'] = $result['Level']['author'];
             }
         }
         return $results;

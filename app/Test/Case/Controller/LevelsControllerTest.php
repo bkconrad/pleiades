@@ -178,16 +178,17 @@ class LevelsControllerTest extends ControllerTestCase {
 
     public function testIndex() {
         // should be identical on subsequent requests without modifications
-        $result = $this->testAction('/levels/index/', array('return' => 'vars'));
-        $result2 = $this->testAction('/levels/index/', array('return' => 'vars'));
-        $this->assertEquals($result2['levelLists'], $result['levelLists']);
+        $result = $this->testAction('/levels/index/', array('return' => 'view'));
+        $result2 = $this->testAction('/levels/index/', array('return' => 'view'));
+        $this->assertEquals($result2, $result);
+        $this->assertContains('alice', $result);
 
         // but then we make a modification
         $level = $this->Level->touch(1);
 
         // and now it should be different
-        $result3 = $this->testAction('/levels/index/', array('return' => 'vars'));
-        $this->assertNotEquals($result3['levelLists'], $result2['levelLists']);
+        $result3 = $this->testAction('/levels/index/', array('return' => 'view'));
+        $this->assertNotEquals($result3, $result2);
     }
 
     public function testEditNoId() {
@@ -223,6 +224,7 @@ class LevelsControllerTest extends ControllerTestCase {
 
         $data = array(
                 'Level' => array(
+                        'author' => 'someone else',
                         'content' => $level['Level']['content'] . "\nBlah blah",
                         'levelgen' => $level['Level']['levelgen'] . "\nLevelgen Addendum"
                 )
@@ -235,7 +237,29 @@ class LevelsControllerTest extends ControllerTestCase {
         $this->assertContains('Blah blah', $level['Level']['content']);
         $this->assertContains('Levelgen Addendum', $level['Level']['levelgen']);
         $this->assertEquals(1, $level['Level']['user_id']);
-        $this->assertEquals('alice', $level['Level']['author']);
+        $this->assertEquals(1, $level['User']['user_id']);
+        $this->assertEquals('someone else', $level['Level']['author']);
+        $this->assertEquals('alice', $level['User']['username']);
+    }
+
+    public function testAdminEditAuthor() {
+        $this->mockAsBob();
+
+        $data = array(
+                'Level' => array(
+                        'author' => 'someone else'
+                )
+        );
+
+        $this->testAction('/levels/edit/1', array('data' => $data));
+
+        // author field should be modified
+        $level = $this->Level->findById(1);
+        $this->assertEquals('someone else', $level['Level']['author']);
+
+        // author should by used as username
+        $result = $this->testAction('/levels/view/1', array('data' => $data, 'return' => 'view'));
+        $this->assertContains('someone else', $result);
     }
 
     public function testEditSuccess() {
@@ -301,8 +325,14 @@ class LevelsControllerTest extends ControllerTestCase {
     }
 
     public function testView() {
-        // view should not change when some other level is modified
+        // view should typically contain the username of the owner
         $result = $this->testAction('/levels/view/2', array('return' => 'view'));
+        $this->assertTag(array(
+                'attributes' => array('class' => 'author'),
+                'content' => 'bob'
+            ), $result);
+
+        // view should not change when some other level is modified
         $this->Level->touch(3);
         $result2 = $this->testAction('/levels/view/2', array('return' => 'view'));
         $this->assertEquals($result, $result2);
