@@ -192,7 +192,9 @@ class LevelsController extends AppController {
     }
 
     public function index() {
-        $data = Cache::read('index_lists');
+        $last = $this->Level->last();
+        $data = Cache::read("index_lists_$last");
+        
         if(!$data)
         {
             $fields = array(
@@ -235,7 +237,7 @@ class LevelsController extends AppController {
                             'limit' => 8
                     )),
             );
-            Cache::write('index_lists', $data);
+            Cache::write("index_lists_$last", $data);
         }
 
         $this->set('levelLists', $data);
@@ -295,7 +297,8 @@ class LevelsController extends AppController {
     }
 
     public function view($id) {
-        $data = Cache::read("level_view_$id");
+        $last = $this->Level->last($id);
+        $data = Cache::read("level_view_{$id}_$last");
         if(!$data)
         {
             $level = $this->Level->findById($id);
@@ -306,7 +309,7 @@ class LevelsController extends AppController {
             $current_user_rating = $this->Rating->findByUserIdAndLevelId($this->Auth->user('user_id'), $id);
             $comments = $this->Comment->findAllByLevelId($id);
             $data = compact('level', 'current_user_rating', 'comments');
-            Cache::write("level_view_$id", $data);
+            Cache::write("level_view_{$id}_$last", $data);
         }
 
         $this->set('logged_in', $this->Auth->loggedIn());

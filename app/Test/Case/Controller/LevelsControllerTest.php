@@ -177,7 +177,17 @@ class LevelsControllerTest extends ControllerTestCase {
     }
 
     public function testIndex() {
+        // should be identical on subsequent requests without modifications
         $result = $this->testAction('/levels/index/', array('return' => 'vars'));
+        $result2 = $this->testAction('/levels/index/', array('return' => 'vars'));
+        $this->assertEquals($result2['levelLists'], $result['levelLists']);
+
+        // but then we make a modification
+        $level = $this->Level->touch(1);
+
+        // and now it should be different
+        $result3 = $this->testAction('/levels/index/', array('return' => 'vars'));
+        $this->assertNotEquals($result3['levelLists'], $result2['levelLists']);
     }
 
     public function testEditNoId() {
@@ -291,12 +301,27 @@ class LevelsControllerTest extends ControllerTestCase {
     }
 
     public function testView() {
-        $this->mockAsBob();
-        $level = $this->Level->findByUserId(2);
-        $result = $this->testAction('/levels/view/' . $level['Level']['id'], array(
-                'return' => 'vars'
-        ));
-        $this->assertEquals($level, $result['level']);
+        // view should not change when some other level is modified
+        $result = $this->testAction('/levels/view/2', array('return' => 'view'));
+        $this->Level->touch(3);
+        $result2 = $this->testAction('/levels/view/2', array('return' => 'view'));
+        $this->assertEquals($result, $result2);
+
+        // but it should be different if the specified level is modified
+        $this->Level->id = 2;
+        $this->Level->saveField('rating', 1337);
+
+        $result3 = $this->testAction('/levels/view/2', array('return' => 'view'));
+        $this->assertNotEquals($result2, $result3);
+    }
+
+    public function testViewDisappears() {
+        // view should be not found after the level is deleted
+        $this->testAction('/levels/view/2');
+        $this->Level->delete(2);
+
+        $this->setExpectedException('NotFoundException');
+        $this->testAction('/levels/view/2');
     }
 
     public function testViewNonExistantLevel() {

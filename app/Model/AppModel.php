@@ -32,4 +32,46 @@ App::uses('Model', 'Model');
  * @package       app.Model
  */
 class AppModel extends Model {
+
+	public function afterSave($created, $options = array()) {
+		parent::afterSave($created, $options);
+		$this->touch($this->id);
+	}
+
+	public function afterDelete() {
+		parent::afterDelete();
+		$this->touch($this->id);
+	}
+
+	/**
+	 * "touch" this model's cached last update time, and optionally the cached
+	 * last update time of the record with the given id.
+	 */
+	public function touch($id = null) {
+		$now = time();
+		Cache::write($this->name . '_last_update', $now);
+		if($id) {
+			Cache::write($this->name . '_last_update' . '_' . $id, $now);
+		}
+		return $now;
+	}
+
+	/**
+     * Returns the cached last update time for the entity, or the given record
+     * if id is not null.
+	 */
+	public function last($id = null) {
+		$last = null;
+
+		if($id !== null) {
+			$last = Cache::read("{$this->name}_last_update_$id");
+		} else {
+			$last = Cache::read("{$this->name}_last_update");
+		}
+
+		if($last === null)
+			$last = $this->touch($id);
+
+		return $last;
+	}
 }
