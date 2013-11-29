@@ -1060,6 +1060,8 @@ li.tag:hover, .checkbox:hover {
 
 	.thumbnail-wrapper {
 		width: 100%;
+		height: 152px;
+		overflow: hidden;
 		background: black;
 		border: 1px solid $grey2;
 		display: block;
