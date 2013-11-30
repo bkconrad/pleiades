@@ -1,5 +1,7 @@
 <?php
 App::uses('AppModel', 'Model');
+App::uses('Level', 'Model');
+
 /**
  * Comment Model
  *
@@ -53,6 +55,8 @@ class Comment extends AppModel {
             )
     );
 
+    public $uses = array('Level');
+
     public function levelExists() {
         if (!isset($this->data['Comment']) || !isset($this->data['Comment']['level_id'])) {
             return false;
@@ -71,5 +75,17 @@ class Comment extends AppModel {
         $id = $this->data['Comment']['user_id'];
         $result = $this->User->findByUserId($id);
         return !empty($result['User']);
+    }
+
+    public function afterSave($created, $options = array()) {
+       parent::afterSave($created, $options); 
+
+       $levelId = $this->field('level_id');
+       $commentCount = $this->find('count', array('conditions' => array('level_id' => $levelId)));
+       
+       $this->Level->save(array(
+            'id' => $levelId,
+            'comment_count' => $commentCount
+        ));
     }
 }

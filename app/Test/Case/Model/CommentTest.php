@@ -1,5 +1,6 @@
 <?php
 App::uses('Comment', 'Model');
+App::uses('Level', 'Model');
 
 /**
  * Comment Test Case
@@ -20,6 +21,8 @@ class CommentTest extends CakeTestCase {
             'app.levels_tag'
     );
 
+    public $uses = array('app.Level');
+
     /**
      * setUp method
      *
@@ -28,6 +31,7 @@ class CommentTest extends CakeTestCase {
     public function setUp() {
         parent::setUp();
         $this->Comment = ClassRegistry::init('Comment');
+        $this->Level = ClassRegistry::init('Level');
     }
 
     /**
@@ -106,4 +110,17 @@ class CommentTest extends CakeTestCase {
         $this->assertTrue(!!$this->Comment->save());
     }
 
+    public function testCommentCount() {
+        $level = $this->Level->findById(2);
+        $this->assertEquals(0, $level['Level']['comment_count']);
+
+        $this->Comment->create();
+        $this->Comment->save(array(
+            'level_id' => 2,
+            'user_id' => 1
+            ));
+
+        $level = $this->Level->findById(2);
+        $this->assertEquals(1, $level['Level']['comment_count']);
+    }
 }

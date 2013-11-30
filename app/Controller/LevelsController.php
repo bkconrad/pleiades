@@ -206,6 +206,7 @@ class LevelsController extends AppController {
                     'Level.user_id',
                     'Level.downloads',
                     'Level.team_count',
+                    'Level.comment_count',
                     'Level.author'
             );
 

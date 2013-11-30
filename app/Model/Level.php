@@ -22,15 +22,15 @@ class Level extends AppModel {
             )
     );
 
-    /*
+    /**
      * Converts $text into a file name with the given extension using the
-    * following rules:
-    *  - anything which is not a letter, space, or underscore is removed
-    *  - all letters are made lowercase
-    *  - both spaces and underscores are removed from the beginning and end
-    *  - groups of spaces or underscores with length > 0 are changed to underscores
-    *  - the appropriate extension is appended
-    */
+     * following rules:
+     *  - anything which is not a letter, space, or underscore is removed
+     *  - all letters are made lowercase
+     *  - both spaces and underscores are removed from the beginning and end
+     *  - groups of spaces or underscores with length > 0 are changed to underscores
+     *  - the appropriate extension is appended
+     */
     public static function stringToFileName($text, $extension = '.level') {
         $text = preg_replace('/[^a-zA-Z _]+/', '', $text);
         $text = preg_replace('/^[ _]+/', '', $text);
