@@ -177,11 +177,7 @@ class Level extends AppModel {
         $value = $RATINGS[$value];
 
         $this->read('user_id');
-        if(intval($this->data['Level']['user_id']) == intval($user_id)) {
-            array_push($this->validationErrors, 'You can not rate your own level');
-            return false;
-        }
-
+        
         $rating = $Rating->findByUserIdAndLevelId($user_id, $this->id);
 
         if(empty($rating)) {
