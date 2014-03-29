@@ -320,36 +320,29 @@ table td.actions a {
 
 /** Paging **/
 .paging {
-	background:#fff;
-	color: #ccc;
-	margin-top: 1em;
+	// background:#fff;
+	color: $grey4;
+	margin: 1em 0;
 	clear:both;
+	text-align: center;
 }
 .paging .current,
 .paging .disabled,
 .paging a {
+	color: $grey6;
 	text-decoration: none;
-	padding: 5px 8px;
+	padding: .5em;
+	margin: .25em;
 	display: inline-block
 }
+
+.paging > a:hover {
+	background: $grey4;
+}
+
 .paging > span {
 	display: inline-block;
-	border: 1px solid #ccc;
 	border-left: 0;
-}
-.paging > span:hover {
-	background: #efefef;
-}
-.paging .prev {
-	border-left: 1px solid #ccc;
-	-moz-border-radius: 4px 0 0 4px;
-	-webkit-border-radius: 4px 0 0 4px;
-	border-radius: 4px 0 0 4px;
-}
-.paging .next {
-	-moz-border-radius: 0 4px 4px 0;
-	-webkit-border-radius: 0 4px 4px 0;
-	border-radius: 0 4px 4px 0;
 }
 .paging .disabled {
 	color: #ddd;
@@ -358,8 +351,8 @@ table td.actions a {
 	background: transparent;
 }
 .paging .current {
-	background: #efefef;
-	color: #c73e14;
+	background: $grey2;
+	color: $grey8;
 }
 
 /** Scaffold View **/

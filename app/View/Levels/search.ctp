@@ -26,6 +26,8 @@ if(count($levels) > 0) {
   echo '<h1>Results</h1>';
 }
 
+echo $this->element('paging');
+
 echo '<div class="row">';
 foreach ($levels as $level) {
   echo $this->element('level', array(
@@ -33,3 +35,5 @@ foreach ($levels as $level) {
   ));
 }
 echo '</div>';
+
+echo $this->element('paging');

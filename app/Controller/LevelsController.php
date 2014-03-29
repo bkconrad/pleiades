@@ -16,11 +16,11 @@ class LevelsController extends AppController {
     public $components = array('Search.Prg');
     public $presetVars = true;
 
-    public $helpers = array('Html', 'Form');
+    public $helpers = array('Html', 'Form', 'Paginator');
     public $uses = array('Level', 'User', 'Rating', 'Comment');
 
     public $paginate = array(
-            'limit' => 25,
+            'limit' => 24,
             'order' => array(
                     'Level.name' => 'asc'
             )
@@ -184,7 +184,7 @@ class LevelsController extends AppController {
     public function beforeFilter() {
         parent::beforeFilter();
         $this->Auth->deny();
-        $this->Auth->allow('upload', 'download', 'raw', 'index', 'view', 'add', 'search', 'rate');
+        $this->Auth->allow('upload', 'download', 'raw', 'index', 'view', 'add', 'search', 'rate', 'all');
 
         if($this->Auth->loggedIn()) {
             $this->Auth->allow('edit');
