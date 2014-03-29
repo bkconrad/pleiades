@@ -7,6 +7,7 @@ class UserGroupFixture extends CakeTestFixture {
     );
     public $useDbConfig = 'test_forum';
     public $table = 'phpbb_user_group';
+    public $dropTables = true;
     public $records = array(
             array(
                     'user_id' => 1,

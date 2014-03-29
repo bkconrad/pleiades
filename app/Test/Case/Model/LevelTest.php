@@ -33,7 +33,7 @@ class LevelTest extends CakeTestCase {
     public function testRatingOwnLevel() {
         // alice's level
         $this->Level->id = 1;
-        $this->assertFalse($this->Level->rate(1, 1));
+        $this->assertTrue($this->Level->rate(1, 1));
     }
 
     public function testLevelgenRequirement() {

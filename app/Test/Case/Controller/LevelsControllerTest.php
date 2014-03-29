@@ -79,7 +79,7 @@ class LevelsControllerTest extends ControllerTestCase {
     function mockAsAlice() {
         // mock Auth component
         $options = array(
-                'methods' => array('getUploadFilename'),
+                'methods' => array('getUploadFilename', 'isAdmin'),
                 'components' => array('Auth' => array('user', 'loggedIn', 'login'))
         );
 
@@ -99,6 +99,11 @@ class LevelsControllerTest extends ControllerTestCase {
         ->expects($this->any())
         ->method('login')
         ->will($this->returnValue(true));
+
+        $Levels
+        ->expects($this->any())
+        ->method('isAdmin')
+        ->will($this->returnValue(false));
 
         return $Levels;
     }
@@ -209,7 +214,8 @@ class LevelsControllerTest extends ControllerTestCase {
     }
 
     public function testEditLevelOwnedByOtherUser() {
-        $this->mockAsAlice();
+        $Level = $this->mockAsAlice();
+        debug($Level->isAdmin());
 
         $level = $this->Level->findByUserId(2);
         $this->setExpectedException('ForbiddenException');
