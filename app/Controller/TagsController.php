@@ -7,6 +7,15 @@ App::uses('AppController', 'Controller');
  */
 class TagsController extends AppController {
 
+    public function beforeFilter() {
+        parent::beforeFilter();
+        $this->Auth->deny();
+
+        if($this->isAdmin()) {
+            $this->Auth->allow('index', 'edit', 'view', 'add', 'delete');
+        }
+    }
+
     /**
      * index method
      *
