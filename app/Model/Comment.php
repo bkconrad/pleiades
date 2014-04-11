@@ -79,13 +79,19 @@ class Comment extends AppModel {
 
     public function afterSave($created, $options = array()) {
        parent::afterSave($created, $options); 
+       $this->updateLevelCommentCount();
+    }
 
+    public function beforeDelete($cascade = true) {
+       parent::beforeDelete($cascade); 
+       $this->updateLevelCommentCount(-1);
+       return true;
+    }
+
+    private function updateLevelCommentCount($modifier = 0) {
        $levelId = $this->field('level_id');
        $commentCount = $this->find('count', array('conditions' => array('level_id' => $levelId)));
        
-       $this->Level->save(array(
-            'id' => $levelId,
-            'comment_count' => $commentCount
-        ));
+       $this->Level->save(array('id' => $levelId, 'comment_count' => $commentCount + $modifier));
     }
 }

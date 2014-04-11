@@ -215,7 +215,7 @@ class LevelsControllerTest extends ControllerTestCase {
 
     public function testEditLevelOwnedByOtherUser() {
         $Level = $this->mockAsAlice();
-        debug($Level->isAdmin());
+        $Level->isAdmin();
 
         $level = $this->Level->findByUserId(2);
         $this->setExpectedException('ForbiddenException');

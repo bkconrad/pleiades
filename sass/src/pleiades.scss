@@ -1253,6 +1253,16 @@ li.tag:hover, .checkbox:hover {
 	width: 100%;
 }
 
+.comment-delete {
+	color: $grey8;
+	font-weight: bold;
+	float: right;
+
+	&, :active, :visited, :hover {
+		text-decoration: none;
+	}
+}
+
 .mass-upload-info {
 	tr, tr.success {
 		background: none;
