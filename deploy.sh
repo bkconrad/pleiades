@@ -24,13 +24,10 @@ fi
 if [ $UPDATE_SCHEMA ]
 then
 	# make schema, add a commit
-	echo 'Creating schema dump, please enter local MySQL password'
-	mysqldump -u $MYSQL_USER -p $MYSQL_DB --add-drop-database --no-data > $project_root/schema.sql
-	git add  $project_root/schema.sql
-	git commit
-
-	# get MySQL pass
-	read -s -p "Remote MySQL Password: " REMOTE_PASSWORD
+	echo 'Creating schema dump...'
+	$project_root/app/Console/cake schema generate --snapshot
+	git add .
+	git commit -am 'updated schema'
 fi
 
 git push $PUSH_REPOSITORY
@@ -49,7 +46,7 @@ EOF`
 
 if [ $UPDATE_SCHEMA ]
 then
-	ssh_commands="$ssh_commands ; mysql -u $REMOTE_MYSQL_USER -p$REMOTE_PASSWORD $REMOTE_MYSQL_DB < $REMOTE_DIRECTORY/schema.sql"
+	ssh_commands="$ssh_commands ; ./app/Console/cake schema update --dry-run"
 fi
 
 ssh $REMOTE_HOST "$ssh_commands"
