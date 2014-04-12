@@ -26,6 +26,11 @@ class AppController extends Controller{
         $this->set('currentUserId', $this->Auth->user('user_id'));
         $this->set('currentUserName', $this->Auth->user('username'));
         $this->set('isAdmin', $this->Session->read('isAdmin'));
+
+        if($this->Auth->user('user_id')) {
+            $Notification = ClassRegistry::init('Notification');
+            $this->set('notificationCount', $Notification->find('count', array('conditions' => array('user_id' => $this->Auth->user('user_id')))));
+        }
     }
 
     public function isAdmin() {

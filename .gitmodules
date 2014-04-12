@@ -1,3 +1,6 @@
 [submodule "cakephp"]
 	path = cakephp
 	url = https://github.com/cakephp/cakephp.git
+[submodule "app/plugins/remember_me"]
+	path = app/plugins/remember_me
+	url = git://github.com/voidet/remember_me.git

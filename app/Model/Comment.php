@@ -78,7 +78,21 @@ class Comment extends AppModel {
     }
 
     public function afterSave($created, $options = array()) {
-       parent::afterSave($created, $options); 
+       parent::afterSave($created, $options);
+       if($created) {
+            $comment = $this->findById($this->id);
+
+            if($comment['Comment']['user_id'] != $comment['Level']['user_id']) {
+                $Notification = ClassRegistry::init('Notification');
+                $Notification->create(array(
+                    'user_id' => $comment['Level']['user_id'],
+                    'url' => '/levels/view/' . $comment['Level']['id'],
+                    'message' => 'New comment from ' . $comment['User']['username'] . ' on ' . $comment['Level']['name'] . '.',
+                ));
+                $Notification->save();
+            }
+       }
+
        $this->updateLevelCommentCount();
     }
 

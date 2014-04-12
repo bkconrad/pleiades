@@ -17,11 +17,12 @@ class CommentTest extends CakeTestCase {
             'app.comment',
             'app.user',
             'app.level',
+            'app.notification',
             'app.tag',
             'app.levels_tag'
     );
 
-    public $uses = array('app.Level');
+    public $uses = array('app.Level', 'app.Notification');
 
     /**
      * setUp method
@@ -31,6 +32,7 @@ class CommentTest extends CakeTestCase {
     public function setUp() {
         parent::setUp();
         $this->Comment = ClassRegistry::init('Comment');
+        $this->Notification = ClassRegistry::init('Notification');
         $this->Level = ClassRegistry::init('Level');
     }
 
@@ -122,5 +124,33 @@ class CommentTest extends CakeTestCase {
 
         $level = $this->Level->findById(2);
         $this->assertEquals(1, $level['Level']['comment_count']);
+    }
+
+    public function testNotificationCreated() {
+        $level = $this->Level->findById(2);
+
+        $oldCount = $this->Notification->find('count');
+
+        $this->Comment->create();
+        $this->Comment->save(array(
+            'level_id' => 2,
+            'user_id' => 1
+            ));
+
+        $this->assertEqual($this->Notification->find('count'), $oldCount + 1);
+    }
+
+    public function testNoNotificationCreatedWhenCommentingOnOwnLevel() {
+        $level = $this->Level->findById(2);
+
+        $oldCount = $this->Notification->find('count');
+
+        $this->Comment->create();
+        $this->Comment->save(array(
+            'level_id' => 2,
+            'user_id' => 2
+            ));
+
+        $this->assertEqual($this->Notification->find('count'), $oldCount);
     }
 }

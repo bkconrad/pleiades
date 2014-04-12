@@ -30,6 +30,18 @@ if($currentUserId) {
 
   echo '&nbsp;';
 
+  echo $this->Html->link('Notifications', array(
+    'controller' => 'notifications',
+    'action' => 'index'
+  ));
+
+  if($notificationCount > 0) {
+    // set in AppController
+    echo $this->Html->tag('span', $notificationCount, array('class' => 'notification-count label lbl-default'));
+  }
+
+  echo '&nbsp;';
+
   echo $this->Html->link("Logout [$currentUserName]", array(
     'controller' => 'users',
     'action' => 'logout'
