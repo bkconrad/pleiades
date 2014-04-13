@@ -1,11 +1,5 @@
 #!/bin/bash
 # you should configure this stuff
-MYSQL_USER=root
-MYSQL_DB=pleiades
-
-REMOTE_MYSQL_USER=bf_pleiades
-REMOTE_MYSQL_DB=pleiades
-
 PUSH_REPOSITORY=origin
 REMOTE_HOST=bitfighter.org
 REMOTE_DIRECTORY=/var/www/html/pleiades

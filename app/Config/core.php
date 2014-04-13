@@ -194,6 +194,9 @@ Configure::write('Exception', array(
          *
          */
         Configure::write('Session', array(
+        'timeout' => 60 * 24 * 30, // one month
+        'cookieTimeout' => 60 * 24 * 30, // one month
+        'autoRegenerate' => true,
         'defaults' => 'php'
         ));
 

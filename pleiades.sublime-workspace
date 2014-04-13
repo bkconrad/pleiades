@@ -4,6 +4,34 @@
 		"selected_items":
 		[
 			[
+				"notific",
+				"notifications"
+			],
+			[
+				"not",
+				"notification"
+			],
+			[
+				"asser",
+				"assertEqual	$this->assertEqual()"
+			],
+			[
+				"comme",
+				"comment-delete"
+			],
+			[
+				"gre",
+				"grey8"
+			],
+			[
+				"comment",
+				"comment_count"
+			],
+			[
+				"testD",
+				"testDeleteOthersCommentOnOthersLevel"
+			],
+			[
 				"objec",
 				"objectType"
 			],
@@ -486,124 +514,64 @@
 			[
 				"DIV",
 				"DIV_MARGIN"
-			],
-			[
-				"grad",
-				"gradientEnd"
-			],
-			[
-				"border",
-				"borderColor"
-			],
-			[
-				"make",
-				"makedivs_r"
-			],
-			[
-				"for",
-				"foreach	foreach …"
-			],
-			[
-				"con",
-				"controller"
-			],
-			[
-				"entry",
-				"entryFilename"
-			],
-			[
-				"level",
-				"level_filename"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "app/Controller/LevelsController.php",
+			"file": "app/Controller/NotificationsController.php",
 			"settings":
 			{
-				"buffer_size": 18978,
+				"buffer_size": 1161,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/Controller/AppController.php",
+			"file": "app/Config/Schema/schema.php",
 			"settings":
 			{
-				"buffer_size": 1014,
+				"buffer_size": 4728,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/Test/Case/Model/LevelTest.php",
+			"file": "deploy.sh",
 			"settings":
 			{
-				"buffer_size": 9532,
+				"buffer_size": 820,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/Test/Case/Controller/LevelsControllerTest.php",
+			"file": "app/View/Notifications/index.ctp",
 			"settings":
 			{
-				"buffer_size": 23903,
+				"buffer_size": 290,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/Test/Fixture/UserGroupFixture.php",
+			"file": "app/View/Levels/index.ctp",
 			"settings":
 			{
-				"buffer_size": 697,
+				"buffer_size": 258,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/Test/Fixture/LevelsTagFixture.php",
+			"file": "app/View/Elements/notification.ctp",
 			"settings":
 			{
-				"buffer_size": 111,
+				"buffer_size": 354,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "sass/src/pleiades.scss",
+			"file": "app/Model/Comment.php",
 			"settings":
 			{
-				"buffer_size": 21765,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/View/Levels/all.ctp",
-			"settings":
-			{
-				"buffer_size": 175,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/View/Levels/search.ctp",
-			"settings":
-			{
-				"buffer_size": 1063,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/View/Elements/paging.ctp",
-			"settings":
-			{
-				"buffer_size": 193,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "cakephp/lib/Cake/Controller/Component/PaginatorComponent.php",
-			"settings":
-			{
-				"buffer_size": 13661,
+				"buffer_size": 3340,
 				"line_ending": "Unix"
 			}
 		}
@@ -619,11 +587,11 @@
 				":w - Save"
 			],
 			[
-				":",
+				":W",
 				":w - Save"
 			],
 			[
-				":W",
+				":",
 				":w - Save"
 			],
 			[
@@ -818,6 +786,70 @@
 	},
 	"file_history":
 	[
+		"/home/kaen/code/pleiades/app/Config/Schema/schema_1.php",
+		"/home/kaen/code/pleiades/app/Controller/CommentsController.php",
+		"/home/kaen/code/pleiades/app/View/Elements/comment.ctp",
+		"/home/kaen/code/pleiades/app/Test/Fixture/LevelFixture.php",
+		"/home/kaen/code/pleiades/app/Test/Case/Controller/LevelsControllerTest.php",
+		"/home/kaen/code/pleiades/app/View/Users/login.ctp",
+		"/home/kaen/code/pleiades/app/Controller/LevelsController.php",
+		"/home/kaen/code/pleiades/app/Model/Comment.php",
+		"/home/kaen/code/pleiades/app/View/Elements/menu.ctp",
+		"/home/kaen/code/pleiades/app/Controller/AppController.php",
+		"/home/kaen/code/pleiades/sass/src/pleiades.scss",
+		"/home/kaen/code/pleiades/app/View/Helper/AppHelper.php",
+		"/home/kaen/code/pleiades/app/Model/Level.php",
+		"/home/kaen/code/pleiades/app/Test/Case/Model/CommentTest.php",
+		"/home/kaen/code/pleiades/app/View/Levels/index.ctp",
+		"/home/kaen/code/pleiades/app/Controller/Component/Auth/Phpbb3Authenticate.php",
+		"/home/kaen/code/pleiades/cakephp/lib/Cake/Controller/Component/AuthComponent.php",
+		"/home/kaen/code/pleiades/cakephp/lib/Cake/Cache/Engine/MemcacheEngine.php",
+		"/home/kaen/code/pleiades/app/Test/Fixture/LevelsTagFixture.php",
+		"/home/kaen/code/pleiades/app/Test/Case/Controller/CommentsControllerTest.php",
+		"/home/kaen/code/pleiades/app/Model/Notification.php",
+		"/home/kaen/code/pleiades/cakephp/lib/Cake/Test/bake_compare/Controller/NoHelpersOrComponents.ctp",
+		"/home/kaen/code/pleiades/app/Test/Fixture/UserFixture.php",
+		"/home/kaen/code/pleiades/app/Test/Fixture/CommentFixture.php",
+		"/home/kaen/code/pleiades/app/Controller/UsersController.php",
+		"/home/kaen/code/pleiades/app/Model/AppModel.php",
+		"/home/kaen/code/pleiades/cakephp/lib/Cake/Configure/PhpReader.php",
+		"/home/kaen/code/pleiades/cakephp/lib/Cake/View/Helper/PaginatorHelper.php",
+		"/home/kaen/code/pleiades/cakephp/lib/Cake/Test/Case/AllUtilityTest.php",
+		"/home/kaen/code/pleiades/app/tmp/sessions/sess_7atknguir2jg8ppsr54c0u3or3",
+		"/home/kaen/code/pleiades/app/Config/Schema/sessions.php",
+		"/home/kaen/code/pleiades/app/Plugin/DebugKit/View/ToolbarAccess/sql_explain.ctp",
+		"/home/kaen/code/pleiades/sass/src/screen.scss",
+		"/home/kaen/code/pleiades/cakephp/lib/Cake/Log/CakeLogInterface.php",
+		"/home/kaen/code/pleiades/cakephp/lib/Cake/Test/Fixture/ArmorsPlayerFixture.php",
+		"/home/kaen/code/pleiades/app/Config/acl.php",
+		"/home/kaen/code/pleiades/cakephp/lib/Cake/Test/test_app/Plugin/TestPlugin/Controller/Component/PluginsComponent.php",
+		"/home/kaen/code/pleiades/cakephp/lib/Cake/Routing/Route/PluginShortRoute.php",
+		"/home/kaen/code/pleiades/pleiades.sublime-project",
+		"/home/kaen/code/pleiades/cakephp/lib/Cake/Log/LogEngineCollection.php",
+		"/home/kaen/code/pleiades/app/Test/Case/Model/LevelsTagTest.php",
+		"/home/kaen/code/pleiades/app/Model/LevelsTag.php",
+		"/home/kaen/code/pleiades/cakephp/lib/Cake/Model/ModelValidator.php",
+		"/home/kaen/code/pleiades/app/tmp/cache/models/myapp_cake_model_default_pleiades_levels",
+		"/home/kaen/code/pleiades/cakephp/lib/Cake/Model/Model.php",
+		"/home/kaen/code/pleiades/app/tmp/cache/models/myapp_cake_model_default_pleiades_comments",
+		"/home/kaen/code/pleiades/cakephp/lib/Cake/Test/Case/Model/ModelCrossSchemaHabtmTest.php",
+		"/home/kaen/code/pleiades/app/Model/User.php",
+		"/home/kaen/code/pleiades/sass/.sass-cache/8d7606398f93ad189c4ca41f9a2be7e173c7ed1c/_user-select.scssc",
+		"/home/kaen/code/pleiades/cakephp/lib/Cake/Test/Fixture/FixturizedTestCase.php",
+		"/home/kaen/code/pleiades/app/Test/Fixture/TagFixture.php",
+		"/home/kaen/code/pleiades/cakephp/lib/Cake/Utility/File.php",
+		"/home/kaen/code/pleiades/app/View/Layouts/flash.ctp",
+		"/home/kaen/code/pleiades/cakephp/lib/Cake/Test/test_app/Plugin/TestPlugin/Controller/Component/OtherComponent.php",
+		"/home/kaen/code/pleiades/cakephp/lib/Cake/Utility/ObjectCollection.php",
+		"/home/kaen/code/pleiades/cakephp/lib/Cake/Core/Object.php",
+		"/home/kaen/code/pleiades/cakephp/lib/Cake/Console/ConsoleOutput.php",
+		"/home/kaen/code/pleiades/app/Console/cake",
+		"/home/kaen/code/pleiades/app/Test/Case/Model/LevelTest.php",
+		"/home/kaen/code/pleiades/app/Test/Fixture/UserGroupFixture.php",
+		"/home/kaen/code/pleiades/app/View/Levels/all.ctp",
+		"/home/kaen/code/pleiades/app/View/Levels/search.ctp",
+		"/home/kaen/code/pleiades/app/View/Elements/paging.ctp",
+		"/home/kaen/code/pleiades/cakephp/lib/Cake/Controller/Component/PaginatorComponent.php",
 		"/home/kaen/code/pleiades/cakephp/lib/Cake/Controller/Controller.php",
 		"/home/kaen/code/kaentools/editor_plugins/autoborder.lua",
 		"/home/kaen/code/kaentools/editor_plugins/scissor.lua",
@@ -881,71 +913,7 @@
 		"/home/kaen/code/hwweb-onboard-quiz-staging/spec/models/topic_analytic_spec.rb",
 		"/home/kaen/code/hwweb-onboard-quiz-staging/spec/models/topic_spec.rb",
 		"/home/kaen/code/hwweb-onboard-quiz-staging/spec/models/quiz_question_results_reports_generator_spec.rb",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/app/controllers/admin/quiz_results_controller.rb",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/app/views/admin/analytics/topics/show.html.haml",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/app/views/admin/analytics/topics/_topic_detail.html.haml",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/app/views/admin/analytics/summary/index.html.haml",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/app/views/admin/analytics/topics/index.html.haml",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/app/controllers/application_controller.rb",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/app/helpers/application_helper.rb",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/app/assets/javascripts/analytics_summary.js",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/app/views/admin/analytics/_date_picker.html.haml",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/app/workers/topic_analytics_worker.rb",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/app/assets/stylesheets/analytics.css.scss",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/app/assets/javascripts/application.js",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/app/views/admin/tags/_form.html.haml",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/app/models/quiz_taker.rb",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/app/serializers/quiz_taker_serializer.rb",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/app/interactors/create_quiz_question.rb",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/lib/date_filter_utils.rb",
-		"/home/kaen/hwweb-onboard-quiz.sublime-project",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/app/views/admin/analytics/_side_panel.html.haml",
-		"/home/kaen/.config/sublime-text-3/Packages/User/Ruby Haml.sublime-settings",
-		"/home/kaen/.config/sublime-text-3/Packages/User/Ruby.sublime-settings",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/lib/tasks/analytics.rake",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/spec/factories/topic_analytics.rb",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/spec/workers/topic_analytics_worker.rb",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/spec/factories/acquisition_analytics.rb",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/db/migrate/20140322145242_add_topic_id_to_topic_analytic.rb",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/db/migrate/20140322144342_remove_topic_from_topic_analytics.rb",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/app/assets/javascripts/analytics.js",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/app/workers/acquisition_analytics_worker.rb",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/app/views/admin/analytics/acquisition_analytics/_acquisition_analytic.html.haml",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/db/migrate/20140321215829_rename_analytics_to_acquisition_analytics.rb",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/app/controllers/analytics/topics_controller.rb",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/app/controllers/admin/analytics/acquisition_analytics.rb",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/app/controllers/admin/analytics_controller.rb",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/app/assets/javascripts/topic_analytics.js",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/app/views/admin/analytics/index.js.erb",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/app/views/admin/analytics/index.html.haml",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/app/workers/analytics_worker.rb",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/app/models/analytic.rb",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/spec/workers/analytics_worker_spec.rb",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/spec/controllers/admin/analytics_controller_spec.rb",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/config/initializers/sidekiq.rb",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/db/seeds.rb",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/spec/models/analytic_spec.rb",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/app/views/admin/analytics/_analytic.html.haml",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/app/decorators/analytics_decorator.rb",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/app/decorators/analytic_decorator.rb",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/app/views/admin/analytics/_analytics_filters.html.haml",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/spec/decorators/quiz_question_decorator_spec.rb",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/spec/factories/analytics.rb",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/app/models/analytics.rb",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/app/models/analytic_backup.rb",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/app/views/admin/quiz_questions/index.html.haml",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/app/models/quiz_question_leveler.rb",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/app/models/quiz_question_verifier.rb",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/app/models/quiz_question_instance.rb",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/app/models/quiz_question_result.rb",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/app/models/quiz.rb",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/app/models/quiz_result.rb",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/app/models/recalibrator.rb",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/app/models/quiz_reports_generator.rb",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/app/controllers/admin/quizzes_controller.rb",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/spec/controllers/admin_controller_spec.rb",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/spec/controllers/landing_controller_spec.rb",
-		"/home/kaen/code/hwweb-onboard-quiz-staging/app/controllers/admin_controller.rb"
+		"/home/kaen/code/hwweb-onboard-quiz-staging/app/controllers/admin/quiz_results_controller.rb"
 	],
 	"find":
 	{
@@ -956,6 +924,7 @@
 		"height": 93.0,
 		"where_history":
 		[
+			"",
 			"/home/kaen/code/hwweb-onboard-quiz-staging/",
 			"/home/kaen/code/hwweb-onboard-quiz-staging/app/",
 			"/home/kaen/code/hwweb-onboard-quiz-staging/app/views/admin/occupations",
@@ -979,6 +948,30 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"my",
+			"MY",
+			"flash",
+			"auth",
+			"notif",
+			"this->data",
+			"$this->Notification",
+			"$this->",
+			"Rati",
+			"login",
+			"cook",
+			"toke",
+			"$user_id",
+			"comment",
+			"debu",
+			"debug",
+			"after",
+			"commentcount",
+			">level",
+			"index",
+			"beforede",
+			"view",
+			"redi",
+			"Level",
 			"edit",
 			".paging > span:hover {\n	background: #efefef;\n}",
 			"all",
@@ -1082,31 +1075,7 @@
 			"topics",
 			"topicNode",
 			"autocomplete",
-			"pull",
-			".pull-right",
-			"10",
-			"Guestimation",
-			" count",
-			"@topic",
-			"DIME",
-			"3",
-			"btn",
-			"add_fields",
-			"demographics_will_change",
-			"demo",
-			"demograph",
-			"summ",
-			"titl",
-			"@",
-			".pull-right",
-			".pull-left",
-			"calb",
-			"Missing ",
-			"flagg",
-			"quiz_question,",
-			",",
-			"QuizQuestions",
-			"QuizQuestion.DIMENSIONS.sample"
+			"pull"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1191,174 +1160,24 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 2,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "app/Controller/LevelsController.php",
+					"file": "app/Controller/NotificationsController.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 18978,
+						"buffer_size": 1161,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								8535,
-								8535
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 4069.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "app/Controller/AppController.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1014,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								946,
-								946
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 202.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "app/Test/Case/Model/LevelTest.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 9532,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								624,
-								624
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 306.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "app/Test/Case/Controller/LevelsControllerTest.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 23903,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								5502,
-								5502
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2597.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "app/Test/Fixture/UserGroupFixture.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 697,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								339,
-								339
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "app/Test/Fixture/LevelsTagFixture.php",
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 111,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
+								1084,
+								1084
 							]
 						],
 						"settings":
@@ -1373,49 +1192,78 @@
 					"type": "text"
 				},
 				{
-					"buffer": 6,
-					"file": "sass/src/pleiades.scss",
-					"semi_transient": false,
+					"buffer": 1,
+					"file": "app/Config/Schema/schema.php",
+					"semi_transient": true,
 					"settings":
 					{
-						"buffer_size": 21765,
+						"buffer_size": 4728,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								5989,
-								5989
+								4728,
+								4728
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Sass/Syntaxes/Sass.tmLanguage",
+							"syntax": "Packages/PHP/PHP.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 5487.0,
+						"translation.y": 1173.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
-					"file": "app/View/Levels/all.ctp",
+					"buffer": 2,
+					"file": "deploy.sh",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 175,
+						"buffer_size": 820,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								38,
-								38
+								473,
+								473
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 204.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "app/View/Notifications/index.ctp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 290,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								140,
+								140
 							]
 						],
 						"settings":
@@ -1426,24 +1274,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 8,
-					"file": "app/View/Levels/search.ctp",
+					"buffer": 4,
+					"file": "app/View/Levels/index.ctp",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1063,
+						"buffer_size": 258,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1016,
-								1016
+								0,
+								0
 							]
 						],
 						"settings":
@@ -1451,27 +1299,27 @@
 							"syntax": "Packages/HTML/HTML.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 65.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 9,
-					"file": "app/View/Elements/paging.ctp",
+					"buffer": 5,
+					"file": "app/View/Elements/notification.ctp",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 193,
+						"buffer_size": 354,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								87,
-								87
+								331,
+								331
 							]
 						],
 						"settings":
@@ -1484,36 +1332,37 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
-					"buffer": 10,
-					"file": "cakephp/lib/Cake/Controller/Component/PaginatorComponent.php",
+					"buffer": 6,
+					"file": "app/Model/Comment.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 13661,
+						"buffer_size": 3340,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4344,
-								4344
+								2594,
+								2594
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1893.0,
+						"translation.y": 1271.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 10,
+					"stack_index": 6,
 					"type": "text"
 				}
 			]
@@ -1569,6 +1418,122 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"depl",
+				"deploy.sh"
+			],
+			[
+				"app/config/schema/schema_1.php",
+				"app/Config/Schema/schema_1.php"
+			],
+			[
+				"comm",
+				"app/Model/Comment.php"
+			],
+			[
+				"levelin",
+				"app/View/Levels/index.ctp"
+			],
+			[
+				"levelind",
+				"app/View/Levels/index.ctp"
+			],
+			[
+				"levelcon",
+				"app/Controller/LevelsController.php"
+			],
+			[
+				"plsc",
+				"sass/src/pleiades.scss"
+			],
+			[
+				"appcon",
+				"app/Controller/AppController.php"
+			],
+			[
+				"menu",
+				"app/View/Elements/menu.ctp"
+			],
+			[
+				"levelfi",
+				"app/Test/Fixture/LevelFixture.php"
+			],
+			[
+				"level.p",
+				"app/Model/Level.php"
+			],
+			[
+				"commtest",
+				"app/Test/Case/Model/CommentTest.php"
+			],
+			[
+				"commen",
+				"app/Model/Comment.php"
+			],
+			[
+				"not",
+				"app/Controller/NotificationsController.php"
+			],
+			[
+				"authcomp",
+				"cakephp/lib/Cake/Controller/Component/AuthComponent.php"
+			],
+			[
+				"phpb",
+				"app/Controller/Component/Auth/Phpbb3Authenticate.php"
+			],
+			[
+				"authcom",
+				"cakephp/lib/Cake/Controller/Component/AuthComponent.php"
+			],
+			[
+				"user",
+				"app/Controller/UsersController.php"
+			],
+			[
+				"login",
+				"app/View/Users/login.ctp"
+			],
+			[
+				"appcont",
+				"app/Controller/AppController.php"
+			],
+			[
+				"plscs",
+				"sass/src/pleiades.scss"
+			],
+			[
+				"lecote",
+				"app/Test/Case/Controller/LevelsControllerTest.php"
+			],
+			[
+				"levtagtes",
+				"app/Test/Case/Model/LevelsTagTest.php"
+			],
+			[
+				"moleve",
+				"app/Model/Level.php"
+			],
+			[
+				"modcomm",
+				"app/Model/Comment.php"
+			],
+			[
+				"levelst",
+				"app/Test/Fixture/LevelsTagFixture.php"
+			],
+			[
+				"userfix",
+				"app/Test/Fixture/UserFixture.php"
+			],
+			[
+				"fixcomme",
+				"app/Test/Fixture/CommentFixture.php"
+			],
+			[
+				"commtes",
+				"app/Test/Case/Controller/CommentsControllerTest.php"
+			],
 			[
 				"s3d.hx",
 				"openfl-native/openfl/display/S3D.hx"
