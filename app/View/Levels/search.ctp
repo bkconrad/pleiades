@@ -29,10 +29,14 @@ if(count($levels) > 0) {
 echo $this->element('paging');
 
 echo '<div class="row">';
-foreach ($levels as $level) {
-  echo $this->element('level', array(
-    'level' => $level
-  ));
+if(!empty($levels)) {
+	foreach ($levels as $level) {
+	  echo $this->element('level', array(
+	    'level' => $level
+	  ));
+	}
+} else {
+	echo 'No results found.';
 }
 echo '</div>';
 
