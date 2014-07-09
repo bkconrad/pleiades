@@ -32,10 +32,6 @@ git pull
 git submodule init
 git submodule update
 cd app/tmp/cache
-for file in \\\`find .\\\`
-do
-	rm \\\$file
-done
 EOF`
 
 if [ $UPDATE_SCHEMA ]
